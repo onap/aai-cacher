@@ -1,0 +1,2088 @@
+{
+  "cambria.partition": "AAI",
+  "event-header": {
+    "severity": "NORMAL",
+    "entity-type": "pserver",
+    "top-entity-type": "pserver",
+    "entity-link": "/aai/v13/cloud-infrastructure/pservers/pserver/c9e8ffb6-a360-4f9c-96c3-f5f0244dfe55-jenkins",
+    "event-type": "AAI-EVENT",
+    "domain": "uINT1",
+    "action": "UPDATE",
+    "sequence-number": "0",
+    "id": "5cc57cd2-c55c-4bbc-bf92-cba20b6d2bf3",
+    "source-name": "FitNesse-Test-jenkins",
+    "version": "v13",
+    "timestamp": "20180625-01:24:01:437"
+  },
+  "entity": {
+    "ptnii-equip-name": "ly3mdbqA7Gaha",
+    "ipaddress-v6-loopback-0": "VWN",
+    "equip-vendor": "zfK",
+    "purpose": "pxyHYQ6",
+    "pserver-selflink": "xS4YnSMvWpX",
+    "number-of-cpus": 359,
+    "ipaddress-v6-aim": "7vxG9SYzaH",
+    "pserver-name2": "iqFmGNmNLM6",
+    "hostname": "c9e8ffb6-a360-4f9c-96c3-f5f0244dfe55-jenkins",
+    "inv-status": "pS24ORbjyauE",
+    "disk-in-gigabytes": 509,
+    "equip-type": "41kdNkU",
+    "fqdn": "ldTOgy",
+    "serial-number": "5iYx0byET",
+    "ipaddress-v6-oam": "pc910",
+    "pserver-id": "RswqQD",
+    "prov-status": "pMB6hQ2XA35gL",
+    "ipv4-oam-address": "dQn9sGTx8T",
+    "ipaddress-v4-loopback-0": "qKCu9dNYq",
+    "lag-interfaces": {
+      "lag-interface": [
+        {
+          "interface-role": "TA0roiR2Dlstf",
+          "speed-value": "bs6yh1DIrc",
+          "in-maint": true,
+          "resource-version": "1529889840378",
+          "l-interfaces": {
+            "l-interface": [
+              {
+                "v6-wan-link-ip": "pRl0e9CWJ",
+                "vlans": {
+                  "vlan": [
+                    {
+                      "vlan-description": "RRiCxGpYLE7IG",
+                      "vpn-key": "dENkRyQ6",
+                      "prov-status": "YipbUEnORoUR",
+                      "vlan-id-inner": 708,
+                      "vlan-id-outer": 715,
+                      "orchestration-status": "f28",
+                      "speed-value": "nQ7rxAY1",
+                      "in-maint": false,
+                      "l3-interface-ipv6-address-list": [
+                        {
+                          "resource-version": "1529889840437",
+                          "neutron-network-id": "2OkhCFUDCWz",
+                          "neutron-subnet-id": "rAkO7",
+                          "l3-interface-ipv6-prefix-length": 880,
+                          "vlan-id-inner": 441,
+                          "is-floating": true,
+                          "l3-interface-ipv6-address": "c72250d4-3718-458f-8a78-18b60ba84981-jenkins",
+                          "vlan-id-outer": 334
+                        },
+                        {
+                          "resource-version": "1529889840443",
+                          "neutron-network-id": "Fjk5w3x",
+                          "neutron-subnet-id": "CoGV7pgh0L0w",
+                          "l3-interface-ipv6-prefix-length": 930,
+                          "vlan-id-inner": 343,
+                          "is-floating": true,
+                          "l3-interface-ipv6-address": "2e33be8a-ebe9-46b9-9ed8-b68fd7fafa37-jenkins",
+                          "vlan-id-outer": 276
+                        }
+                      ],
+                      "resource-version": "1529889840421",
+                      "is-ip-unnumbered": false,
+                      "speed-units": "9gi0",
+                      "vlan-interface": "624adb22-bcf6-4efe-bc20-a1fa2fcdc8b5-jenkins",
+                      "backdoor-connection": "VtvN8kWyDNAY",
+                      "l3-interface-ipv4-address-list": [
+                        {
+                          "l3-interface-ipv4-prefix-length": 723,
+                          "resource-version": "1529889840432",
+                          "neutron-network-id": "0iGBId",
+                          "neutron-subnet-id": "7Wv9mkgSgQMep",
+                          "vlan-id-inner": 903,
+                          "l3-interface-ipv4-address": "a69c17e3-9902-4ad8-9bf0-547a12144944-jenkins",
+                          "is-floating": true,
+                          "vlan-id-outer": 40
+                        },
+                        {
+                          "l3-interface-ipv4-prefix-length": 816,
+                          "resource-version": "1529889840425",
+                          "neutron-network-id": "OHzi6OHC",
+                          "neutron-subnet-id": "z6cy",
+                          "vlan-id-inner": 156,
+                          "l3-interface-ipv4-address": "efb60dd0-2f6d-40b9-9aec-f123c900088f-jenkins",
+                          "is-floating": true,
+                          "vlan-id-outer": 678
+                        }
+                      ]
+                    },
+                    {
+                      "vlan-description": "dko1ww",
+                      "vpn-key": "tTnYmdtMuvj",
+                      "prov-status": "LXwvfjKwggY",
+                      "vlan-id-inner": 785,
+                      "vlan-id-outer": 64,
+                      "orchestration-status": "YDueDsc",
+                      "speed-value": "rnq",
+                      "in-maint": true,
+                      "l3-interface-ipv6-address-list": [
+                        {
+                          "resource-version": "1529889840413",
+                          "neutron-network-id": "9GwSXJO",
+                          "neutron-subnet-id": "MLw92oJx",
+                          "l3-interface-ipv6-prefix-length": 416,
+                          "vlan-id-inner": 619,
+                          "is-floating": true,
+                          "l3-interface-ipv6-address": "290c0ffd-8b30-4447-b3d0-15fd7aaf3a0a-jenkins",
+                          "vlan-id-outer": 266
+                        },
+                        {
+                          "resource-version": "1529889840407",
+                          "neutron-network-id": "7mhjNSDw",
+                          "neutron-subnet-id": "CfIbyRJVK",
+                          "l3-interface-ipv6-prefix-length": 980,
+                          "vlan-id-inner": 15,
+                          "is-floating": false,
+                          "l3-interface-ipv6-address": "fe62bfe1-bb1f-430c-a73a-17129a774006-jenkins",
+                          "vlan-id-outer": 538
+                        }
+                      ],
+                      "resource-version": "1529889840390",
+                      "is-ip-unnumbered": true,
+                      "speed-units": "NZnxJ0",
+                      "vlan-interface": "ba6322cc-8a92-4c52-9f1c-e1ed151685f4-jenkins",
+                      "backdoor-connection": "hknHtwrQ8",
+                      "l3-interface-ipv4-address-list": [
+                        {
+                          "l3-interface-ipv4-prefix-length": 123,
+                          "resource-version": "1529889840395",
+                          "neutron-network-id": "S1lm",
+                          "neutron-subnet-id": "ArbSTda9",
+                          "vlan-id-inner": 433,
+                          "l3-interface-ipv4-address": "39f4c806-0a69-44ce-801e-6e788dde996c-jenkins",
+                          "is-floating": false,
+                          "vlan-id-outer": 454
+                        },
+                        {
+                          "l3-interface-ipv4-prefix-length": 874,
+                          "resource-version": "1529889840402",
+                          "neutron-network-id": "4eQNt",
+                          "neutron-subnet-id": "jcbWZEE1iuIxo",
+                          "vlan-id-inner": 179,
+                          "l3-interface-ipv4-address": "bc0f320b-307f-40f0-a985-83adab31ceae-jenkins",
+                          "is-floating": false,
+                          "vlan-id-outer": 274
+                        }
+                      ]
+                    }
+                  ]
+                },
+                "l-interfaces": {
+                  "l-interface": [
+                    {
+                      "v6-wan-link-ip": "RtXRWVNEJADY",
+                      "interface-name": "dc917efb-f045-4250-b3e3-1f13de0c50c6-jenkins",
+                      "allowed-address-pairs": "xXhZud",
+                      "prov-status": "ESgNJKvFRBbJ",
+                      "macaddr": "J3BfKm",
+                      "interface-role": "tRCKYmQWZr",
+                      "selflink": "zqJy",
+                      "in-maint": false,
+                      "admin-status": "BbiEg3U",
+                      "is-port-mirrored": false,
+                      "resource-version": "1529889840457",
+                      "is-ip-unnumbered": true,
+                      "network-name": "p03hQIJEj",
+                      "management-option": "qI4hY9rO",
+                      "interface-id": "M1mVymxqCG9B",
+                      "interface-description": "X0ylXoZxd8"
+                    },
+                    {
+                      "v6-wan-link-ip": "PuNFKRUUpd3",
+                      "interface-name": "89796dd1-89a5-4ddc-bd13-324ba9bce3b6-jenkins",
+                      "allowed-address-pairs": "RGo6MaADK",
+                      "prov-status": "uot",
+                      "macaddr": "xUj8TGre",
+                      "interface-role": "SyT0hd9Uu4b",
+                      "selflink": "HxDI",
+                      "in-maint": false,
+                      "admin-status": "GDgD",
+                      "is-port-mirrored": true,
+                      "resource-version": "1529889840462",
+                      "is-ip-unnumbered": false,
+                      "network-name": "RXCo3p3p5BhBS",
+                      "management-option": "jNiTd",
+                      "interface-id": "4n8niH",
+                      "interface-description": "drnTF3"
+                    }
+                  ]
+                },
+                "interface-name": "f4f9b9c7-eb83-4622-9d6f-14027a556ff5-jenkins",
+                "allowed-address-pairs": "tsZfdO6K",
+                "prov-status": "3arI73HikM",
+                "macaddr": "0q6FMAB",
+                "interface-role": "4cyrEGb5ldY",
+                "selflink": "baX",
+                "in-maint": true,
+                "admin-status": "NbXMnykI",
+                "l3-interface-ipv6-address-list": [
+                  {
+                    "resource-version": "1529889840487",
+                    "neutron-network-id": "IHaNS4GYk8We",
+                    "neutron-subnet-id": "Avamy",
+                    "l3-interface-ipv6-prefix-length": 980,
+                    "vlan-id-inner": 995,
+                    "is-floating": true,
+                    "l3-interface-ipv6-address": "91e884de-b2b7-471a-a245-44aeb7c134a6-jenkins",
+                    "vlan-id-outer": 9
+                  },
+                  {
+                    "resource-version": "1529889840481",
+                    "neutron-network-id": "Nus6ae0m",
+                    "neutron-subnet-id": "fA3l0lvnHdtb",
+                    "l3-interface-ipv6-prefix-length": 809,
+                    "vlan-id-inner": 340,
+                    "is-floating": true,
+                    "l3-interface-ipv6-address": "ce4f5d92-0522-4c36-9d42-57e9138a177e-jenkins",
+                    "vlan-id-outer": 753
+                  }
+                ],
+                "is-port-mirrored": true,
+                "resource-version": "1529889840382",
+                "is-ip-unnumbered": false,
+                "sriov-vfs": {
+                  "sriov-vf": [
+                    {
+                      "vf-vlan-filter": "0BKVj51qatJhI",
+                      "vf-vlan-strip": false,
+                      "neutron-network-id": "s8H",
+                      "vf-broadcast-allow": false,
+                      "vf-mac-anti-spoof-check": true,
+                      "vf-unknown-multicast-allow": true,
+                      "pci-id": "7e5a9324-386f-4328-aa77-a4f6cf7f0dbe-jenkins",
+                      "vf-mirrors": "agzCT75g3Vg",
+                      "resource-version": "1529889840451",
+                      "vf-link-status": "bwtQlepGf",
+                      "vf-mac-filter": "EkaVjcgrNl",
+                      "vf-insert-stag": false,
+                      "vf-vlan-anti-spoof-check": true,
+                      "vf-unknown-unicast-allow": true
+                    }
+                  ]
+                },
+                "network-name": "8BqQdZOAl2lo",
+                "management-option": "CY2Ta8s",
+                "interface-id": "6Ch",
+                "interface-description": "VlMDLY2l7z",
+                "l3-interface-ipv4-address-list": [
+                  {
+                    "l3-interface-ipv4-prefix-length": 251,
+                    "resource-version": "1529889840474",
+                    "neutron-network-id": "K52",
+                    "neutron-subnet-id": "7CZjzB",
+                    "vlan-id-inner": 790,
+                    "l3-interface-ipv4-address": "a82b6014-8aa2-4bd8-b6e7-01c5f7a19c33-jenkins",
+                    "is-floating": true,
+                    "vlan-id-outer": 58
+                  },
+                  {
+                    "l3-interface-ipv4-prefix-length": 404,
+                    "resource-version": "1529889840468",
+                    "neutron-network-id": "LqT0cwY4tdE",
+                    "neutron-subnet-id": "Imj2rt0HAMGG",
+                    "vlan-id-inner": 525,
+                    "l3-interface-ipv4-address": "e7c633df-9024-493e-8b7f-5b10415cb1aa-jenkins",
+                    "is-floating": true,
+                    "vlan-id-outer": 108
+                  }
+                ]
+              },
+              {
+                "v6-wan-link-ip": "Ln26J5hGX7M",
+                "vlans": {
+                  "vlan": [
+                    {
+                      "vlan-description": "I9JkId",
+                      "vpn-key": "LRdP",
+                      "prov-status": "APYZv",
+                      "vlan-id-inner": 35,
+                      "vlan-id-outer": 831,
+                      "orchestration-status": "T1wt2oC",
+                      "speed-value": "GHxANnX",
+                      "in-maint": true,
+                      "l3-interface-ipv6-address-list": [
+                        {
+                          "resource-version": "1529889840558",
+                          "neutron-network-id": "emLOUy0Qmmo",
+                          "neutron-subnet-id": "fzgS9OJ",
+                          "l3-interface-ipv6-prefix-length": 752,
+                          "vlan-id-inner": 998,
+                          "is-floating": false,
+                          "l3-interface-ipv6-address": "1bfe762c-4c38-431b-b15f-ca66c8a31a28-jenkins",
+                          "vlan-id-outer": 293
+                        },
+                        {
+                          "resource-version": "1529889840564",
+                          "neutron-network-id": "20qzZFzb",
+                          "neutron-subnet-id": "RWfDmt",
+                          "l3-interface-ipv6-prefix-length": 400,
+                          "vlan-id-inner": 427,
+                          "is-floating": true,
+                          "l3-interface-ipv6-address": "4ea1cc4f-1400-494e-99c7-820b213a4c03-jenkins",
+                          "vlan-id-outer": 270
+                        }
+                      ],
+                      "resource-version": "1529889840541",
+                      "is-ip-unnumbered": false,
+                      "speed-units": "9CDfulUnymX1x",
+                      "vlan-interface": "0016f9ca-1ef3-4b14-bed0-fd9d7a5f7020-jenkins",
+                      "backdoor-connection": "hIq",
+                      "l3-interface-ipv4-address-list": [
+                        {
+                          "l3-interface-ipv4-prefix-length": 12,
+                          "resource-version": "1529889840546",
+                          "neutron-network-id": "sYe5FRwMDe",
+                          "neutron-subnet-id": "snexxGpM",
+                          "vlan-id-inner": 834,
+                          "l3-interface-ipv4-address": "eae2bc5c-e72e-41b6-93f7-73a3db342e2f-jenkins",
+                          "is-floating": true,
+                          "vlan-id-outer": 934
+                        },
+                        {
+                          "l3-interface-ipv4-prefix-length": 687,
+                          "resource-version": "1529889840552",
+                          "neutron-network-id": "OyNhYSJ",
+                          "neutron-subnet-id": "iAE",
+                          "vlan-id-inner": 820,
+                          "l3-interface-ipv4-address": "c16e3d11-45cf-4ae2-aa7e-e40e23d4a454-jenkins",
+                          "is-floating": true,
+                          "vlan-id-outer": 12
+                        }
+                      ]
+                    },
+                    {
+                      "vlan-description": "HFZ0s1sqrx",
+                      "vpn-key": "DA3vkcsmXoNa",
+                      "prov-status": "PLXCq2sZr",
+                      "vlan-id-inner": 349,
+                      "vlan-id-outer": 230,
+                      "orchestration-status": "tIlhc9",
+                      "speed-value": "9rk46hsxtjUJY",
+                      "in-maint": true,
+                      "l3-interface-ipv6-address-list": [
+                        {
+                          "resource-version": "1529889840534",
+                          "neutron-network-id": "uzY",
+                          "neutron-subnet-id": "hevG",
+                          "l3-interface-ipv6-prefix-length": 188,
+                          "vlan-id-inner": 247,
+                          "is-floating": true,
+                          "l3-interface-ipv6-address": "418916cc-8123-4b24-8879-9f512e771c70-jenkins",
+                          "vlan-id-outer": 995
+                        },
+                        {
+                          "resource-version": "1529889840528",
+                          "neutron-network-id": "9sqJYket",
+                          "neutron-subnet-id": "TA0Ir2iH",
+                          "l3-interface-ipv6-prefix-length": 313,
+                          "vlan-id-inner": 619,
+                          "is-floating": false,
+                          "l3-interface-ipv6-address": "1812bc12-be5c-4cca-9b87-03bd19277b04-jenkins",
+                          "vlan-id-outer": 627
+                        }
+                      ],
+                      "resource-version": "1529889840511",
+                      "is-ip-unnumbered": true,
+                      "speed-units": "siXy4hm",
+                      "vlan-interface": "010547b9-4495-4fb5-a1b2-d4dbb8833e83-jenkins",
+                      "backdoor-connection": "1F0cNOsS",
+                      "l3-interface-ipv4-address-list": [
+                        {
+                          "l3-interface-ipv4-prefix-length": 780,
+                          "resource-version": "1529889840522",
+                          "neutron-network-id": "jwWHQK7",
+                          "neutron-subnet-id": "UsxImV5pL9LL",
+                          "vlan-id-inner": 637,
+                          "l3-interface-ipv4-address": "d814d5bd-a23c-4f21-9f3d-2c631f424aac-jenkins",
+                          "is-floating": false,
+                          "vlan-id-outer": 418
+                        },
+                        {
+                          "l3-interface-ipv4-prefix-length": 262,
+                          "resource-version": "1529889840516",
+                          "neutron-network-id": "JDuBaq3Cbhd",
+                          "neutron-subnet-id": "1DFTpWjFLzcZ6",
+                          "vlan-id-inner": 191,
+                          "l3-interface-ipv4-address": "a1dc02f5-11eb-46cd-81e8-6e51e82f7eff-jenkins",
+                          "is-floating": false,
+                          "vlan-id-outer": 426
+                        }
+                      ]
+                    }
+                  ]
+                },
+                "l-interfaces": {
+                  "l-interface": [
+                    {
+                      "v6-wan-link-ip": "3J1Z18yxgQ004",
+                      "interface-name": "9471edc4-3e56-43c1-987b-a7d50b831ffa-jenkins",
+                      "allowed-address-pairs": "QXWns3Qp",
+                      "prov-status": "FacORXn",
+                      "macaddr": "hp9PJwVAD",
+                      "interface-role": "17o1WXMEldX8",
+                      "selflink": "brAO",
+                      "in-maint": true,
+                      "admin-status": "04KWsIfV3",
+                      "is-port-mirrored": false,
+                      "resource-version": "1529889840583",
+                      "is-ip-unnumbered": false,
+                      "network-name": "8xX9B4eSfixos",
+                      "management-option": "m2w0o5B",
+                      "interface-id": "zzbAbZvn6sT",
+                      "interface-description": "qkWDaz1Qix"
+                    },
+                    {
+                      "v6-wan-link-ip": "PxVRinMq5Vgq4",
+                      "interface-name": "a11a5207-4fb1-4dc2-a167-95c2712fdc35-jenkins",
+                      "allowed-address-pairs": "oG7yZKSv6KONP",
+                      "prov-status": "tCy3ilKzFIR",
+                      "macaddr": "ttHiTiLtkN25z",
+                      "interface-role": "OpQ3C",
+                      "selflink": "dZe4nCK",
+                      "in-maint": false,
+                      "admin-status": "PqB6G3n16lEG",
+                      "is-port-mirrored": false,
+                      "resource-version": "1529889840578",
+                      "is-ip-unnumbered": true,
+                      "network-name": "6PQItO",
+                      "management-option": "PK28FqG",
+                      "interface-id": "Gpy8kn1QXK",
+                      "interface-description": "HLG0XZ"
+                    }
+                  ]
+                },
+                "interface-name": "02dc1675-e1c3-4cfb-a2e6-8aa67b6f1c2d-jenkins",
+                "allowed-address-pairs": "7xJnB",
+                "prov-status": "cMv3MM0GPOk",
+                "macaddr": "JVQ8SS6",
+                "interface-role": "r1hnvD02Xgs",
+                "selflink": "r3F",
+                "in-maint": true,
+                "admin-status": "4iU",
+                "l3-interface-ipv6-address-list": [
+                  {
+                    "resource-version": "1529889840608",
+                    "neutron-network-id": "oLuz7jf",
+                    "neutron-subnet-id": "ouBsOQ",
+                    "l3-interface-ipv6-prefix-length": 421,
+                    "vlan-id-inner": 864,
+                    "is-floating": false,
+                    "l3-interface-ipv6-address": "95782900-e9e2-459f-8039-e8c165a22688-jenkins",
+                    "vlan-id-outer": 760
+                  },
+                  {
+                    "resource-version": "1529889840602",
+                    "neutron-network-id": "yT9BgKa5Q",
+                    "neutron-subnet-id": "4wuHUPFV",
+                    "l3-interface-ipv6-prefix-length": 454,
+                    "vlan-id-inner": 775,
+                    "is-floating": true,
+                    "l3-interface-ipv6-address": "af360d6d-06c6-44af-ab10-7f3e253d6f5c-jenkins",
+                    "vlan-id-outer": 733
+                  }
+                ],
+                "is-port-mirrored": true,
+                "resource-version": "1529889840504",
+                "is-ip-unnumbered": true,
+                "sriov-vfs": {
+                  "sriov-vf": [
+                    {
+                      "vf-vlan-filter": "szyj3DJNs",
+                      "vf-vlan-strip": true,
+                      "neutron-network-id": "oe0yQEK2pt",
+                      "vf-broadcast-allow": false,
+                      "vf-mac-anti-spoof-check": false,
+                      "vf-unknown-multicast-allow": false,
+                      "pci-id": "1e9a98ce-5235-47d3-ab4b-d106c77eac4f-jenkins",
+                      "vf-mirrors": "RLPA",
+                      "resource-version": "1529889840572",
+                      "vf-link-status": "7cbMLgWUQCA",
+                      "vf-mac-filter": "6MFqin1N10K",
+                      "vf-insert-stag": true,
+                      "vf-vlan-anti-spoof-check": true,
+                      "vf-unknown-unicast-allow": false
+                    }
+                  ]
+                },
+                "network-name": "sf6cI7Fb",
+                "management-option": "GZl1Yw",
+                "interface-id": "pZNGvpNZ",
+                "interface-description": "jiPT6esm7",
+                "l3-interface-ipv4-address-list": [
+                  {
+                    "l3-interface-ipv4-prefix-length": 268,
+                    "resource-version": "1529889840589",
+                    "neutron-network-id": "BTsABqXg",
+                    "neutron-subnet-id": "qjg5eZlk",
+                    "vlan-id-inner": 877,
+                    "l3-interface-ipv4-address": "a64ab58a-26ea-464b-a32d-c30d6bf1d40f-jenkins",
+                    "is-floating": false,
+                    "vlan-id-outer": 31
+                  },
+                  {
+                    "l3-interface-ipv4-prefix-length": 395,
+                    "resource-version": "1529889840596",
+                    "neutron-network-id": "v2LUT",
+                    "neutron-subnet-id": "VTknAqDz",
+                    "vlan-id-inner": 205,
+                    "l3-interface-ipv4-address": "0076fd8f-ecb3-4527-b3ee-fee132be8db6-jenkins",
+                    "is-floating": false,
+                    "vlan-id-outer": 461
+                  }
+                ]
+              }
+            ]
+          },
+          "interface-name": "8806d30d-e5f5-409e-9e9e-9b1c1943058d-jenkins",
+          "speed-units": "dtp",
+          "prov-status": "2zeuU",
+          "interface-description": "hvVs",
+          "interface-id": "KFxtMnPc5yK0B"
+        },
+        {
+          "interface-role": "XY4Wle1e0",
+          "speed-value": "pK4kfeQqTNFh4",
+          "in-maint": true,
+          "resource-version": "1529889840619",
+          "l-interfaces": {
+            "l-interface": [
+              {
+                "v6-wan-link-ip": "MsEqgBrWffZ",
+                "vlans": {
+                  "vlan": [
+                    {
+                      "vlan-description": "LfyQImV4m0",
+                      "vpn-key": "bYw0P",
+                      "prov-status": "JQCyvJ",
+                      "vlan-id-inner": 566,
+                      "vlan-id-outer": 558,
+                      "orchestration-status": "HIF",
+                      "speed-value": "Ar7CSlrCY",
+                      "in-maint": false,
+                      "l3-interface-ipv6-address-list": [
+                        {
+                          "resource-version": "1529889840646",
+                          "neutron-network-id": "PoZ",
+                          "neutron-subnet-id": "y7SaFxU9te4O",
+                          "l3-interface-ipv6-prefix-length": 631,
+                          "vlan-id-inner": 207,
+                          "is-floating": true,
+                          "l3-interface-ipv6-address": "8466bb52-7984-4792-a37f-b522a0b49f83-jenkins",
+                          "vlan-id-outer": 941
+                        },
+                        {
+                          "resource-version": "1529889840652",
+                          "neutron-network-id": "NcYrcVwTCtEH",
+                          "neutron-subnet-id": "370eM",
+                          "l3-interface-ipv6-prefix-length": 137,
+                          "vlan-id-inner": 830,
+                          "is-floating": false,
+                          "l3-interface-ipv6-address": "e291654f-f843-470c-9888-e5ed0e751a8b-jenkins",
+                          "vlan-id-outer": 351
+                        }
+                      ],
+                      "resource-version": "1529889840629",
+                      "is-ip-unnumbered": false,
+                      "speed-units": "iPOB5",
+                      "vlan-interface": "67dd28da-6b2b-420b-8586-d50ad2832b16-jenkins",
+                      "backdoor-connection": "Sm8BM",
+                      "l3-interface-ipv4-address-list": [
+                        {
+                          "l3-interface-ipv4-prefix-length": 455,
+                          "resource-version": "1529889840634",
+                          "neutron-network-id": "ILjdNY7FyDFTa",
+                          "neutron-subnet-id": "l5D",
+                          "vlan-id-inner": 499,
+                          "l3-interface-ipv4-address": "5724d3ec-a533-4dda-821d-564fa6f1bd9c-jenkins",
+                          "is-floating": true,
+                          "vlan-id-outer": 863
+                        },
+                        {
+                          "l3-interface-ipv4-prefix-length": 129,
+                          "resource-version": "1529889840640",
+                          "neutron-network-id": "ShC4WNzIO",
+                          "neutron-subnet-id": "vg73RjKeCDqdL",
+                          "vlan-id-inner": 947,
+                          "l3-interface-ipv4-address": "3e843120-b62d-4c97-bb41-7f0219db7b14-jenkins",
+                          "is-floating": true,
+                          "vlan-id-outer": 634
+                        }
+                      ]
+                    },
+                    {
+                      "vlan-description": "jQcFXNZd",
+                      "vpn-key": "SWZEIY6YS",
+                      "prov-status": "3CGAI",
+                      "vlan-id-inner": 277,
+                      "vlan-id-outer": 527,
+                      "orchestration-status": "zPNrcQLm4uv6P",
+                      "speed-value": "EnMy3",
+                      "in-maint": true,
+                      "l3-interface-ipv6-address-list": [
+                        {
+                          "resource-version": "1529889840682",
+                          "neutron-network-id": "odwHBa91BM1q",
+                          "neutron-subnet-id": "gyUcUX10",
+                          "l3-interface-ipv6-prefix-length": 712,
+                          "vlan-id-inner": 88,
+                          "is-floating": false,
+                          "l3-interface-ipv6-address": "039308d2-d148-427b-b5fd-10674761c44d-jenkins",
+                          "vlan-id-outer": 367
+                        },
+                        {
+                          "resource-version": "1529889840676",
+                          "neutron-network-id": "Gza",
+                          "neutron-subnet-id": "pIq",
+                          "l3-interface-ipv6-prefix-length": 466,
+                          "vlan-id-inner": 230,
+                          "is-floating": false,
+                          "l3-interface-ipv6-address": "b88fd72b-daaf-4501-ae0e-03ae6dd908fb-jenkins",
+                          "vlan-id-outer": 881
+                        }
+                      ],
+                      "resource-version": "1529889840659",
+                      "is-ip-unnumbered": false,
+                      "speed-units": "kCGl",
+                      "vlan-interface": "b765805d-a9ee-4b67-9878-b9ce5393afcd-jenkins",
+                      "backdoor-connection": "3Uj",
+                      "l3-interface-ipv4-address-list": [
+                        {
+                          "l3-interface-ipv4-prefix-length": 464,
+                          "resource-version": "1529889840670",
+                          "neutron-network-id": "dCij",
+                          "neutron-subnet-id": "JsAH2B",
+                          "vlan-id-inner": 806,
+                          "l3-interface-ipv4-address": "6c72d28b-2068-4421-b434-c91aed94d05f-jenkins",
+                          "is-floating": false,
+                          "vlan-id-outer": 944
+                        },
+                        {
+                          "l3-interface-ipv4-prefix-length": 409,
+                          "resource-version": "1529889840664",
+                          "neutron-network-id": "K7Iu55Aeg7",
+                          "neutron-subnet-id": "Szh5oyDazQxx",
+                          "vlan-id-inner": 574,
+                          "l3-interface-ipv4-address": "9bd8b783-fa5f-464f-8c70-c2b7073aaa31-jenkins",
+                          "is-floating": true,
+                          "vlan-id-outer": 901
+                        }
+                      ]
+                    }
+                  ]
+                },
+                "l-interfaces": {
+                  "l-interface": [
+                    {
+                      "v6-wan-link-ip": "9JOASEc",
+                      "interface-name": "1f2c5777-382d-42a1-95dd-ad46dd3970b6-jenkins",
+                      "allowed-address-pairs": "cj7hTo",
+                      "prov-status": "esrpGpgM66MA",
+                      "macaddr": "ABRk4hv1fYAvm",
+                      "interface-role": "fOx5Ci",
+                      "selflink": "bNOyib",
+                      "in-maint": false,
+                      "admin-status": "aflI2BZ",
+                      "is-port-mirrored": true,
+                      "resource-version": "1529889840695",
+                      "is-ip-unnumbered": false,
+                      "network-name": "W9ikzRrF7mB",
+                      "management-option": "qHHbFL",
+                      "interface-id": "O4z",
+                      "interface-description": "UYX398gN8i"
+                    },
+                    {
+                      "v6-wan-link-ip": "oSFHmh2phxen",
+                      "interface-name": "17e6f113-b3e2-48a1-bb53-dbaa7318c3f2-jenkins",
+                      "allowed-address-pairs": "B0LqLPi",
+                      "prov-status": "ZMERs2idY",
+                      "macaddr": "iavYQQ8D0",
+                      "interface-role": "LWDdQz9ooY",
+                      "selflink": "NaTAzh6",
+                      "in-maint": false,
+                      "admin-status": "Rwba4Pyl",
+                      "is-port-mirrored": true,
+                      "resource-version": "1529889840701",
+                      "is-ip-unnumbered": false,
+                      "network-name": "qVNOCDe",
+                      "management-option": "mYzH",
+                      "interface-id": "6xOTvBMzb4A",
+                      "interface-description": "xNHFfbZ"
+                    }
+                  ]
+                },
+                "interface-name": "1d6289a3-7dda-42d7-ad36-b8aa82c3527a-jenkins",
+                "allowed-address-pairs": "SDWi77k0TXOfD",
+                "prov-status": "ce9dCt",
+                "macaddr": "pg3ALUfE6T",
+                "interface-role": "FTsH1RM9",
+                "selflink": "dWkOVoX",
+                "in-maint": true,
+                "admin-status": "Mn3",
+                "l3-interface-ipv6-address-list": [
+                  {
+                    "resource-version": "1529889840719",
+                    "neutron-network-id": "Ac9ESt",
+                    "neutron-subnet-id": "Z7Lj",
+                    "l3-interface-ipv6-prefix-length": 711,
+                    "vlan-id-inner": 961,
+                    "is-floating": true,
+                    "l3-interface-ipv6-address": "de537e8b-b42c-4543-a680-7b24cd96262c-jenkins",
+                    "vlan-id-outer": 143
+                  },
+                  {
+                    "resource-version": "1529889840726",
+                    "neutron-network-id": "n8HSAX",
+                    "neutron-subnet-id": "71QevzBBwqbhw",
+                    "l3-interface-ipv6-prefix-length": 479,
+                    "vlan-id-inner": 845,
+                    "is-floating": true,
+                    "l3-interface-ipv6-address": "b425a520-6389-4382-aa0b-aa2585e8960c-jenkins",
+                    "vlan-id-outer": 57
+                  }
+                ],
+                "is-port-mirrored": false,
+                "resource-version": "1529889840623",
+                "is-ip-unnumbered": false,
+                "sriov-vfs": {
+                  "sriov-vf": [
+                    {
+                      "vf-vlan-filter": "NzCY2ZFza",
+                      "vf-vlan-strip": true,
+                      "neutron-network-id": "XVyTFfI",
+                      "vf-broadcast-allow": true,
+                      "vf-mac-anti-spoof-check": true,
+                      "vf-unknown-multicast-allow": true,
+                      "pci-id": "8e034ca2-4f11-4c8e-98cf-d6463986fe4d-jenkins",
+                      "vf-mirrors": "u0FdegnEMsC",
+                      "resource-version": "1529889840690",
+                      "vf-link-status": "CEiqnhy",
+                      "vf-mac-filter": "9QXQosf6",
+                      "vf-insert-stag": true,
+                      "vf-vlan-anti-spoof-check": true,
+                      "vf-unknown-unicast-allow": true
+                    }
+                  ]
+                },
+                "network-name": "ZOxPNuwY",
+                "management-option": "7NmUPH",
+                "interface-id": "Hq3BuQ7",
+                "interface-description": "5Sr3zVcb",
+                "l3-interface-ipv4-address-list": [
+                  {
+                    "l3-interface-ipv4-prefix-length": 284,
+                    "resource-version": "1529889840713",
+                    "neutron-network-id": "BGv8mmqI",
+                    "neutron-subnet-id": "55SW",
+                    "vlan-id-inner": 672,
+                    "l3-interface-ipv4-address": "26e40e8b-8e00-43a4-9050-5b9eadc90305-jenkins",
+                    "is-floating": false,
+                    "vlan-id-outer": 946
+                  },
+                  {
+                    "l3-interface-ipv4-prefix-length": 623,
+                    "resource-version": "1529889840707",
+                    "neutron-network-id": "voGoxHzyuDW",
+                    "neutron-subnet-id": "PYStGvpuliOY",
+                    "vlan-id-inner": 224,
+                    "l3-interface-ipv4-address": "20ff73f0-4169-43b9-b0c6-ceea0c54a24e-jenkins",
+                    "is-floating": true,
+                    "vlan-id-outer": 913
+                  }
+                ]
+              },
+              {
+                "v6-wan-link-ip": "orgs2voeaiET",
+                "vlans": {
+                  "vlan": [
+                    {
+                      "vlan-description": "AE75zek",
+                      "vpn-key": "bka0W79",
+                      "prov-status": "gF8zBYGKLFI1t",
+                      "vlan-id-inner": 620,
+                      "vlan-id-outer": 162,
+                      "orchestration-status": "CzCJsuBNc",
+                      "speed-value": "JQvUCFr",
+                      "in-maint": true,
+                      "l3-interface-ipv6-address-list": [
+                        {
+                          "resource-version": "1529889840757",
+                          "neutron-network-id": "lrYktUQ4B",
+                          "neutron-subnet-id": "87JiirHx",
+                          "l3-interface-ipv6-prefix-length": 244,
+                          "vlan-id-inner": 568,
+                          "is-floating": false,
+                          "l3-interface-ipv6-address": "97f083b3-5cf3-414e-89a6-dd1b20ef06b8-jenkins",
+                          "vlan-id-outer": 201
+                        },
+                        {
+                          "resource-version": "1529889840763",
+                          "neutron-network-id": "smMgUDmt",
+                          "neutron-subnet-id": "WfemGm8N5",
+                          "l3-interface-ipv6-prefix-length": 566,
+                          "vlan-id-inner": 43,
+                          "is-floating": false,
+                          "l3-interface-ipv6-address": "4dfd97ec-d11c-40ac-9bc0-a906b50b5095-jenkins",
+                          "vlan-id-outer": 282
+                        }
+                      ],
+                      "resource-version": "1529889840740",
+                      "is-ip-unnumbered": false,
+                      "speed-units": "zv1",
+                      "vlan-interface": "7006e23b-aa18-491c-94f1-9ccbdb1216c1-jenkins",
+                      "backdoor-connection": "XvPt0D7",
+                      "l3-interface-ipv4-address-list": [
+                        {
+                          "l3-interface-ipv4-prefix-length": 345,
+                          "resource-version": "1529889840745",
+                          "neutron-network-id": "WkVtQi",
+                          "neutron-subnet-id": "iiE",
+                          "vlan-id-inner": 585,
+                          "l3-interface-ipv4-address": "237dfc24-c581-460f-9e31-608ae9cf07db-jenkins",
+                          "is-floating": false,
+                          "vlan-id-outer": 752
+                        },
+                        {
+                          "l3-interface-ipv4-prefix-length": 664,
+                          "resource-version": "1529889840751",
+                          "neutron-network-id": "BMpMnD",
+                          "neutron-subnet-id": "AgrOLB",
+                          "vlan-id-inner": 523,
+                          "l3-interface-ipv4-address": "3ec034d2-5c77-492c-8c63-a2ebda389e5d-jenkins",
+                          "is-floating": true,
+                          "vlan-id-outer": 884
+                        }
+                      ]
+                    },
+                    {
+                      "vlan-description": "atAWwI4a3Z9nn",
+                      "vpn-key": "lhN",
+                      "prov-status": "xTREV",
+                      "vlan-id-inner": 687,
+                      "vlan-id-outer": 963,
+                      "orchestration-status": "aZmqJkmVe",
+                      "speed-value": "CxGo",
+                      "in-maint": false,
+                      "l3-interface-ipv6-address-list": [
+                        {
+                          "resource-version": "1529889840793",
+                          "neutron-network-id": "vmmpW",
+                          "neutron-subnet-id": "QmsUCT7Z9",
+                          "l3-interface-ipv6-prefix-length": 869,
+                          "vlan-id-inner": 444,
+                          "is-floating": true,
+                          "l3-interface-ipv6-address": "f694a211-1144-4ac0-8a18-841e4e9b6496-jenkins",
+                          "vlan-id-outer": 307
+                        },
+                        {
+                          "resource-version": "1529889840788",
+                          "neutron-network-id": "h3JpE02Qol",
+                          "neutron-subnet-id": "1LP1wI",
+                          "l3-interface-ipv6-prefix-length": 699,
+                          "vlan-id-inner": 695,
+                          "is-floating": true,
+                          "l3-interface-ipv6-address": "d382a20e-6c27-4e3f-a79a-670519ff8091-jenkins",
+                          "vlan-id-outer": 162
+                        }
+                      ],
+                      "resource-version": "1529889840770",
+                      "is-ip-unnumbered": true,
+                      "speed-units": "3lGVeAq",
+                      "vlan-interface": "4ce368d2-ec9b-4e92-8b7f-031edcec30cc-jenkins",
+                      "backdoor-connection": "3XjveRtVEEBud",
+                      "l3-interface-ipv4-address-list": [
+                        {
+                          "l3-interface-ipv4-prefix-length": 996,
+                          "resource-version": "1529889840776",
+                          "neutron-network-id": "rXeE0QspfKY",
+                          "neutron-subnet-id": "38sj3w",
+                          "vlan-id-inner": 62,
+                          "l3-interface-ipv4-address": "16a23c8d-1a92-49a9-b03b-09eec176d3eb-jenkins",
+                          "is-floating": true,
+                          "vlan-id-outer": 735
+                        },
+                        {
+                          "l3-interface-ipv4-prefix-length": 703,
+                          "resource-version": "1529889840782",
+                          "neutron-network-id": "4AyvZ5hNZ",
+                          "neutron-subnet-id": "1ssFocSaqQo",
+                          "vlan-id-inner": 616,
+                          "l3-interface-ipv4-address": "b96e59ab-e272-4586-857f-b5b6ef8bf3c5-jenkins",
+                          "is-floating": false,
+                          "vlan-id-outer": 857
+                        }
+                      ]
+                    }
+                  ]
+                },
+                "l-interfaces": {
+                  "l-interface": [
+                    {
+                      "v6-wan-link-ip": "hxz",
+                      "interface-name": "1bf29baf-8a7a-4bef-9e65-60afd4aa4bc5-jenkins",
+                      "allowed-address-pairs": "m5q",
+                      "prov-status": "2jq0q",
+                      "macaddr": "RIoHQVpg",
+                      "interface-role": "AOUF02ImxkTN",
+                      "selflink": "tFX",
+                      "in-maint": false,
+                      "admin-status": "mgaWPPl3y3",
+                      "is-port-mirrored": true,
+                      "resource-version": "1529889840807",
+                      "is-ip-unnumbered": false,
+                      "network-name": "UMXmDlnia43zq",
+                      "management-option": "Vlnc",
+                      "interface-id": "mtfnhl6ONlg40",
+                      "interface-description": "Ow5JhDaD"
+                    },
+                    {
+                      "v6-wan-link-ip": "8N8zazXz1R",
+                      "interface-name": "76ff110f-6967-4d27-bd9d-4d053f9c344b-jenkins",
+                      "allowed-address-pairs": "bnrD6",
+                      "prov-status": "pPxhpmA0mNMDW",
+                      "macaddr": "IM8RYRdp",
+                      "interface-role": "3gxROfeT",
+                      "selflink": "YcZhmOgXU",
+                      "in-maint": true,
+                      "admin-status": "oSSwcVT7Z",
+                      "is-port-mirrored": false,
+                      "resource-version": "1529889840812",
+                      "is-ip-unnumbered": true,
+                      "network-name": "fqxZ6e1iSI",
+                      "management-option": "e8iCRmtU",
+                      "interface-id": "nYGg",
+                      "interface-description": "7zDWMD0s2"
+                    }
+                  ]
+                },
+                "interface-name": "b654cb26-070e-437a-b04e-7f07d44fdc52-jenkins",
+                "allowed-address-pairs": "70JS",
+                "prov-status": "HH4Y",
+                "macaddr": "m0Xnah2pf1Bpy",
+                "interface-role": "naRsTm",
+                "selflink": "fC0AtzLXWIL",
+                "in-maint": true,
+                "admin-status": "HAWquxE",
+                "l3-interface-ipv6-address-list": [
+                  {
+                    "resource-version": "1529889840839",
+                    "neutron-network-id": "Gc3bhBf4bpJ0",
+                    "neutron-subnet-id": "BysFFJ",
+                    "l3-interface-ipv6-prefix-length": 348,
+                    "vlan-id-inner": 170,
+                    "is-floating": true,
+                    "l3-interface-ipv6-address": "0d4500e9-869e-4cb4-9cb4-3819d2c6bbbc-jenkins",
+                    "vlan-id-outer": 383
+                  },
+                  {
+                    "resource-version": "1529889840845",
+                    "neutron-network-id": "FZObd3YO",
+                    "neutron-subnet-id": "MJMH2LPtW3N",
+                    "l3-interface-ipv6-prefix-length": 986,
+                    "vlan-id-inner": 907,
+                    "is-floating": true,
+                    "l3-interface-ipv6-address": "2b6c8e63-031b-45cd-b4c4-fe4bc9c73415-jenkins",
+                    "vlan-id-outer": 150
+                  }
+                ],
+                "is-port-mirrored": false,
+                "resource-version": "1529889840734",
+                "is-ip-unnumbered": true,
+                "sriov-vfs": {
+                  "sriov-vf": [
+                    {
+                      "vf-vlan-filter": "81VYb1i",
+                      "vf-vlan-strip": false,
+                      "neutron-network-id": "5hrpHU",
+                      "vf-broadcast-allow": true,
+                      "vf-mac-anti-spoof-check": true,
+                      "vf-unknown-multicast-allow": true,
+                      "pci-id": "47a35b64-d6b5-438e-a36e-67527c7adacb-jenkins",
+                      "vf-mirrors": "LVDF81V6wFJFi",
+                      "resource-version": "1529889840801",
+                      "vf-link-status": "j4G9oyAtL8W",
+                      "vf-mac-filter": "loye",
+                      "vf-insert-stag": false,
+                      "vf-vlan-anti-spoof-check": false,
+                      "vf-unknown-unicast-allow": false
+                    }
+                  ]
+                },
+                "network-name": "TTsan6YwMM",
+                "management-option": "Vm4JdgeI",
+                "interface-id": "bNt",
+                "interface-description": "m16u",
+                "l3-interface-ipv4-address-list": [
+                  {
+                    "l3-interface-ipv4-prefix-length": 322,
+                    "resource-version": "1529889840827",
+                    "neutron-network-id": "MTRM",
+                    "neutron-subnet-id": "6rhZMmstG4i",
+                    "vlan-id-inner": 134,
+                    "l3-interface-ipv4-address": "f1964d77-7b60-4b52-af29-7e862b35eabc-jenkins",
+                    "is-floating": true,
+                    "vlan-id-outer": 150
+                  },
+                  {
+                    "l3-interface-ipv4-prefix-length": 936,
+                    "resource-version": "1529889840833",
+                    "neutron-network-id": "WierCB0r5",
+                    "neutron-subnet-id": "FIhbraamzpd0O",
+                    "vlan-id-inner": 395,
+                    "l3-interface-ipv4-address": "43d2e200-525c-460e-b437-8abd201b6fca-jenkins",
+                    "is-floating": false,
+                    "vlan-id-outer": 688
+                  }
+                ]
+              }
+            ]
+          },
+          "interface-name": "2ac48363-21fd-485a-8088-c8de995396a3-jenkins",
+          "speed-units": "lLgzNBkg",
+          "prov-status": "l299JsuJhY",
+          "interface-description": "G1C1H",
+          "interface-id": "w6FY"
+        }
+      ]
+    },
+    "equip-model": "e2IFGT",
+    "in-maint": false,
+    "p-interfaces": {
+      "p-interface": [
+        {
+          "equipment-identifier": "fLsqKh",
+          "l-interfaces": {
+            "l-interface": [
+              {
+                "v6-wan-link-ip": "MBw16c7s",
+                "vlans": {
+                  "vlan": [
+                    {
+                      "vlan-description": "Fa8BU8",
+                      "vpn-key": "c3PkMMd",
+                      "prov-status": "fJ3DOFSk7",
+                      "vlan-id-inner": 402,
+                      "vlan-id-outer": 34,
+                      "orchestration-status": "eHkM4C",
+                      "speed-value": "zSqye71RT",
+                      "in-maint": false,
+                      "l3-interface-ipv6-address-list": [
+                        {
+                          "resource-version": "1529889839959",
+                          "neutron-network-id": "Ee9qO6PQ7zi5",
+                          "neutron-subnet-id": "l2A7T",
+                          "l3-interface-ipv6-prefix-length": 684,
+                          "vlan-id-inner": 209,
+                          "is-floating": false,
+                          "l3-interface-ipv6-address": "8914f8ff-e0e7-4835-ad2a-cfa7f0dab948-jenkins",
+                          "vlan-id-outer": 711
+                        },
+                        {
+                          "resource-version": "1529889839965",
+                          "neutron-network-id": "eOeaaX",
+                          "neutron-subnet-id": "kv6",
+                          "l3-interface-ipv6-prefix-length": 470,
+                          "vlan-id-inner": 298,
+                          "is-floating": false,
+                          "l3-interface-ipv6-address": "62e3e5aa-adff-48e3-8ec3-fc50ca37864d-jenkins",
+                          "vlan-id-outer": 952
+                        }
+                      ],
+                      "resource-version": "1529889839942",
+                      "is-ip-unnumbered": true,
+                      "speed-units": "tCdCihW7p4K",
+                      "vlan-interface": "697fa57d-87b6-4ee8-a4cd-83ae7fde814b-jenkins",
+                      "backdoor-connection": "jRx4Vij6fhbmU",
+                      "l3-interface-ipv4-address-list": [
+                        {
+                          "l3-interface-ipv4-prefix-length": 934,
+                          "resource-version": "1529889839953",
+                          "neutron-network-id": "2augUNUhqiZ",
+                          "neutron-subnet-id": "anWVuz",
+                          "vlan-id-inner": 814,
+                          "l3-interface-ipv4-address": "e72991d7-9397-49fe-8ff2-0b24f5da6601-jenkins",
+                          "is-floating": true,
+                          "vlan-id-outer": 120
+                        },
+                        {
+                          "l3-interface-ipv4-prefix-length": 544,
+                          "resource-version": "1529889839947",
+                          "neutron-network-id": "GLBUVmQ",
+                          "neutron-subnet-id": "qJaRGA3xGQ05N",
+                          "vlan-id-inner": 144,
+                          "l3-interface-ipv4-address": "638b0014-0550-4f8f-a182-0f25c7a49094-jenkins",
+                          "is-floating": false,
+                          "vlan-id-outer": 860
+                        }
+                      ]
+                    },
+                    {
+                      "vlan-description": "kpjS8p9",
+                      "vpn-key": "K797abgqJPJ",
+                      "prov-status": "VVjAwvGkYn6",
+                      "vlan-id-inner": 145,
+                      "vlan-id-outer": 472,
+                      "orchestration-status": "U4bPZ",
+                      "speed-value": "K3YJXZpVAWlNk",
+                      "in-maint": false,
+                      "l3-interface-ipv6-address-list": [
+                        {
+                          "resource-version": "1529889839935",
+                          "neutron-network-id": "2M6x",
+                          "neutron-subnet-id": "FtZ6iJ72JPxOp",
+                          "l3-interface-ipv6-prefix-length": 705,
+                          "vlan-id-inner": 360,
+                          "is-floating": true,
+                          "l3-interface-ipv6-address": "d46aee86-d8d1-4f50-95c0-dba97accf2b2-jenkins",
+                          "vlan-id-outer": 91
+                        },
+                        {
+                          "resource-version": "1529889839929",
+                          "neutron-network-id": "CfzdGpL",
+                          "neutron-subnet-id": "7NTTSE",
+                          "l3-interface-ipv6-prefix-length": 342,
+                          "vlan-id-inner": 423,
+                          "is-floating": true,
+                          "l3-interface-ipv6-address": "ea3e330f-9868-4cbf-aa99-c57281cdbff8-jenkins",
+                          "vlan-id-outer": 414
+                        }
+                      ],
+                      "resource-version": "1529889839912",
+                      "is-ip-unnumbered": false,
+                      "speed-units": "eWavRsG",
+                      "vlan-interface": "e270589c-0f82-4213-adff-7edb6eda511a-jenkins",
+                      "backdoor-connection": "ONvEI4XvtvJN",
+                      "l3-interface-ipv4-address-list": [
+                        {
+                          "l3-interface-ipv4-prefix-length": 384,
+                          "resource-version": "1529889839917",
+                          "neutron-network-id": "kNHGesT",
+                          "neutron-subnet-id": "yA9FTecLecooy",
+                          "vlan-id-inner": 553,
+                          "l3-interface-ipv4-address": "4baec833-d46e-4141-a144-9a69d2995083-jenkins",
+                          "is-floating": false,
+                          "vlan-id-outer": 743
+                        },
+                        {
+                          "l3-interface-ipv4-prefix-length": 766,
+                          "resource-version": "1529889839923",
+                          "neutron-network-id": "lY4i8I2h",
+                          "neutron-subnet-id": "nH360LQ",
+                          "vlan-id-inner": 575,
+                          "l3-interface-ipv4-address": "dbce2579-771e-45dd-9eeb-fcfd8abb59a3-jenkins",
+                          "is-floating": false,
+                          "vlan-id-outer": 659
+                        }
+                      ]
+                    }
+                  ]
+                },
+                "l-interfaces": {
+                  "l-interface": [
+                    {
+                      "v6-wan-link-ip": "VtXT",
+                      "interface-name": "22ba20ad-4f1c-4530-ab9d-fc091051bd84-jenkins",
+                      "allowed-address-pairs": "9mbMpE4l",
+                      "prov-status": "H5E8157",
+                      "macaddr": "BWuWkvhtW8",
+                      "interface-role": "R1EKN",
+                      "selflink": "hUEY5Uw6ZBH",
+                      "in-maint": true,
+                      "admin-status": "DF03UHHd8",
+                      "is-port-mirrored": false,
+                      "resource-version": "1529889839978",
+                      "is-ip-unnumbered": false,
+                      "network-name": "7W2QE34D",
+                      "management-option": "Vkx",
+                      "interface-id": "fGaA",
+                      "interface-description": "i4i"
+                    },
+                    {
+                      "v6-wan-link-ip": "BC0ksb1bI1EK",
+                      "interface-name": "4c7fe9ad-f5e2-4cc3-8b03-792ae7289154-jenkins",
+                      "allowed-address-pairs": "3oyqp9iyD7",
+                      "prov-status": "C0p5fH6lfcAb",
+                      "macaddr": "WK2Qd",
+                      "interface-role": "w5sQ4P",
+                      "selflink": "6h6qQjMR",
+                      "in-maint": false,
+                      "admin-status": "pYhXCCf83pvO",
+                      "is-port-mirrored": false,
+                      "resource-version": "1529889839984",
+                      "is-ip-unnumbered": true,
+                      "network-name": "GGToGGIWb",
+                      "management-option": "XeKuav",
+                      "interface-id": "zHWzodA2Dy8",
+                      "interface-description": "uvVfwQuN"
+                    }
+                  ]
+                },
+                "interface-name": "7bd89b2e-e723-4d50-a4a2-4a0d1fe69069-jenkins",
+                "allowed-address-pairs": "JCAK8XN2PNw",
+                "prov-status": "qlSKW",
+                "macaddr": "QfkSxy1VuCour",
+                "interface-role": "nf1rP4iNKUP",
+                "selflink": "ZSWul0",
+                "in-maint": false,
+                "admin-status": "qMVSn68C3QONM",
+                "l3-interface-ipv6-address-list": [
+                  {
+                    "resource-version": "1529889840003",
+                    "neutron-network-id": "1fuU",
+                    "neutron-subnet-id": "r2oLjsNWsep",
+                    "l3-interface-ipv6-prefix-length": 97,
+                    "vlan-id-inner": 251,
+                    "is-floating": false,
+                    "l3-interface-ipv6-address": "a811422b-b69c-473d-ba0d-6d757d6ebfc7-jenkins",
+                    "vlan-id-outer": 903
+                  },
+                  {
+                    "resource-version": "1529889840009",
+                    "neutron-network-id": "0HxL0QUeL",
+                    "neutron-subnet-id": "7mSCgN",
+                    "l3-interface-ipv6-prefix-length": 611,
+                    "vlan-id-inner": 514,
+                    "is-floating": false,
+                    "l3-interface-ipv6-address": "710b2053-4be6-44c7-a2db-833862f398c1-jenkins",
+                    "vlan-id-outer": 441
+                  }
+                ],
+                "is-port-mirrored": true,
+                "resource-version": "1529889839905",
+                "is-ip-unnumbered": false,
+                "sriov-vfs": {
+                  "sriov-vf": [
+                    {
+                      "vf-vlan-filter": "9Be4",
+                      "vf-vlan-strip": true,
+                      "neutron-network-id": "OkbLwv534",
+                      "vf-broadcast-allow": true,
+                      "vf-mac-anti-spoof-check": false,
+                      "vf-unknown-multicast-allow": true,
+                      "pci-id": "40672a3c-11df-49d8-ba6c-4266366f81a6-jenkins",
+                      "vf-mirrors": "LHRZR",
+                      "resource-version": "1529889839973",
+                      "vf-link-status": "dL3n6",
+                      "vf-mac-filter": "wTYL",
+                      "vf-insert-stag": true,
+                      "vf-vlan-anti-spoof-check": false,
+                      "vf-unknown-unicast-allow": false
+                    }
+                  ]
+                },
+                "network-name": "9zXzqY2",
+                "management-option": "zVscglva0VC",
+                "interface-id": "GND6v7N9BUKdL",
+                "interface-description": "H2OPAj",
+                "l3-interface-ipv4-address-list": [
+                  {
+                    "l3-interface-ipv4-prefix-length": 610,
+                    "resource-version": "1529889839996",
+                    "neutron-network-id": "RYKV1Q",
+                    "neutron-subnet-id": "vr92NIO7V",
+                    "vlan-id-inner": 159,
+                    "l3-interface-ipv4-address": "d9597d04-1bc5-4d62-876f-ed30524bb46f-jenkins",
+                    "is-floating": false,
+                    "vlan-id-outer": 40
+                  },
+                  {
+                    "l3-interface-ipv4-prefix-length": 969,
+                    "resource-version": "1529889839990",
+                    "neutron-network-id": "TA6",
+                    "neutron-subnet-id": "f5mhuX2bvOEso",
+                    "vlan-id-inner": 269,
+                    "l3-interface-ipv4-address": "86a9090a-f49c-4734-8a67-8b595e04f647-jenkins",
+                    "is-floating": false,
+                    "vlan-id-outer": 206
+                  }
+                ]
+              },
+              {
+                "v6-wan-link-ip": "JErpT",
+                "vlans": {
+                  "vlan": [
+                    {
+                      "vlan-description": "wLNn",
+                      "vpn-key": "hHCbqshyhg",
+                      "prov-status": "Y9420",
+                      "vlan-id-inner": 121,
+                      "vlan-id-outer": 663,
+                      "orchestration-status": "t9S8rSP7p",
+                      "speed-value": "i9cLXv",
+                      "in-maint": false,
+                      "l3-interface-ipv6-address-list": [
+                        {
+                          "resource-version": "1529889840042",
+                          "neutron-network-id": "8jiEnSajGx",
+                          "neutron-subnet-id": "FOVkSB",
+                          "l3-interface-ipv6-prefix-length": 496,
+                          "vlan-id-inner": 558,
+                          "is-floating": false,
+                          "l3-interface-ipv6-address": "e83bed12-5dd7-4d9a-929f-9cf57d728376-jenkins",
+                          "vlan-id-outer": 12
+                        },
+                        {
+                          "resource-version": "1529889840047",
+                          "neutron-network-id": "sdOb55dAzQt",
+                          "neutron-subnet-id": "HqtvNrbOW",
+                          "l3-interface-ipv6-prefix-length": 823,
+                          "vlan-id-inner": 62,
+                          "is-floating": true,
+                          "l3-interface-ipv6-address": "49d8a3d2-2f2e-4f2a-a236-2eedabcbae1f-jenkins",
+                          "vlan-id-outer": 341
+                        }
+                      ],
+                      "resource-version": "1529889840025",
+                      "is-ip-unnumbered": false,
+                      "speed-units": "0yC0mR",
+                      "vlan-interface": "e1159280-5843-412c-9ac6-4b95c1a76f3b-jenkins",
+                      "backdoor-connection": "ZYtmgZrUF6vzS",
+                      "l3-interface-ipv4-address-list": [
+                        {
+                          "l3-interface-ipv4-prefix-length": 314,
+                          "resource-version": "1529889840029",
+                          "neutron-network-id": "8jHyNtYT7",
+                          "neutron-subnet-id": "9NBJS3AORrVpW",
+                          "vlan-id-inner": 788,
+                          "l3-interface-ipv4-address": "9e56f7a7-1241-4cde-ab06-6166c4208454-jenkins",
+                          "is-floating": true,
+                          "vlan-id-outer": 627
+                        },
+                        {
+                          "l3-interface-ipv4-prefix-length": 586,
+                          "resource-version": "1529889840036",
+                          "neutron-network-id": "V5hCkUWfVQNH",
+                          "neutron-subnet-id": "bNHGIvjnK",
+                          "vlan-id-inner": 486,
+                          "l3-interface-ipv4-address": "66eb2cfa-03c5-424d-a992-2e77bf31ddd0-jenkins",
+                          "is-floating": true,
+                          "vlan-id-outer": 230
+                        }
+                      ]
+                    },
+                    {
+                      "vlan-description": "PMgsvKp7",
+                      "vpn-key": "jrDeBGUBhtkBC",
+                      "prov-status": "eMkpM1Nq",
+                      "vlan-id-inner": 847,
+                      "vlan-id-outer": 644,
+                      "orchestration-status": "ermPPN",
+                      "speed-value": "mbBs40CypPU4",
+                      "in-maint": false,
+                      "l3-interface-ipv6-address-list": [
+                        {
+                          "resource-version": "1529889840073",
+                          "neutron-network-id": "TYINcC7C55H",
+                          "neutron-subnet-id": "cMVQPrD",
+                          "l3-interface-ipv6-prefix-length": 248,
+                          "vlan-id-inner": 326,
+                          "is-floating": false,
+                          "l3-interface-ipv6-address": "1c054bd3-9e68-48fd-bc6d-e3c3554a7dce-jenkins",
+                          "vlan-id-outer": 110
+                        },
+                        {
+                          "resource-version": "1529889840079",
+                          "neutron-network-id": "ZAKaJQsTlgA",
+                          "neutron-subnet-id": "DqmXwxPdIpKQ",
+                          "l3-interface-ipv6-prefix-length": 655,
+                          "vlan-id-inner": 57,
+                          "is-floating": true,
+                          "l3-interface-ipv6-address": "3ae4f973-70d6-4ef3-b006-526e518192b9-jenkins",
+                          "vlan-id-outer": 299
+                        }
+                      ],
+                      "resource-version": "1529889840055",
+                      "is-ip-unnumbered": false,
+                      "speed-units": "zPO9liNdSX0",
+                      "vlan-interface": "e3d61c90-c6a4-4fcb-93c0-2f568af7ab6f-jenkins",
+                      "backdoor-connection": "jtS6nsN9EBxA",
+                      "l3-interface-ipv4-address-list": [
+                        {
+                          "l3-interface-ipv4-prefix-length": 982,
+                          "resource-version": "1529889840061",
+                          "neutron-network-id": "2Y8",
+                          "neutron-subnet-id": "vLDZaT",
+                          "vlan-id-inner": 415,
+                          "l3-interface-ipv4-address": "1bb8f77d-8ea7-4893-8c15-a43e3369c67d-jenkins",
+                          "is-floating": false,
+                          "vlan-id-outer": 960
+                        },
+                        {
+                          "l3-interface-ipv4-prefix-length": 104,
+                          "resource-version": "1529889840067",
+                          "neutron-network-id": "cSuTgMAjn3r",
+                          "neutron-subnet-id": "sha47kCBHMpo",
+                          "vlan-id-inner": 580,
+                          "l3-interface-ipv4-address": "bcacf13b-0067-420d-953f-e22d84ee3af1-jenkins",
+                          "is-floating": true,
+                          "vlan-id-outer": 687
+                        }
+                      ]
+                    }
+                  ]
+                },
+                "l-interfaces": {
+                  "l-interface": [
+                    {
+                      "v6-wan-link-ip": "qTVCOp5ygayI0",
+                      "interface-name": "9b13abff-cd24-4bed-8a74-e0e06308a5ce-jenkins",
+                      "allowed-address-pairs": "IVhz",
+                      "prov-status": "olrrQ6Ii",
+                      "macaddr": "2iUmJTqseGCD",
+                      "interface-role": "KFYUN3C",
+                      "selflink": "WZoU",
+                      "in-maint": false,
+                      "admin-status": "VrOUU",
+                      "is-port-mirrored": false,
+                      "resource-version": "1529889840098",
+                      "is-ip-unnumbered": true,
+                      "network-name": "BJX",
+                      "management-option": "lN4SRVrP",
+                      "interface-id": "QL6",
+                      "interface-description": "f0mnjC7ajOATc"
+                    },
+                    {
+                      "v6-wan-link-ip": "TmD",
+                      "interface-name": "4590458e-0cc9-4e5b-ae64-01410b33eea7-jenkins",
+                      "allowed-address-pairs": "eGq6czv1yR",
+                      "prov-status": "DAwBJiDRwvtCT",
+                      "macaddr": "ZT3YwlcUJE",
+                      "interface-role": "UMD",
+                      "selflink": "yTmWD",
+                      "in-maint": true,
+                      "admin-status": "DxzN",
+                      "is-port-mirrored": false,
+                      "resource-version": "1529889840092",
+                      "is-ip-unnumbered": true,
+                      "network-name": "D3aCxtR7zv",
+                      "management-option": "n3PD",
+                      "interface-id": "iuHyae",
+                      "interface-description": "95TF5HyDT"
+                    }
+                  ]
+                },
+                "interface-name": "a5d58888-7f18-4532-bb9f-cff44f21f764-jenkins",
+                "allowed-address-pairs": "UMBKF",
+                "prov-status": "UjcdQWRP",
+                "macaddr": "mVw",
+                "interface-role": "UP3MbarHtY5",
+                "selflink": "srP",
+                "in-maint": false,
+                "admin-status": "sgSdzaI",
+                "l3-interface-ipv6-address-list": [
+                  {
+                    "resource-version": "1529889840123",
+                    "neutron-network-id": "b5qrgF24RBQM",
+                    "neutron-subnet-id": "1516aM83RE",
+                    "l3-interface-ipv6-prefix-length": 841,
+                    "vlan-id-inner": 60,
+                    "is-floating": true,
+                    "l3-interface-ipv6-address": "209a1acb-31bb-454b-a803-1975e14a2b79-jenkins",
+                    "vlan-id-outer": 47
+                  },
+                  {
+                    "resource-version": "1529889840117",
+                    "neutron-network-id": "swcjYuHNH1kLF",
+                    "neutron-subnet-id": "6Is",
+                    "l3-interface-ipv6-prefix-length": 341,
+                    "vlan-id-inner": 472,
+                    "is-floating": false,
+                    "l3-interface-ipv6-address": "a1a566eb-0f32-47b1-89c0-97b9e71a5bd1-jenkins",
+                    "vlan-id-outer": 907
+                  }
+                ],
+                "is-port-mirrored": false,
+                "resource-version": "1529889840017",
+                "is-ip-unnumbered": false,
+                "sriov-vfs": {
+                  "sriov-vf": [
+                    {
+                      "vf-vlan-filter": "Mu5iYcFtXJO",
+                      "vf-vlan-strip": false,
+                      "neutron-network-id": "1NyV0W",
+                      "vf-broadcast-allow": false,
+                      "vf-mac-anti-spoof-check": false,
+                      "vf-unknown-multicast-allow": false,
+                      "pci-id": "a73b8fbc-51df-4856-a9b1-1fdab27eb1c2-jenkins",
+                      "vf-mirrors": "Xzff495",
+                      "resource-version": "1529889840087",
+                      "vf-link-status": "e3o",
+                      "vf-mac-filter": "weB9RW0kOj",
+                      "vf-insert-stag": true,
+                      "vf-vlan-anti-spoof-check": false,
+                      "vf-unknown-unicast-allow": false
+                    }
+                  ]
+                },
+                "network-name": "EfhznvHgA9sc",
+                "management-option": "Z3tcQs1t",
+                "interface-id": "XJFnP9b",
+                "interface-description": "4EW",
+                "l3-interface-ipv4-address-list": [
+                  {
+                    "l3-interface-ipv4-prefix-length": 415,
+                    "resource-version": "1529889840104",
+                    "neutron-network-id": "f6P8vI0vF",
+                    "neutron-subnet-id": "FFTJTHg",
+                    "vlan-id-inner": 118,
+                    "l3-interface-ipv4-address": "4bec049a-3389-4eac-a2aa-366fba5ce65e-jenkins",
+                    "is-floating": true,
+                    "vlan-id-outer": 854
+                  },
+                  {
+                    "l3-interface-ipv4-prefix-length": 182,
+                    "resource-version": "1529889840110",
+                    "neutron-network-id": "3DGUAT",
+                    "neutron-subnet-id": "SOsxiS7G",
+                    "vlan-id-inner": 955,
+                    "l3-interface-ipv4-address": "7488692d-58df-41c8-90da-ad740c5ee1c4-jenkins",
+                    "is-floating": true,
+                    "vlan-id-outer": 44
+                  }
+                ]
+              }
+            ]
+          },
+          "interface-name": "d3ee5116-2a24-4eec-ac0c-5bd4c0d8b591-jenkins",
+          "prov-status": "KNuQwh3R18IcL",
+          "interface-role": "n5Ggwbql",
+          "sriov-pfs": {
+            "sriov-pf": [
+              {
+                "resource-version": "1529889839900",
+                "pf-pci-id": "2415ba55-f754-43f3-8549-8367e12292df-jenkins"
+              }
+            ]
+          },
+          "selflink": "hlcIkDbgLsj5",
+          "speed-value": "eZ9SI",
+          "in-maint": false,
+          "interface-type": "2d47g",
+          "port-description": "zSexZ",
+          "resource-version": "1529889839896",
+          "inv-status": "GCqk",
+          "speed-units": "lhQBqM8rf2HXu"
+        },
+        {
+          "equipment-identifier": "cXNyuU8Lg6TK",
+          "l-interfaces": {
+            "l-interface": [
+              {
+                "v6-wan-link-ip": "kGD",
+                "vlans": {
+                  "vlan": [
+                    {
+                      "vlan-description": "rnsklwtzFgYY",
+                      "vpn-key": "TKb",
+                      "prov-status": "xQUPC1z",
+                      "vlan-id-inner": 267,
+                      "vlan-id-outer": 699,
+                      "orchestration-status": "2T0C",
+                      "speed-value": "S4xMNeI",
+                      "in-maint": true,
+                      "l3-interface-ipv6-address-list": [
+                        {
+                          "resource-version": "1529889840210",
+                          "neutron-network-id": "CQWLp",
+                          "neutron-subnet-id": "8MrdSbIszDA",
+                          "l3-interface-ipv6-prefix-length": 707,
+                          "vlan-id-inner": 344,
+                          "is-floating": true,
+                          "l3-interface-ipv6-address": "ba6b944c-05e8-4cb1-959e-b42d5cb70c5a-jenkins",
+                          "vlan-id-outer": 961
+                        },
+                        {
+                          "resource-version": "1529889840205",
+                          "neutron-network-id": "Hsw4nXwZLQ",
+                          "neutron-subnet-id": "JW9lhSp55wX",
+                          "l3-interface-ipv6-prefix-length": 325,
+                          "vlan-id-inner": 702,
+                          "is-floating": true,
+                          "l3-interface-ipv6-address": "695e343f-eaea-4a43-bfcb-3d67ec24e090-jenkins",
+                          "vlan-id-outer": 232
+                        }
+                      ],
+                      "resource-version": "1529889840187",
+                      "is-ip-unnumbered": true,
+                      "speed-units": "JhSHmjEpRvYYm",
+                      "vlan-interface": "1520c860-c608-4696-a2f4-705b65f6046f-jenkins",
+                      "backdoor-connection": "bLB",
+                      "l3-interface-ipv4-address-list": [
+                        {
+                          "l3-interface-ipv4-prefix-length": 564,
+                          "resource-version": "1529889840199",
+                          "neutron-network-id": "5BczOGn",
+                          "neutron-subnet-id": "eLBW1qhzO3",
+                          "vlan-id-inner": 8,
+                          "l3-interface-ipv4-address": "8496dd5a-3ad7-4557-8dd6-a433db32615d-jenkins",
+                          "is-floating": false,
+                          "vlan-id-outer": 658
+                        },
+                        {
+                          "l3-interface-ipv4-prefix-length": 228,
+                          "resource-version": "1529889840192",
+                          "neutron-network-id": "bEA",
+                          "neutron-subnet-id": "Tw9wDLBP",
+                          "vlan-id-inner": 215,
+                          "l3-interface-ipv4-address": "b3482d39-db51-444e-813e-14118a752171-jenkins",
+                          "is-floating": false,
+                          "vlan-id-outer": 805
+                        }
+                      ]
+                    },
+                    {
+                      "vlan-description": "n8bWn",
+                      "vpn-key": "oRujs5y",
+                      "prov-status": "SXiegHT",
+                      "vlan-id-inner": 513,
+                      "vlan-id-outer": 296,
+                      "orchestration-status": "INf",
+                      "speed-value": "IIbmsMCpmQ",
+                      "in-maint": true,
+                      "l3-interface-ipv6-address-list": [
+                        {
+                          "resource-version": "1529889840166",
+                          "neutron-network-id": "hyxtLRv",
+                          "neutron-subnet-id": "DA6JkUle",
+                          "l3-interface-ipv6-prefix-length": 76,
+                          "vlan-id-inner": 681,
+                          "is-floating": true,
+                          "l3-interface-ipv6-address": "5a9be38a-b064-40f1-a253-314fded08cdf-jenkins",
+                          "vlan-id-outer": 996
+                        },
+                        {
+                          "resource-version": "1529889840171",
+                          "neutron-network-id": "tQQTGDZQj",
+                          "neutron-subnet-id": "XbHEt",
+                          "l3-interface-ipv6-prefix-length": 266,
+                          "vlan-id-inner": 3,
+                          "is-floating": false,
+                          "l3-interface-ipv6-address": "fd2f49c0-8b02-466a-9395-37fb54037f16-jenkins",
+                          "vlan-id-outer": 205
+                        }
+                      ],
+                      "resource-version": "1529889840149",
+                      "is-ip-unnumbered": false,
+                      "speed-units": "oZUZAVfm64",
+                      "vlan-interface": "710ec65a-0d70-45bc-afc8-6ed029670ec2-jenkins",
+                      "backdoor-connection": "MzNnZT7R5X1pO",
+                      "l3-interface-ipv4-address-list": [
+                        {
+                          "l3-interface-ipv4-prefix-length": 769,
+                          "resource-version": "1529889840160",
+                          "neutron-network-id": "qTcDiVF2ttvIW",
+                          "neutron-subnet-id": "qIZMW4Jk512a",
+                          "vlan-id-inner": 122,
+                          "l3-interface-ipv4-address": "c3b954f9-3948-4d8b-a894-6eb7cc91f607-jenkins",
+                          "is-floating": true,
+                          "vlan-id-outer": 910
+                        },
+                        {
+                          "l3-interface-ipv4-prefix-length": 830,
+                          "resource-version": "1529889840154",
+                          "neutron-network-id": "fBBC",
+                          "neutron-subnet-id": "oXETpyvUOs",
+                          "vlan-id-inner": 91,
+                          "l3-interface-ipv4-address": "cf5af1e4-3f86-4162-9f43-01ef659282d4-jenkins",
+                          "is-floating": false,
+                          "vlan-id-outer": 90
+                        }
+                      ]
+                    }
+                  ]
+                },
+                "l-interfaces": {
+                  "l-interface": [
+                    {
+                      "v6-wan-link-ip": "McYNumNy4",
+                      "interface-name": "5ab57276-62ba-4fb8-a99a-f4cc64fe1f6b-jenkins",
+                      "allowed-address-pairs": "TVGpW77UF8i",
+                      "prov-status": "FRKsQoZx",
+                      "macaddr": "pyKHSVQTgpnEw",
+                      "interface-role": "lN90EX",
+                      "selflink": "tWy30",
+                      "in-maint": false,
+                      "admin-status": "V6SYyFt",
+                      "is-port-mirrored": false,
+                      "resource-version": "1529889840224",
+                      "is-ip-unnumbered": true,
+                      "network-name": "8b3x",
+                      "management-option": "IiJ4Ex",
+                      "interface-id": "qgH",
+                      "interface-description": "77c"
+                    },
+                    {
+                      "v6-wan-link-ip": "BxSqzB3k",
+                      "interface-name": "d7193628-997f-4cb8-9772-3ef82d08f7c3-jenkins",
+                      "allowed-address-pairs": "wCxdxBIr",
+                      "prov-status": "GXcP",
+                      "macaddr": "QWcOomv4ZA91",
+                      "interface-role": "l5eAS8RS",
+                      "selflink": "O9RgzEEvn",
+                      "in-maint": true,
+                      "admin-status": "ug2XllNOh",
+                      "is-port-mirrored": false,
+                      "resource-version": "1529889840229",
+                      "is-ip-unnumbered": true,
+                      "network-name": "la6oQgvjY4Z5",
+                      "management-option": "PGNlqnpH",
+                      "interface-id": "8otuL737oC7",
+                      "interface-description": "BqEJ3h"
+                    }
+                  ]
+                },
+                "interface-name": "57964a2a-8d5e-48af-9ac0-089af4d8c968-jenkins",
+                "allowed-address-pairs": "cwJk0af9GN3",
+                "prov-status": "CPok",
+                "macaddr": "0vMHIE",
+                "interface-role": "Kkyw",
+                "selflink": "OLNd",
+                "in-maint": false,
+                "admin-status": "0dyKQiCmX",
+                "l3-interface-ipv6-address-list": [
+                  {
+                    "resource-version": "1529889840254",
+                    "neutron-network-id": "uPOdktFWuZjH",
+                    "neutron-subnet-id": "1Vy9Xgxjds",
+                    "l3-interface-ipv6-prefix-length": 431,
+                    "vlan-id-inner": 313,
+                    "is-floating": false,
+                    "l3-interface-ipv6-address": "64e3996d-7b54-4e05-b07e-fb5f2f2966c8-jenkins",
+                    "vlan-id-outer": 972
+                  },
+                  {
+                    "resource-version": "1529889840247",
+                    "neutron-network-id": "H29D9C2hy",
+                    "neutron-subnet-id": "sD4RTy",
+                    "l3-interface-ipv6-prefix-length": 800,
+                    "vlan-id-inner": 597,
+                    "is-floating": false,
+                    "l3-interface-ipv6-address": "a80bd4b0-93b9-421d-a7a1-0da425116a1a-jenkins",
+                    "vlan-id-outer": 584
+                  }
+                ],
+                "is-port-mirrored": false,
+                "resource-version": "1529889840143",
+                "is-ip-unnumbered": true,
+                "sriov-vfs": {
+                  "sriov-vf": [
+                    {
+                      "vf-vlan-filter": "RNYicsjOHW39H",
+                      "vf-vlan-strip": false,
+                      "neutron-network-id": "pbj6W",
+                      "vf-broadcast-allow": false,
+                      "vf-mac-anti-spoof-check": false,
+                      "vf-unknown-multicast-allow": true,
+                      "pci-id": "ef272d07-37f2-4c42-934f-36b7ea9f40bb-jenkins",
+                      "vf-mirrors": "Oc3iPkPk",
+                      "resource-version": "1529889840218",
+                      "vf-link-status": "fYgzXpWSskZ06",
+                      "vf-mac-filter": "xgRUu",
+                      "vf-insert-stag": true,
+                      "vf-vlan-anti-spoof-check": false,
+                      "vf-unknown-unicast-allow": false
+                    }
+                  ]
+                },
+                "network-name": "qlnWBvDxGh",
+                "management-option": "zvkV4w",
+                "interface-id": "doAsSV",
+                "interface-description": "rS4CU",
+                "l3-interface-ipv4-address-list": [
+                  {
+                    "l3-interface-ipv4-prefix-length": 665,
+                    "resource-version": "1529889840235",
+                    "neutron-network-id": "dQO32ksNO1i",
+                    "neutron-subnet-id": "fIRPuXsfHl3RH",
+                    "vlan-id-inner": 899,
+                    "l3-interface-ipv4-address": "5c11ec1e-1d13-4f28-99f6-71fcfdb8f600-jenkins",
+                    "is-floating": true,
+                    "vlan-id-outer": 458
+                  },
+                  {
+                    "l3-interface-ipv4-prefix-length": 226,
+                    "resource-version": "1529889840241",
+                    "neutron-network-id": "8C2IrMoc",
+                    "neutron-subnet-id": "6RGtdz",
+                    "vlan-id-inner": 835,
+                    "l3-interface-ipv4-address": "edf54c12-22e9-4ff3-9ae4-1b2ac66e6ac0-jenkins",
+                    "is-floating": false,
+                    "vlan-id-outer": 905
+                  }
+                ]
+              },
+              {
+                "v6-wan-link-ip": "UBtvQADW",
+                "vlans": {
+                  "vlan": [
+                    {
+                      "vlan-description": "iK8n",
+                      "vpn-key": "hfhIuxo4",
+                      "prov-status": "P2KBr",
+                      "vlan-id-inner": 952,
+                      "vlan-id-outer": 335,
+                      "orchestration-status": "tVaURe9iKl",
+                      "speed-value": "et4UkQPTAh8N",
+                      "in-maint": false,
+                      "l3-interface-ipv6-address-list": [
+                        {
+                          "resource-version": "1529889840323",
+                          "neutron-network-id": "uCLrTQcl7",
+                          "neutron-subnet-id": "dCqtBvKBlmX",
+                          "l3-interface-ipv6-prefix-length": 613,
+                          "vlan-id-inner": 117,
+                          "is-floating": true,
+                          "l3-interface-ipv6-address": "230b181d-717f-43d7-9bb4-9ad1bf957a91-jenkins",
+                          "vlan-id-outer": 427
+                        },
+                        {
+                          "resource-version": "1529889840317",
+                          "neutron-network-id": "yAk",
+                          "neutron-subnet-id": "qXcN",
+                          "l3-interface-ipv6-prefix-length": 396,
+                          "vlan-id-inner": 964,
+                          "is-floating": true,
+                          "l3-interface-ipv6-address": "d525c688-69c3-48df-b4ef-5f5a4c791598-jenkins",
+                          "vlan-id-outer": 640
+                        }
+                      ],
+                      "resource-version": "1529889840300",
+                      "is-ip-unnumbered": false,
+                      "speed-units": "dSElck",
+                      "vlan-interface": "63adb4ad-4349-4bbf-8e16-62b1d245ac4a-jenkins",
+                      "backdoor-connection": "FdE3",
+                      "l3-interface-ipv4-address-list": [
+                        {
+                          "l3-interface-ipv4-prefix-length": 418,
+                          "resource-version": "1529889840311",
+                          "neutron-network-id": "qwlh3SoZoj",
+                          "neutron-subnet-id": "7fAwEuJ",
+                          "vlan-id-inner": 753,
+                          "l3-interface-ipv4-address": "99bb541b-7614-4cda-a74f-acebdf50d60e-jenkins",
+                          "is-floating": true,
+                          "vlan-id-outer": 220
+                        },
+                        {
+                          "l3-interface-ipv4-prefix-length": 811,
+                          "resource-version": "1529889840305",
+                          "neutron-network-id": "wH1eb",
+                          "neutron-subnet-id": "ncQ8T9",
+                          "vlan-id-inner": 265,
+                          "l3-interface-ipv4-address": "1f80bd34-aa39-400e-b8d9-a858cc4bec25-jenkins",
+                          "is-floating": true,
+                          "vlan-id-outer": 381
+                        }
+                      ]
+                    },
+                    {
+                      "vlan-description": "AmUPyMpoz",
+                      "vpn-key": "zS9eKhmKY",
+                      "prov-status": "bW2IFjyyrb",
+                      "vlan-id-inner": 852,
+                      "vlan-id-outer": 777,
+                      "orchestration-status": "sjwcTB",
+                      "speed-value": "1tE5qyCpE",
+                      "in-maint": true,
+                      "l3-interface-ipv6-address-list": [
+                        {
+                          "resource-version": "1529889840292",
+                          "neutron-network-id": "j866pg4Pm",
+                          "neutron-subnet-id": "6Wyki",
+                          "l3-interface-ipv6-prefix-length": 307,
+                          "vlan-id-inner": 182,
+                          "is-floating": true,
+                          "l3-interface-ipv6-address": "f6d75e58-37d6-4b7e-acb8-2e99f9b4f3c6-jenkins",
+                          "vlan-id-outer": 204
+                        },
+                        {
+                          "resource-version": "1529889840286",
+                          "neutron-network-id": "1PkEbG6dYqTfi",
+                          "neutron-subnet-id": "JZh6Tirqre",
+                          "l3-interface-ipv6-prefix-length": 110,
+                          "vlan-id-inner": 655,
+                          "is-floating": true,
+                          "l3-interface-ipv6-address": "36dcfb46-a281-43ec-9f19-57ad77388b86-jenkins",
+                          "vlan-id-outer": 260
+                        }
+                      ],
+                      "resource-version": "1529889840269",
+                      "is-ip-unnumbered": true,
+                      "speed-units": "Vde",
+                      "vlan-interface": "64aefea8-d550-4328-9528-c6c20ebdcc83-jenkins",
+                      "backdoor-connection": "1IYINR4x",
+                      "l3-interface-ipv4-address-list": [
+                        {
+                          "l3-interface-ipv4-prefix-length": 807,
+                          "resource-version": "1529889840274",
+                          "neutron-network-id": "IOCxD0A",
+                          "neutron-subnet-id": "fmUBSv4xn",
+                          "vlan-id-inner": 695,
+                          "l3-interface-ipv4-address": "ca68fb8b-47f5-452b-9297-5bb1bf3df3cb-jenkins",
+                          "is-floating": true,
+                          "vlan-id-outer": 320
+                        },
+                        {
+                          "l3-interface-ipv4-prefix-length": 412,
+                          "resource-version": "1529889840280",
+                          "neutron-network-id": "825jJkD4",
+                          "neutron-subnet-id": "xm9E",
+                          "vlan-id-inner": 730,
+                          "l3-interface-ipv4-address": "0e19582a-6f8b-4fb5-bf49-b8ee1d94b300-jenkins",
+                          "is-floating": false,
+                          "vlan-id-outer": 796
+                        }
+                      ]
+                    }
+                  ]
+                },
+                "l-interfaces": {
+                  "l-interface": [
+                    {
+                      "v6-wan-link-ip": "fRVDB",
+                      "interface-name": "1afbcfe1-fd3f-45e9-8c10-c03687bd155e-jenkins",
+                      "allowed-address-pairs": "pt1w8Myf3CMX",
+                      "prov-status": "aEeKbHcU13Bya",
+                      "macaddr": "W6w1yt4XkZc",
+                      "interface-role": "cqr1D",
+                      "selflink": "0Q1th8cWl",
+                      "in-maint": true,
+                      "admin-status": "FyxEvTkdiprO",
+                      "is-port-mirrored": true,
+                      "resource-version": "1529889840342",
+                      "is-ip-unnumbered": false,
+                      "network-name": "NABSQ7",
+                      "management-option": "4seC3CZ0zmyox",
+                      "interface-id": "vM1",
+                      "interface-description": "hML"
+                    },
+                    {
+                      "v6-wan-link-ip": "wWDvY3k",
+                      "interface-name": "e1f17f18-2415-4af9-b503-337117a3895a-jenkins",
+                      "allowed-address-pairs": "PoPZQKwe5",
+                      "prov-status": "lrbHN1Glz",
+                      "macaddr": "z1z1PLeAU",
+                      "interface-role": "MZW4",
+                      "selflink": "8MXx36",
+                      "in-maint": true,
+                      "admin-status": "Togx",
+                      "is-port-mirrored": false,
+                      "resource-version": "1529889840336",
+                      "is-ip-unnumbered": false,
+                      "network-name": "IgN0B6",
+                      "management-option": "kYE1hmpQcbv",
+                      "interface-id": "RISQle6r",
+                      "interface-description": "HxiEkqQeZOJ"
+                    }
+                  ]
+                },
+                "interface-name": "55595739-f1c1-40fd-8e02-ed26c8a5a273-jenkins",
+                "allowed-address-pairs": "Ku1FptLLsb",
+                "prov-status": "swt3YHhr68",
+                "macaddr": "SFuEED5Q4",
+                "interface-role": "j1Szdb",
+                "selflink": "TWML",
+                "in-maint": true,
+                "admin-status": "13qB1qn1IYJHY",
+                "l3-interface-ipv6-address-list": [
+                  {
+                    "resource-version": "1529889840360",
+                    "neutron-network-id": "Q2jys",
+                    "neutron-subnet-id": "qfV9kgabkzxT",
+                    "l3-interface-ipv6-prefix-length": 408,
+                    "vlan-id-inner": 856,
+                    "is-floating": false,
+                    "l3-interface-ipv6-address": "33d879a4-cffc-4c9e-b3e3-ca8285904837-jenkins",
+                    "vlan-id-outer": 343
+                  },
+                  {
+                    "resource-version": "1529889840367",
+                    "neutron-network-id": "lMt10eoK2AQoa",
+                    "neutron-subnet-id": "1skENPqW",
+                    "l3-interface-ipv6-prefix-length": 320,
+                    "vlan-id-inner": 89,
+                    "is-floating": false,
+                    "l3-interface-ipv6-address": "86fac1bc-375d-4d9f-97e7-1e7bef843039-jenkins",
+                    "vlan-id-outer": 203
+                  }
+                ],
+                "is-port-mirrored": true,
+                "resource-version": "1529889840262",
+                "is-ip-unnumbered": false,
+                "sriov-vfs": {
+                  "sriov-vf": [
+                    {
+                      "vf-vlan-filter": "ZzMNbVF3sT",
+                      "vf-vlan-strip": false,
+                      "neutron-network-id": "yThOSXDJtt",
+                      "vf-broadcast-allow": false,
+                      "vf-mac-anti-spoof-check": true,
+                      "vf-unknown-multicast-allow": true,
+                      "pci-id": "bf38b0ee-0d9e-4aac-b51d-4e0091063616-jenkins",
+                      "vf-mirrors": "zRC0L4imSH",
+                      "resource-version": "1529889840331",
+                      "vf-link-status": "XMxqQi5QhOrW",
+                      "vf-mac-filter": "bieb3t",
+                      "vf-insert-stag": false,
+                      "vf-vlan-anti-spoof-check": true,
+                      "vf-unknown-unicast-allow": true
+                    }
+                  ]
+                },
+                "network-name": "QLvohj",
+                "management-option": "fCIqRUOOdh",
+                "interface-id": "iGkiFK",
+                "interface-description": "ERxXZI",
+                "l3-interface-ipv4-address-list": [
+                  {
+                    "l3-interface-ipv4-prefix-length": 153,
+                    "resource-version": "1529889840348",
+                    "neutron-network-id": "JehiIKkHvx",
+                    "neutron-subnet-id": "Mj6TT",
+                    "vlan-id-inner": 333,
+                    "l3-interface-ipv4-address": "c8fe829f-04e1-448b-bebc-bd519b2750c8-jenkins",
+                    "is-floating": true,
+                    "vlan-id-outer": 145
+                  },
+                  {
+                    "l3-interface-ipv4-prefix-length": 657,
+                    "resource-version": "1529889840354",
+                    "neutron-network-id": "PYwcY36hEY",
+                    "neutron-subnet-id": "17Hs1AFpT",
+                    "vlan-id-inner": 815,
+                    "l3-interface-ipv4-address": "26764e8a-ad03-46e0-9031-4cbc400b1911-jenkins",
+                    "is-floating": false,
+                    "vlan-id-outer": 435
+                  }
+                ]
+              }
+            ]
+          },
+          "interface-name": "dfa51737-16a5-4061-a295-bc5e51b31238-jenkins",
+          "prov-status": "KyURisF3pLj",
+          "interface-role": "IEn2AUkIiYlh",
+          "sriov-pfs": {
+            "sriov-pf": [
+              {
+                "resource-version": "1529889840138",
+                "pf-pci-id": "99c1731b-7ea5-4af0-9b49-fc447fc02a7f-jenkins"
+              }
+            ]
+          },
+          "selflink": "dCPBnieGuf",
+          "speed-value": "3kz6VhwJf",
+          "in-maint": true,
+          "interface-type": "sqBpLbc",
+          "port-description": "5kzHuoA",
+          "resource-version": "1529889840133",
+          "inv-status": "kH1",
+          "speed-units": "saqVmt9"
+        }
+      ]
+    },
+    "resource-version": "1529889839890",
+    "ram-in-megabytes": 886,
+    "ipaddress-v4-aim": "14Ku",
+    "management-option": "qBr",
+    "internet-topology": "eNTF",
+    "host-profile": "cd3AI9U2izq6"
+  }
+}

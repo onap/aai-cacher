@@ -1,0 +1,47 @@
+{
+  "cambria.partition": "AAI",
+  "event-header": {
+    "severity": "NORMAL",
+    "entity-type": "l3-interface-ipv4-address-list",
+    "top-entity-type": "generic-vnf",
+    "entity-link": "/aai/v13/network/generic-vnfs/generic-vnf/generic-vnf-987654321-39-jenkins/l-interfaces/l-interface/interface-name-generic-vnf-987654321-39-jenkins/vlans/vlan/vlan-interface-generic-vnf-987654321-39-jenkins/l3-interface-ipv4-address-list/l3-interface-ipv4-address-generic-vnf-987654321-39-jenkins",
+    "event-type": "AAI-EVENT",
+    "domain": "uINT1",
+    "action": "DELETE",
+    "sequence-number": "0",
+    "id": "7a899562-a0c1-414e-83aa-0021a5c7646b",
+    "source-name": "FitNesse-Test-generic-vnf-AAI-9278-02",
+    "version": "v13",
+    "timestamp": "20180625-00:05:26:664"
+  },
+  "entity": {
+    "vnf-id": "generic-vnf-987654321-39-jenkins",
+    "l-interfaces": {
+      "l-interface": [
+        {
+          "vlans": {
+            "vlan": [
+              {
+                "vlan-interface": "vlan-interface-generic-vnf-987654321-39-jenkins",
+                "l3-interface-ipv4-address-list": [
+                  {
+                    "l3-interface-ipv4-prefix-length": 79781362,
+                    "resource-version": "1529885125714",
+                    "neutron-network-id": "example-neutron-network-id-val-73336",
+                    "neutron-subnet-id": "example-neutron-subnet-id-val-86272",
+                    "vlan-id-inner": 8858186,
+                    "l3-interface-ipv4-address": "l3-interface-ipv4-address-generic-vnf-987654321-39-jenkins",
+                    "is-floating": true,
+                    "vlan-id-outer": 5350919
+                  }
+                ]
+              }
+            ]
+          },
+          "interface-name": "interface-name-generic-vnf-987654321-39-jenkins"
+        }
+      ]
+    },
+    "vnf-name": "example-vnf-name-val-21021"
+  }
+}

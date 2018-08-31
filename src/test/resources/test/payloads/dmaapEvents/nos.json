@@ -1,0 +1,96 @@
+{
+  "cambria.partition": "AAI",
+  "event-header": {
+    "severity": "NORMAL",
+    "entity-type": "nos-server",
+    "top-entity-type": "cloud-region",
+    "entity-link": "/aai/v13/cloud-infrastructure/cloud-regions/cloud-region/onap-cloud-owner/AAIAIC25/tenants/tenant/tenant-987654321-8991-ps2418/nos-servers/nos-server/nos-server-987654321-8991-ps2418",
+    "event-type": "AAI-EVENT",
+    "domain": "uINT1",
+    "action": "CREATE",
+    "sequence-number": "0",
+    "id": "90105aab-78f6-4d83-83b4-48488998a9bd",
+    "source-name": "SDNC",
+    "version": "v13",
+    "timestamp": "20180625-15:29:20:696"
+  },
+  "entity": {
+    "tenants": {
+      "tenant": [
+        {
+          "nos-servers": {
+            "nos-server": [
+              {
+                "nos-server-selflink": "example-nos-server-selflink-val-56832",
+                "relationship-list": {
+                  "relationship": [
+                    {
+                      "related-to": "generic-vnf",
+                      "relationship-data": [
+                        {
+                          "relationship-value": "generic-vnf-987654321-89911-ps2418",
+                          "relationship-key": "generic-vnf.vnf-id"
+                        }
+                      ],
+                      "related-link": "/aai/v13/network/generic-vnfs/generic-vnf/generic-vnf-987654321-89911-ps2418",
+                      "relationship-label": "tosca.relationships.HostedOn",
+                      "related-to-property": [
+                        {
+                          "property-key": "generic-vnf.vnf-name",
+                          "property-value": "example-vnf-name-val-21594"
+                        }
+                      ]
+                    },
+                    {
+                      "related-to": "generic-vnf",
+                      "relationship-data": [
+                        {
+                          "relationship-value": "generic-vnf-987654321-89922-ps2418",
+                          "relationship-key": "generic-vnf.vnf-id"
+                        }
+                      ],
+                      "related-link": "/aai/v13/network/generic-vnfs/generic-vnf/generic-vnf-987654321-89922-ps2418",
+                      "relationship-label": "tosca.relationships.HostedOn",
+                      "related-to-property": [
+                        {
+                          "property-key": "generic-vnf.vnf-name",
+                          "property-value": "example-vnf-name-val-21594"
+                        }
+                      ]
+                    },
+                    {
+                      "related-to": "pserver",
+                      "relationship-data": [
+                        {
+                          "relationship-value": "pserver-987654321-8991-ps2418",
+                          "relationship-key": "pserver.hostname"
+                        }
+                      ],
+                      "related-link": "/aai/v13/cloud-infrastructure/pservers/pserver/pserver-987654321-8991-ps2418",
+                      "relationship-label": "tosca.relationships.HostedOn",
+                      "related-to-property": [
+                        {
+                          "property-key": "pserver.pserver-name2"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                "in-maint": true,
+                "vendor": "example-vendor-val-78053",
+                "resource-version": "1529940560508",
+                "nos-server-name": "example-nos-server-name-val-4811-nos-server-987654321-8991-ps2418",
+                "nos-server-id": "nos-server-987654321-8991-ps2418",
+                "prov-status": "example-prov-status-val-20734"
+              }
+            ]
+          },
+          "tenant-id": "tenant-987654321-8991-ps2418",
+          "tenant-name": "example-tenant-name-val-19302"
+        }
+      ]
+    },
+    "cloud-owner": "onap-cloud-owner",
+    "cloud-region-id": "AAIAIC25"
+  }
+}

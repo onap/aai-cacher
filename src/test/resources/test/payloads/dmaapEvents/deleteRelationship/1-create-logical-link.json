@@ -1,0 +1,20 @@
+{
+  "cambria.partition": "AAI",
+  "event-header": {
+    "severity": "NORMAL",
+    "entity-type": "logical-link",
+    "top-entity-type": "logical-link",
+    "entity-link": "/aai/v13/network/logical-links/logical-link/logical-link",
+    "event-type": "AAI-EVENT",
+    "domain": "uINT1",
+    "action": "CREATE",
+    "sequence-number": "0",
+    "id": "fe89fd6b-8b1b-4ab6-8b3a-d5bb7942dbee",
+    "source-name": "junit",
+    "version": "v13",
+    "timestamp": "20180712-17:47:24:042"
+  },
+  "entity": {
+    "link-name": "logical-link"
+  }
+}

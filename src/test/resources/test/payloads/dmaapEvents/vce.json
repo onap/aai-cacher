@@ -1,0 +1,81 @@
+{
+  "cambria.partition": "AAI",
+  "event-header": {
+    "severity": "NORMAL",
+    "entity-type": "vce",
+    "top-entity-type": "vce",
+    "entity-link": "/aai/v13/network/vces/vce/vce-987654321-311-ps2418",
+    "event-type": "AAI-EVENT",
+    "domain": "uINT1",
+    "action": "DELETE",
+    "sequence-number": "0",
+    "id": "b10f1221-1c3f-42d2-987b-3071818cb613",
+    "source-name": "FitNesse-Test-ps2418",
+    "version": "v13",
+    "timestamp": "20180627-16:35:28:464"
+  },
+  "entity": {
+    "entitlements": {
+      "entitlement": [
+        {
+          "resource-version": "1530117237423",
+          "group-uuid": "group-uuid-2-vce-987654321-311-ps2418",
+          "resource-uuid": "example-resource-uuid-val-8433"
+        }
+      ]
+    },
+    "service-id": "example-service-id-val-62283",
+    "vnf-id": "vce-987654321-311-ps2418",
+    "vnf-name2": "example-vnf-name2-val-9403",
+    "regional-resource-zone": "example-regional-resource-zone-val-78515",
+    "v6-vce-wan-address": "example-v6-vce-wan-address-val-36157",
+    "prov-status": "example-prov-status-val-30289",
+    "operational-status": "example-operational-status-val-52645",
+    "vpe-id": "example-vpe-id-val-22112",
+    "equipment-role": "example-equipment-role-val-15655",
+    "license-key": "example-license-key-val-94096",
+    "ipv4-oam-address": "example-ipv4-oam-address-val-38828",
+    "ipv4-loopback0-address": "example-ipv4-loopback0-address-val-22629",
+    "entitlement-resource-uuid": "example-entitlement-resource-uuid-val-545",
+    "vnf-type": "example-vnf-type-val-4945",
+    "orchestration-status": "example-orchestration-status-val-89335",
+    "licenses": {
+      "license": [
+        {
+          "resource-version": "1530117237414",
+          "group-uuid": "group-uuid-vce-987654321-311-ps2418",
+          "resource-uuid": "example-resource-uuid-val-72009"
+        }
+      ]
+    },
+    "heat-stack-id": "example-heat-stack-id-val-97607",
+    "resource-version": "1530117237387",
+    "mso-catalog-key": "example-mso-catalog-key-val-27829",
+    "vnf-name": "example-vnf-name-val-72342",
+    "port-groups": {
+      "port-group": [
+        {
+          "interface-role": "example-interface-role-val-37524",
+          "cvlan-tags": {
+            "cvlan-tag-entry": [
+              {
+                "resource-version": "1530117237399",
+                "cvlan-tag": 37491872
+              }
+            ]
+          },
+          "resource-version": "1530117237394",
+          "heat-stack-id": "example-heat-stack-id-val-90634",
+          "port-group-name": "example-port-group-name-val-2717",
+          "neutron-network-id": "example-neutron-network-id-val-27420",
+          "port-group-id": "example-port-group-id-val-16749",
+          "mso-catalog-key": "example-mso-catalog-key-val-96458",
+          "neutron-network-name": "example-neutron-network-name-val-98499",
+          "switch-name": "example-switch-name-val-78257",
+          "interface-id": "port-group-interface-id-vce-987654321-311-ps2418",
+          "orchestration-status": "example-orchestration-status-val-54586"
+        }
+      ]
+    }
+  }
+}

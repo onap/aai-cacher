@@ -1,0 +1,32 @@
+{
+  "cambria.partition": "AAI",
+  "event-header": {
+    "severity": "NORMAL",
+    "entity-type": "generic-vnf",
+    "top-entity-type": "generic-vnf",
+    "entity-link": "/aai/v13/network/generic-vnfs/generic-vnf/generic-vnf-id",
+    "event-type": "AAI-EVENT",
+    "domain": "uINT1",
+    "action": "CREATE",
+    "sequence-number": "0",
+    "id": "d56359e7-4dcb-471a-9a6a-2afbb353b5bd",
+    "source-name": "junit",
+    "version": "v13",
+    "timestamp": "20180712-17:47:24:440"
+  },
+  "entity": {
+    "vnf-id": "generic-vnf-id",
+    "l-interfaces": {
+      "l-interface": [{
+        "vlans": {
+          "vlan": [{
+            "vlan-interface": "vlan-1"
+          }
+          ]
+        },
+        "interface-name": "l-interface-name-1"
+      }
+      ]
+    }
+  }
+}

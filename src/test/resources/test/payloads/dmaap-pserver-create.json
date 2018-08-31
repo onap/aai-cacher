@@ -1,0 +1,100 @@
+{
+  "cambria.partition": "AAI",
+  "event-header":
+  {
+    "severity": "NORMAL",
+    "entity-type": "pserver",
+    "top-entity-type": "pserver",
+    "entity-link": "/aai/v12/cloud-infrastructure/pservers/pserver/dmaap-pserver-create",
+    "event-type": "AAI-EVENT",
+    "domain": "test",
+    "action": "CREATE",
+    "sequence-number": "0",
+    "id": "id-dmaap-pserver-create",
+    "source-name": "test",
+    "version": "v12",
+    "timestamp": "20180508-17:50:11:681"
+  },
+  "entity":
+  {
+    "hostname": "dmaap-pserver-create",
+    "equip-type": "JUNIPER XXXX",
+    "relationship-list":
+    {
+      "relationship": [
+        {
+          "related-to": "complex",
+          "relationship-data": [
+            {
+              "relationship-value": "CHARILWJNA0",
+              "relationship-key": "complex.physical-location-id"
+            }
+          ],
+          "related-link": "/aai/v12/cloud-infrastructure/complexes/complex/CHARILWJNA0",
+          "relationship-label": "org.onap.relationships.inventory.LocatedIn"
+        }
+      ]
+    },
+    "equip-vendor": "JUNIPER",
+    "equip-model": "NFX250-XYZ-LS1",
+    "in-maint": false,
+    "serial-number": "",
+    "resource-version": "1525801811662",
+    "pserver-id": "0A47B945-9C74-4CBE-AD72-0DECB966EB94",
+    "p-interfaces":
+    {
+      "p-interface": [
+        {
+          "interface-name": "ge-0/0/10",
+          "relationship-list":
+          {
+            "relationship": [
+              {
+                "related-to": "physical-link",
+                "relationship-label": "tosca.relationships.network.LinksTo",
+                "related-link": "/aai/v12/network/physical-links/physical-link/HIS.1702.03053.121",
+                "relationship-data": [
+                  {
+                    "relationship-key": "physical-link.link-name",
+                    "relationship-value": "HIS.1702.03053.121"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "interface-name": "ge-0/0/11",
+          "relationship-list":
+          {
+            "relationship": [
+              {
+                "related-to": "vserver",
+                "relationship-label": "tosca.relationships.HostedOn",
+                "related-link": "/aai/v12/cloud-infrastructure/cloud-regions/cloud-region/onap-cloud-owner/AAIAIC25/tenants/tenant/SERVERNAME%3A%3AXXXX/vservers/vserver/afce2113-297a-436c-811a-acf9981fff68",
+                "relationship-data": [
+                  {
+                    "relationship-key": "cloud-region.cloud-owner",
+                    "relationship-value": "onap-cloud-owner"
+                  },
+                  {
+                    "relationship-key": "cloud-region.cloud-region-id",
+                    "relationship-value": "AAIAIC25"
+                  },
+                  {
+                    "relationship-key": "tenant.tenant-id",
+                    "relationship-value": "SERVERNAME::XXXX"
+                  },
+                  {
+                    "relationship-key": "vserver.vserver-id",
+                    "relationship-value": "afce2113-297a-436c-811a-acf9981fff68"
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}
