@@ -24,14 +24,14 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>org.onap.aai</groupId>
+	<groupId>org.onap.aai.cacher</groupId>
 	<artifactId>aai-cacher</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
 
     <parent>
         <groupId>org.onap.oparent</groupId>
         <artifactId>oparent</artifactId>
-        <version>1.1.0</version>
+        <version>1.2.0</version>
     </parent>
 
 	<properties>
@@ -58,7 +58,16 @@
 		<service.account>aai-svc-account</service.account>
 		<docker.namespace>openecomp</docker.namespace>
 		
-        <license.goal.type>check</license.goal.type>		
+        <license.goal.type>check</license.goal.type>
+        
+        <!--
+            Nexus Proxy Properties and Snapshot Locations
+            Ideally this can be overwritten at runtime per internal environment specific values at runtime
+        -->
+        <nexusproxy>https://nexus.onap.org</nexusproxy>
+        <site.path>/content/sites/site/org/onap/aai/cacher/${project.artifactId}/${project.version}</site.path>
+        <release.path>/content/repositories/releases/</release.path>
+        <snapshot.path>/content/repositories/snapshots/</snapshot.path>        		
 		
 		<start-class>org.onap.aai.cacher.Application</start-class>		
 		
@@ -457,6 +466,31 @@
         </dependency>              
 	</dependencies>
 		<build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-deploy-plugin</artifactId>
+                    <executions>
+                        <execution>
+                            <id>default-deploy</id>
+                            <phase>none</phase>
+                        </execution>
+                    </executions>
+                </plugin>
+                <plugin>
+                    <groupId>org.sonatype.plugins</groupId>
+                    <artifactId>nexus-staging-maven-plugin</artifactId>
+                    <version>1.6.7</version>
+                    <extensions>true</extensions>
+                    <configuration>
+                        <nexusUrl>${nexusproxy}</nexusUrl>
+                        <stagingProfileId>176c31dfe190a</stagingProfileId>
+                        <serverId>ecomp-staging</serverId>
+                    </configuration>
+                </plugin>                                
+            </plugins>
+        </pluginManagement>            	            			
 		<plugins>
 			<plugin>
 				<artifactId>maven-dependency-plugin</artifactId>
@@ -653,6 +687,17 @@
 			</resource>
         </resources>        
 	</build>
+    <distributionManagement>
+        <snapshotRepository>
+            <id>ecomp-snapshots</id>
+            <name>ECOMP Snapshot Repository</name>
+            <url>${onap.nexus.url}/content/repositories/snapshots/</url>
+        </snapshotRepository>
+        <site>
+            <id>ecomp-site</id>
+            <url>dav:${onap.nexus.url}${sitePath}</url>
+        </site>
+    </distributionManagement>	
     <!-- Start of ONAP Specific Repositories -->
     <repositories>
         <repository>
