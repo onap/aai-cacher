@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a76adc5_070ff837",
+        "filename": "pom.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 75
+      },
+      "writtenOn": "2018-09-19T20:18:07Z",
+      "side": 1,
+      "message": "Change this back to spring.boot.version 1.5.15.RELEASE",
+      "revId": "7f9a3236e3f406772ae15af0ee40a2cd7780f0c7",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
