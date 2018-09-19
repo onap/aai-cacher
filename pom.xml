@@ -83,7 +83,7 @@
 		<!-- End of the jacoco plugin properties -->
 		
 		<json.version>20090211</json.version>
-		<logback.version>1.1.7</logback.version>
+		<logback.version>1.2.3</logback.version>
 		<eelf.core.version>1.0.0</eelf.core.version>
 		<mockito.version>1.10.19</mockito.version>
 		<json.assert.version>1.5.0</json.assert.version>
@@ -238,7 +238,7 @@
 		<dependency>
 			<groupId>org.apache.httpcomponents</groupId>
 			<artifactId>httpclient</artifactId>
-			<version>4.5.1</version>
+			<version>4.5.6</version>
 		</dependency>
 		<dependency>
 			<groupId>com.google.code.gson</groupId>
@@ -249,7 +249,18 @@
 			<groupId>de.flapdoodle.embed</groupId>
 			<artifactId>de.flapdoodle.embed.mongo</artifactId>
 			<version>2.0.3</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.apache.commons</groupId>
+                    <artifactId>commons-compress</artifactId>
+                </exclusion>
+            </exclusions>			
 		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-compress</artifactId>
+			<version>1.18</version>
+		</dependency>		
 		<dependency>
 			<groupId>org.mongodb</groupId>
 			<artifactId>mongodb-driver</artifactId>
@@ -506,6 +517,12 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+                <!-- 
+                  Issue with the spring 1.5.15.RELEASE plugin is causing build errors
+                  due to the fact that the plugin 1.5.15.RELEASE was built using maven 3.5 while
+                  the current build version being used by our jenkins is 3.3.9
+                -->
+                <version>1.5.12.RELEASE</version>				
 				<configuration>
 					<mainClass>${start-class}</mainClass>
 					<layout>ZIP</layout>
