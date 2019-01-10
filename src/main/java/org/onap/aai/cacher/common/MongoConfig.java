@@ -88,7 +88,6 @@ public class MongoConfig {
 
         MongodStarter starter = MongodStarter.getDefaultInstance();
 
-        String bindIp = MONGO_DB_HOST;
         int port = MONGO_DB_PORT;
         IMongodConfig mongodConfig = new MongodConfigBuilder().version(Version.Main.PRODUCTION)
                 .net(new Net(port, Network.localhostIsIPv6())).configServer(false).build();
