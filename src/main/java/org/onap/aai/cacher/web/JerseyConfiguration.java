@@ -33,7 +33,6 @@ import javax.annotation.Priority;
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.container.ContainerRequestFilter;
 import javax.ws.rs.container.ContainerResponseFilter;
-
 import java.util.List;
 import java.util.Set;
 import java.util.logging.Logger;

@@ -1,0 +1,151 @@
+{
+  "pserverCreate": {
+    "cambria.partition": "AAI",
+    "event-header": {
+      "severity": "NORMAL",
+      "entity-type": "pserver",
+      "top-entity-type": "pserver",
+      "entity-link": "/aai/v14/cloud-infrastructure/pservers/pserver/pserver-1",
+      "event-type": "AAI-EVENT",
+      "domain": "JUNIT",
+      "action": "CREATE",
+      "sequence-number": "0",
+      "id": "0c3b336d-6554-4ddf-a4d7-90f97876a966",
+      "source-name": "JUNIT",
+      "version": "v14",
+      "timestamp": "20180209-21:02:20:344"
+    },
+    "entity": {
+      "hostname": "pserver-1",
+      "in-maint": false
+    }
+  },
+  "crWithNestingAndWithRels": {
+    "cambria.partition": "AAI",
+    "event-header": {
+      "severity": "NORMAL",
+      "entity-type": "cloud-region",
+      "top-entity-type": "cloud-region",
+      "entity-link": "/aai/v14/cloud-infrastructure/cloud-regions/cloud-region/onap-cloud-owner/mtn6",
+      "event-type": "AAI-EVENT",
+      "domain": "JUNIT",
+      "action": "CREATE",
+      "sequence-number": "0",
+      "id": "3d567832-df00-49b5-b862-4d3a341dbec1",
+      "source-name": "JUNIT",
+      "version": "v14",
+      "timestamp": "20180515-10:57:55:750"
+    },
+    "entity": {
+      "tenants": {
+        "tenant": [
+          {
+            "vservers": {
+              "vserver": [
+                {
+                  "relationship-list": {
+                    "relationship": [
+                      {
+                        "related-to": "pserver",
+                        "relationship-data": [
+                          {
+                            "relationship-value": "pserver-1",
+                            "relationship-key": "pserver.hostname"
+                          }
+                        ],
+                        "related-link": "/aai/v14/cloud-infrastructure/pservers/pserver/pserver-1",
+                        "relationship-label": "tosca.relationships.HostedOn"
+                      }
+                    ]
+                  },
+                  "l-interfaces": {
+                    "l-interface": [
+                      {
+                        "interface-name": "l-int-1",
+                        "interface-id": "l-int-1",
+                        "l3-interface-ipv4-address-list": [
+                          {
+                            "neutron-network-id": "93fb399c-9bfc-4234-b2bb-a76eda38f117",
+                            "neutron-subnet-id": "79e5bb69-24bb-4ea3-8d1d-c04fca5f5e1e",
+                            "l3-interface-ipv4-address": "192.168.70.3"
+                          }
+                        ],
+                        "relationship-list": {
+                          "relationship": [
+                            {
+                              "related-to": "pserver",
+                              "relationship-data": [
+                                {
+                                  "relationship-value": "pserver-1",
+                                  "relationship-key": "pserver.hostname"
+                                }
+                              ],
+                              "related-link": "/aai/v14/cloud-infrastructure/pservers/pserver/pserver-1",
+                              "relationship-label": "tosca.relationships.HostedOn"
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  },
+                  "vserver-id": "vserver-1"
+                }
+              ]
+            },
+            "tenant-id": "tenenat-1"
+          }
+        ]
+      },
+      "cloud-owner": "onap-cloud-owner",
+      "cloud-region-id": "mtn6"
+    }
+  },
+  "updatePserverWithoutInterfaceRel": {
+    "cambria.partition": "AAI",
+    "event-header": {
+      "severity": "NORMAL",
+      "entity-type": "pserver",
+      "top-entity-type": "pserver",
+      "entity-link": "/aai/v14/cloud-infrastructure/pservers/pserver/pserver-1",
+      "event-type": "AAI-EVENT",
+      "domain": "JUNIT",
+      "action": "UPDATE",
+      "sequence-number": "0",
+      "id": "0c3b336d-6554-4ddf-a4d7-90f97876a966",
+      "source-name": "JUNIT",
+      "version": "v14",
+      "timestamp": "20180209-21:02:20:344"
+    },
+    "entity": {
+      "hostname": "pserver-1",
+      "in-maint": false,
+      "relationship-list": {
+        "relationship": [
+          {
+            "related-to": "vserver",
+            "relationship-label": "tosca.relationships.HostedOn",
+            "related-link": "/aai/v14/cloud-infrastructure/cloud-regions/cloud-region/onap-cloud-owner/mtn6/tenants/tenant/tenenat-1/vservers/vserver/vserver-1",
+            "relationship-data": [
+              {
+                "relationship-key": "cloud-region.cloud-owner",
+                "relationship-value": "onap-cloud-owner"
+              },
+              {
+                "relationship-key": "cloud-region.cloud-region-id",
+                "relationship-value": "mtn6"
+              },
+              {
+                "relationship-key": "tenant.tenant-id",
+                "relationship-value": "tenenat-1"
+              },
+              {
+                "relationship-key": "vserver.vserver-id",
+                "relationship-value": "vserver-1"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

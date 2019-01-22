@@ -24,6 +24,8 @@ import com.att.eelf.configuration.EELFManager;
 import com.google.common.collect.Lists;
 import com.google.gson.*;
 import com.mongodb.*;
+
+import org.apache.commons.lang3.StringUtils;
 import org.onap.aai.cacher.common.MongoHelperSingleton;
 import org.onap.aai.cacher.egestion.printer.PayloadPrinterService;
 import org.onap.aai.cacher.injestion.parser.PayloadParserService;
@@ -137,7 +139,6 @@ public class CacheHelperService {
                     // remove "_id" property from cache response
                     JsonParser parser = new JsonParser();
                     JsonObject jsonObj = (JsonObject) parser.parse(cursor.next().toString());
-                    jsonObj.remove("_id");
                     jsonArray.add(jsonObj);
                 }
             }
@@ -209,8 +210,11 @@ public class CacheHelperService {
 
     public Response forceSync(CacheKey ck) {
         if (isCurrentlyRunning(ck)) {
-            AAIException aaiException = new AAIException("AAI_4000", "Sync is currently running from another process.");
-            return buildExceptionResponse(aaiException);
+            AAIException aaiException = new AAIException("AAI_3000", "Sync is currently running from another process.");
+            ArrayList<String> templateVars = new ArrayList();
+            templateVars.add("/sync");
+            templateVars.add(ck.getCacheKey());
+            return buildExceptionResponse(aaiException, templateVars);
         } else if (isKeyPresent(ck, AAIConstants.COLLECTION_CACHEKEY)) {
             // populate cache and return status on sync
             ResponseEntity resp = rchs.triggerRestCall(ck);
@@ -232,8 +236,12 @@ public class CacheHelperService {
             result = this.retrieveCollectionString(ck, collection);
 
             if (result.equals("")) {
-                status = Status.NOT_FOUND;
-                EELF_LOGGER.error("Cannot not found the  cache key from mongodb");
+                EELF_LOGGER.error("Cannot not find the  cache key from mongodb " + ck.getCacheKey());
+                AAIException aaiException = new AAIException("AAI_3001", "cacheKey request");
+                ArrayList<String> templateVars = new ArrayList();
+                templateVars.add("/get");
+                templateVars.add(ck.getCacheKey());
+                return buildExceptionResponse(aaiException, templateVars);
             }
             return this.buildResponse(status, result);
         } catch (Exception e) {
@@ -251,6 +259,8 @@ public class CacheHelperService {
             if (result.equals("")) {
                 status = Status.NOT_FOUND;
                 EELF_LOGGER.error("Cannot not found the  cache key from mongodb");
+                AAIException aaiException = new AAIException("AAI_3001", "cacheKey get for" + ck.getCacheKey() );
+                return buildExceptionResponse(aaiException);
             }
             return this.buildResponse(status, result);
         } catch (Exception e) {
@@ -285,7 +295,11 @@ public class CacheHelperService {
                     result.append(cursor.next());
                 }
             } else {
-                status = Status.NOT_FOUND;
+                AAIException aaiException = new AAIException("AAI_3001", "cacheKey request");
+                ArrayList<String> templateVars = new ArrayList();
+                templateVars.add("/get");
+                templateVars.add("ALL");
+                return buildExceptionResponse(aaiException, templateVars);
             }
             return buildResponse(status, result.toString());
         } catch (Exception e) {
@@ -321,8 +335,11 @@ public class CacheHelperService {
             if (result.getN() > 0) {
                 status = Status.OK;
             } else {
-                // TODO set proper status for no results updated meaning it didn't find the key
-                status = Status.NOT_FOUND;
+                AAIException aaiException = new AAIException("AAI_3001", "cacheKey request");
+                ArrayList<String> templateVars = new ArrayList();
+                templateVars.add("/update");
+                templateVars.add(ck.getCacheKey());
+                return buildExceptionResponse(aaiException, templateVars);
             }
             return buildResponse(status, "{}");
         } catch (MongoException ex) {
@@ -354,8 +371,11 @@ public class CacheHelperService {
             status = Status.NO_CONTENT;
             return buildResponse(status, "{}");
         } else if (cacheKeyDelete.equals("NOT_FOUND")) {
-            status = Status.NOT_FOUND;
-            return buildResponse(status, "{}");
+            AAIException aaiException = new AAIException("AAI_3001", "cacheKey request");
+            ArrayList<String> templateVars = new ArrayList();
+            templateVars.add("/delete");
+            templateVars.add(id);
+            return buildExceptionResponse(aaiException, templateVars);
         } else {
             AAIException aaiException = new AAIException("AAI_5105");
             return buildExceptionResponse(aaiException);
@@ -369,8 +389,11 @@ public class CacheHelperService {
             status = Status.NO_CONTENT;
             return buildResponse(status, "{}");
         } else if (cacheDelete.equals("NOT_FOUND")) {
-            status = Status.NOT_FOUND;
-            return buildResponse(status, "{}");
+            AAIException aaiException = new AAIException("AAI_3001", "cacheKey request");
+            ArrayList<String> templateVars = new ArrayList();
+            templateVars.add("/delete");
+            templateVars.add(id);
+            return buildExceptionResponse(aaiException, templateVars);
         } else {
             AAIException aaiException = new AAIException("AAI_5105");
             return buildExceptionResponse(aaiException);
@@ -425,17 +448,32 @@ public class CacheHelperService {
         ck.setLastSyncSuccessTime(formatter.format(System.currentTimeMillis()));
         ck.setLastSyncEndTime(formatter.format(System.currentTimeMillis()));
         updateCacheKey(ck);
-        return buildResponse(Status.CREATED, "{}");
+        return buildResponse(Status.CREATED, null);
     }
 
     public Response buildResponse(Status status, String result) {
+        
+        if ( result == null ) {
+            return Response.status(status).type(MediaType.APPLICATION_JSON).build();
+        }
         return Response.status(status).type(MediaType.APPLICATION_JSON).entity(result).build();
+    }
+
+    public Response buildMissingFieldResponse(List<String> fields) {
+        AAIException aaiException = new AAIException("AAI_6118");
+        ArrayList<String> templateVars = new ArrayList<>();
+        templateVars.add(StringUtils.join(fields, ", "));
+        ErrorLogHelper.logException(aaiException);
+        return Response.status(aaiException.getErrorObject().getHTTPResponseCode())
+                .entity(ErrorLogHelper.getRESTAPIErrorResponseWithLogging(
+                        Lists.newArrayList(MediaType.APPLICATION_JSON_TYPE), aaiException, templateVars))
+                .build();
     }
 
     public Response buildValidationResponse(List<String> issues) {
         AAIException aaiException = new AAIException("AAI_3014");
         ArrayList<String> templateVars = new ArrayList<>();
-
+        
         if (templateVars.isEmpty()) {
             templateVars.add(issues.toString());
         }
@@ -444,13 +482,21 @@ public class CacheHelperService {
                 .entity(ErrorLogHelper.getRESTAPIErrorResponseWithLogging(
                         Lists.newArrayList(MediaType.APPLICATION_JSON_TYPE), aaiException, templateVars))
                 .build();
-    }
+    }    
 
+    public Response buildExceptionResponse(AAIException aaiException, ArrayList templateVars) {
+        ErrorLogHelper.logException(aaiException);
+        return Response.status(aaiException.getErrorObject().getHTTPResponseCode())
+                .entity(ErrorLogHelper.getRESTAPIErrorResponseWithLogging(
+                        Lists.newArrayList(MediaType.APPLICATION_JSON_TYPE), aaiException, templateVars))
+                .build();
+    }
+    
     public Response buildExceptionResponse(AAIException aaiException) {
         ErrorLogHelper.logException(aaiException);
         return Response.status(aaiException.getErrorObject().getHTTPResponseCode())
                 .entity(ErrorLogHelper.getRESTAPIErrorResponseWithLogging(
-                        Lists.newArrayList(MediaType.APPLICATION_JSON_TYPE), aaiException, new ArrayList<>()))
+                        Lists.newArrayList(MediaType.APPLICATION_JSON_TYPE), aaiException, new ArrayList()))
                 .build();
     }
 

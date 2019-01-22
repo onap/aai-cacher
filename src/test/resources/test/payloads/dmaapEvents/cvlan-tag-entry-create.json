@@ -1,0 +1,32 @@
+{
+    "cambria.partition": "AAI",
+    "event-header": {
+        "severity": "NORMAL",
+        "entity-type": "cvlan-tag",
+        "top-entity-type": "vce",
+        "entity-link": "/aai/v14/network/vces/vce/test-vnf-id/port-groups/port-group/test-interface-id/cvlan-tags/cvlan-tag/123321",
+        "event-type": "AAI-EVENT",
+        "domain": "uINT4",
+        "action": "CREATE",
+        "sequence-number": "0",
+        "id": "87c97593-dcd1-482e-afc5-d5d558e36a36",
+        "source-name": "sourcetest",
+        "version": "v14",
+        "timestamp": "20190103-22:05:33:786"
+    },
+    "entity": {
+        "vnf-id": "test-vnf-id",
+        "vnf-name": "test-vnf-name",
+        "port-groups": {
+            "port-group": [{
+                "cvlan-tags": {
+                    "cvlan-tag-entry": [{
+                        "resource-version": "1546553133766",
+                        "cvlan-tag": 123321
+                    }]
+                },
+                "interface-id": "test-interface-id"
+            }]
+        }
+    }
+}

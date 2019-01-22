@@ -1,0 +1,143 @@
+{
+  "pserver": [
+    {
+      "hostname": "USAUTOUFTIL2001UJZZ01",
+      "p-interfaces": {
+        "p-interface": [
+          {
+            "interface-name": "ge-0/0/10",
+            "relationship-list": {
+              "relationship": [
+                {
+                  "related-link": "/aai/v14/network/physical-links/physical-link/HIS.1702.03053.121",
+                  "related-to": "physical-link",
+                  "relationship-data": [
+                    {
+                      "relationship-key": "physical-link.link-name",
+                      "relationship-value": "HIS.1702.03053.121"
+                    }
+                  ],
+                  "relationship-label": "tosca.relationships.network.LinksTo"
+                }
+              ]
+            }
+          },
+          {
+            "interface-name": "ge-0/0/11",
+            "relationship-list": {
+              "relationship": [
+                {
+                  "related-link": "/aai/v14/network/physical-links/physical-link/HIS.1702.03053.122",
+                  "related-to": "physical-link",
+                  "relationship-data": [
+                    {
+                      "relationship-key": "physical-link.link-name",
+                      "relationship-value": "HIS.1702.03053.122"
+                    }
+                  ],
+                  "relationship-label": "tosca.relationships.network.LinksTo"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "relationship-list": {
+        "relationship": [
+          {
+            "related-link": "/aai/v14/network/generic-vnfs/generic-vnf/205c64eb-88b1-490a-a838-b0080e6902bc",
+            "related-to": "generic-vnf",
+            "related-to-property": [
+              {
+                "property-key": "generic-vnf.vnf-name",
+                "property-value": "USAUTOUFTIL2001UJDM02"
+              }
+            ],
+            "relationship-data": [
+              {
+                "relationship-key": "generic-vnf.vnf-id",
+                "relationship-value": "205c64eb-88b1-490a-a838-b0080e6902bc"
+              }
+            ],
+            "relationship-label": "tosca.relationships.HostedOn"
+          },
+          {
+            "related-link": "/aai/v14/cloud-infrastructure/cloud-regions/cloud-region/att-aic/AAIAIC25/tenants/tenant/USAUTOUFTIL2001UJZZ01%3A%3AuCPE/vservers/vserver/74a47c2c-b53f-4264-87fc-bb85c7f49207",
+            "related-to": "vserver",
+            "related-to-property": [
+              {
+                "property-key": "vserver.vserver-name",
+                "property-value": "USAUTOUFTIL2001UJZZ01-USAUTOUFTIL2001UJTE03"
+              }
+            ],
+            "relationship-data": [
+              {
+                "relationship-key": "cloud-region.cloud-owner",
+                "relationship-value": "att-aic"
+              },
+              {
+                "relationship-key": "cloud-region.cloud-region-id",
+                "relationship-value": "AAIAIC25"
+              },
+              {
+                "relationship-key": "tenant.tenant-id",
+                "relationship-value": "USAUTOUFTIL2001UJZZ01::uCPE"
+              },
+              {
+                "relationship-key": "vserver.vserver-id",
+                "relationship-value": "74a47c2c-b53f-4264-87fc-bb85c7f49207"
+              }
+            ],
+            "relationship-label": "tosca.relationships.HostedOn"
+          },
+          {
+            "related-link": "/aai/v14/cloud-infrastructure/cloud-regions/cloud-region/att-aic/AAIAIC25/tenants/tenant/USAUTOUFTIL2001UJZZ01%3A%3AuCPE/vservers/vserver/afce2113-297a-436c-811a-acf9981fff68",
+            "related-to": "vserver",
+            "related-to-property": [
+              {
+                "property-key": "vserver.vserver-name",
+                "property-value": "USAUTOUFTIL2001UJZZ01-vjunos0"
+              }
+            ],
+            "relationship-data": [
+              {
+                "relationship-key": "cloud-region.cloud-owner",
+                "relationship-value": "att-aic"
+              },
+              {
+                "relationship-key": "cloud-region.cloud-region-id",
+                "relationship-value": "AAIAIC25"
+              },
+              {
+                "relationship-key": "tenant.tenant-id",
+                "relationship-value": "USAUTOUFTIL2001UJZZ01::uCPE"
+              },
+              {
+                "relationship-key": "vserver.vserver-id",
+                "relationship-value": "afce2113-297a-436c-811a-acf9981fff68"
+              }
+            ],
+            "relationship-label": "tosca.relationships.HostedOn"
+          },
+          {
+            "related-link": "/aai/v14/cloud-infrastructure/complexes/complex/STLSMO0914",
+            "related-to": "complex",
+            "relationship-data": [
+              {
+                "relationship-key": "complex.physical-location-id",
+                "relationship-value": "STLSMO0914"
+              }
+            ],
+            "relationship-label": "org.onap.relationships.inventory.LocatedIn"
+          }
+        ]
+      }
+    },
+    {
+      "hostname": "pserver-2"
+    },
+    {
+      "hostname": "pserver-3"
+    }
+  ]
+}

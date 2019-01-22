@@ -1,0 +1,6 @@
+{
+  "_id" : "/business/customers/customer/testCustomer",
+  "service-subscriptions" : {
+    "service-subscription" : ["/business/customers/customer/testCustomer/service-subscriptions/service-subscription/testSS"]
+  }
+}

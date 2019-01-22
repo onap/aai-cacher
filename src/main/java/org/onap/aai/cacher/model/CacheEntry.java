@@ -34,6 +34,8 @@ public class CacheEntry {
     protected JsonObject findQuery;
 
     protected boolean isNested = false;
+    protected boolean isNestedPayloadString = false;
+    protected  String nestedString;
     protected String nestedField;
     protected JsonObject nestedFind;
     protected JsonObject nestedFieldIdentifierObj;
@@ -89,6 +91,22 @@ public class CacheEntry {
         isNested = nested;
     }
 
+    public boolean isNestedPayloadString() {
+        return isNestedPayloadString;
+    }
+
+    public void setNestedPayloadString(boolean nestedPayloadString) {
+        isNestedPayloadString = nestedPayloadString;
+    }
+
+    public String getNestedString() {
+        return nestedString;
+    }
+
+    public void setNestedString(String nestedString) {
+        this.nestedString = nestedString;
+    }
+
     public String getNestedField() {
         return nestedField;
     }
@@ -114,15 +132,17 @@ public class CacheEntry {
     }
 
     public static final class CacheEntryBuilder {
-        protected DBAction dbAction;
-        protected String id;
-        protected String collection;
-        protected JsonObject payload;
-        protected JsonObject findQuery;
-        protected boolean isNested;
-        protected String nestedField;
-        protected JsonObject nestedFind;
-        protected JsonObject nestedFieldIdentifierObj;
+        private DBAction dbAction;
+        private String id;
+        private String collection;
+        private JsonObject payload;
+        private JsonObject findQuery;
+        private boolean isNested;
+        private String nestedField;
+        private JsonObject nestedFind;
+        private JsonObject nestedFieldIdentifierObj;
+        private boolean isNestedPayloadString = false;
+        private  String nestedString;
 
         private CacheEntryBuilder() {
         }
@@ -141,6 +161,9 @@ public class CacheEntry {
             nestedField = cacheEntry.getNestedField();
             nestedFind = cacheEntry.getNestedFind();
             nestedFieldIdentifierObj = cacheEntry.getNestedFieldIdentifierObj();
+            nestedString  = cacheEntry.getNestedString();
+            isNestedPayloadString = cacheEntry.isNestedPayloadString();
+
             return this;
         }
 
@@ -174,6 +197,16 @@ public class CacheEntry {
             return this;
         }
 
+        public CacheEntryBuilder isNestedPayloadString(boolean isNestedPayloadString) {
+            this.isNestedPayloadString = isNestedPayloadString;
+            return this;
+        }
+
+        public CacheEntryBuilder withNestedString(String nestedString) {
+            this.nestedString = nestedString;
+            return this;
+        }
+
         public CacheEntryBuilder withNestedField(String nestedField) {
             this.nestedField = nestedField;
             return this;
@@ -199,7 +232,10 @@ public class CacheEntry {
             cacheEntry.setNestedField(nestedField);
             cacheEntry.setNestedFind(nestedFind);
             cacheEntry.setNestedFieldIdentifierObj(nestedFieldIdentifierObj);
-            cacheEntry.isNested = this.isNested;
+            cacheEntry.setNested(this.isNested);
+            cacheEntry.setNestedPayloadString(this.isNestedPayloadString);
+            cacheEntry.setNestedString(this.nestedString);
+
             return cacheEntry;
         }
     }

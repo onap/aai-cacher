@@ -25,6 +25,7 @@ import org.junit.Test;
 import org.mockito.Mockito;
 import org.onap.aai.cacher.service.helper.CacheHelperService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -86,5 +87,14 @@ public class CacheKeyRequestValidationTest {
     	Mockito.when(cacheHelperService.isKeyPresent(Mockito.any(), Mockito.anyString())).thenReturn(true);
     	List<String> results = updateCacheKeyRequestValidation.validateCacheKeyRequest(parser.parse(nonEmptyPayload).getAsJsonObject(), cacheHelperService);
     	assertEquals("update existing CacheKey ok", 0, results.size());
-    }   
+    }
+    
+    @Test
+    public void testAddNewCacheKeyMissingFields() {
+        List<String> results = addCacheKeyRequestValidation.checkMissingRequiredFields(parser.parse(nonEmptyPayload).getAsJsonObject(), cacheHelperService);
+        List<String> exp = new ArrayList<String>();
+        exp.add("baseUrl");
+        exp.add("URI");
+        assertEquals("missing rqd fields", exp, results);
+    }
 }

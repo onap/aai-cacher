@@ -1,0 +1,57 @@
+{
+  "cambria.partition": "AAI",
+  "event-header": {
+    "severity": "NORMAL",
+    "entity-type": "l-interface",
+    "top-entity-type": "pserver",
+    "entity-link": "/aai/v14/cloud-infrastructure/pservers/pserver/c9e8ffb6-a360-4f9c-96c3-f5f0244dfe55-jenkins/lag-interfaces/lag-interface/8806d30d-e5f5-409e-9e9e-9b1c1943058d-jenkins/l-interfaces/l-interface/f4f9b9c7-eb83-4622-9d6f-14027a556ff5-jenkins/l-interfaces/l-interface/89796dd1-89a5-4ddc-bd13-324ba9bce3b6-jenkins",
+    "event-type": "AAI-EVENT",
+    "domain": "uINT1",
+    "action": "DELETE",
+    "sequence-number": "0",
+    "id": "9060077e-00a3-4239-80ed-855331b4d551",
+    "source-name": "FitNesse-Test-jenkins",
+    "version": "v14",
+    "timestamp": "20180625-01:24:04:857"
+  },
+  "entity": {
+    "pserver-name2": "iqFmGNmNLM6",
+    "hostname": "c9e8ffb6-a360-4f9c-96c3-f5f0244dfe55-jenkins",
+    "lag-interfaces": {
+      "lag-interface": [
+        {
+          "l-interfaces": {
+            "l-interface": [
+              {
+                "l-interfaces": {
+                  "l-interface": [
+                    {
+                      "v6-wan-link-ip": "PuNFKRUUpd3",
+                      "interface-name": "89796dd1-89a5-4ddc-bd13-324ba9bce3b6-jenkins",
+                      "allowed-address-pairs": "RGo6MaADK",
+                      "prov-status": "uot",
+                      "macaddr": "xUj8TGre",
+                      "interface-role": "SyT0hd9Uu4b",
+                      "selflink": "HxDI",
+                      "in-maint": false,
+                      "admin-status": "GDgD",
+                      "is-port-mirrored": true,
+                      "resource-version": "1529889840462",
+                      "is-ip-unnumbered": false,
+                      "network-name": "RXCo3p3p5BhBS",
+                      "management-option": "jNiTd",
+                      "interface-id": "4n8niH",
+                      "interface-description": "drnTF3"
+                    }
+                  ]
+                },
+                "interface-name": "f4f9b9c7-eb83-4622-9d6f-14027a556ff5-jenkins"
+              }
+            ]
+          },
+          "interface-name": "8806d30d-e5f5-409e-9e9e-9b1c1943058d-jenkins"
+        }
+      ]
+    }
+  }
+}

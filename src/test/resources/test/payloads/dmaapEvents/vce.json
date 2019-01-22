@@ -4,14 +4,14 @@
     "severity": "NORMAL",
     "entity-type": "vce",
     "top-entity-type": "vce",
-    "entity-link": "/aai/v13/network/vces/vce/vce-987654321-311-ps2418",
+    "entity-link": "/aai/v14/network/vces/vce/vce-987654321-311-ps2418",
     "event-type": "AAI-EVENT",
     "domain": "uINT1",
     "action": "DELETE",
     "sequence-number": "0",
     "id": "b10f1221-1c3f-42d2-987b-3071818cb613",
     "source-name": "FitNesse-Test-ps2418",
-    "version": "v13",
+    "version": "v14",
     "timestamp": "20180627-16:35:28:464"
   },
   "entity": {

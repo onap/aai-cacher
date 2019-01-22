@@ -1,0 +1,710 @@
+{
+  "create-generic-vnf": {
+    "cambria.partition": "AAI",
+    "event-header": {
+      "severity": "NORMAL",
+      "entity-type": "generic-vnf",
+      "top-entity-type": "generic-vnf",
+      "entity-link": "/aai/v14/network/generic-vnfs/generic-vnf/generic-vnf-987654321-9-cleanup-later-PS2418",
+      "event-type": "AAI-EVENT",
+      "domain": "uINT4",
+      "action": "CREATE",
+      "sequence-number": "0",
+      "id": "034bcf6a-3d1c-4083-932e-368c1b9d7095",
+      "source-name": "FitNesse-Test-PS2418",
+      "version": "v14",
+      "timestamp": "20180925-14:20:58:309"
+    },
+    "entity": {
+      "entitlements": {
+        "entitlement": [{
+          "resource-version": "1537885258241",
+          "group-uuid": "entitlement-group-uuid-generic-vnf-987654321-9-cleanup-later-PS2418",
+          "resource-uuid": "example-resource-uuid-val-23438"
+        }
+        ]
+      },
+      "service-id": "example-service-id-val-86237",
+      "vnf-id": "generic-vnf-987654321-9-cleanup-later-PS2418",
+      "nf-type": "example-nf-type-val-6894",
+      "l-interfaces": {
+        "l-interface": [{
+          "v6-wan-link-ip": "example-v6-wan-link-ip-val-89762",
+          "vlans": {
+            "vlan": [{
+              "vlan-description": "example-vlan-description-val-78275",
+              "vpn-key": "example-vpn-key-val-72775",
+              "prov-status": "example-prov-status-val-22546",
+              "vlan-id-inner": 99053100,
+              "vlan-id-outer": 78357943,
+              "orchestration-status": "example-orchestration-status-val-68023",
+              "speed-value": "example-speed-value-val-80431",
+              "in-maint": true,
+              "l3-interface-ipv6-address-list": [{
+                "resource-version": "1537885258053",
+                "neutron-network-id": "example-neutron-network-id-val-3701",
+                "neutron-subnet-id": "example-neutron-subnet-id-val-10882",
+                "l3-interface-ipv6-prefix-length": 59706574,
+                "vlan-id-inner": 15251621,
+                "is-floating": true,
+                "l3-interface-ipv6-address": "l3-interface-ipv6-address-1-generic-vnf-987654321-9-cleanup-later-PS2418",
+                "vlan-id-outer": 53340121
+              }
+              ],
+              "resource-version": "1537885258033",
+              "is-ip-unnumbered": true,
+              "speed-units": "example-speed-units-val-39623",
+              "vlan-interface": "vlan-interface-1-generic-vnf-987654321-9-cleanup-later-PS2418",
+              "backdoor-connection": "example-backdoor-connection-val-37365",
+              "l3-interface-ipv4-address-list": [{
+                "l3-interface-ipv4-prefix-length": 66218823,
+                "resource-version": "1537885258043",
+                "neutron-network-id": "example-neutron-network-id-val-88451",
+                "neutron-subnet-id": "example-neutron-subnet-id-val-46196",
+                "vlan-id-inner": 15889692,
+                "l3-interface-ipv4-address": "l3-interface-ipv4-address-1-generic-vnf-987654321-9-cleanup-later-PS2418",
+                "is-floating": true,
+                "vlan-id-outer": 74465804
+              }
+              ]
+            }
+            ]
+          },
+          "l-interfaces": {
+            "l-interface": [{
+              "v6-wan-link-ip": "example-v6-wan-link-ip-val-69650",
+              "interface-name": "interface-name-2-generic-vnf-987654321-9-cleanup-later-PS2418",
+              "allowed-address-pairs": "example-allowed-address-pairs-val-68306",
+              "prov-status": "example-prov-status-val-69853",
+              "macaddr": "example-macaddr-val-34300",
+              "interface-role": "example-interface-role-val-41338",
+              "selflink": "example-selflink-val-22090",
+              "in-maint": true,
+              "admin-status": "example-admin-status-val-98172",
+              "is-port-mirrored": true,
+              "resource-version": "1537885258078",
+              "is-ip-unnumbered": true,
+              "network-name": "example-network-name-val-33414",
+              "management-option": "example-management-option-val-72200",
+              "interface-id": "example-interface-id-val-92751",
+              "interface-description": "example-interface-description-val-86621"
+            }
+            ]
+          },
+          "interface-name": "interface-name-1-generic-vnf-987654321-9-cleanup-later-PS2418",
+          "allowed-address-pairs": "example-allowed-address-pairs-val-88303",
+          "prov-status": "example-prov-status-val-30354",
+          "macaddr": "example-macaddr-val-74995",
+          "interface-role": "example-interface-role-val-62829",
+          "selflink": "example-selflink-val-34970",
+          "in-maint": true,
+          "admin-status": "example-admin-status-val-4462",
+          "l3-interface-ipv6-address-list": [{
+            "resource-version": "1537885258101",
+            "neutron-network-id": "example-neutron-network-id-val-32443",
+            "neutron-subnet-id": "example-neutron-subnet-id-val-40815",
+            "l3-interface-ipv6-prefix-length": 19424600,
+            "vlan-id-inner": 92534837,
+            "is-floating": true,
+            "l3-interface-ipv6-address": "l3-interface-ipv6-address-2-generic-vnf-987654321-9-cleanup-later-PS2418",
+            "vlan-id-outer": 78261005
+          }
+          ],
+          "is-port-mirrored": true,
+          "resource-version": "1537885258026",
+          "is-ip-unnumbered": true,
+          "sriov-vfs": {
+            "sriov-vf": [{
+              "vf-vlan-filter": "example-vf-vlan-filter-val-47642",
+              "vf-vlan-strip": true,
+              "neutron-network-id": "example-neutron-network-id-val-78281",
+              "vf-broadcast-allow": true,
+              "vf-mac-anti-spoof-check": true,
+              "vf-unknown-multicast-allow": true,
+              "pci-id": "pci-id-1-generic-vnf-987654321-9-cleanup-later-PS2418",
+              "vf-mirrors": "example-vf-mirrors-val-98879",
+              "resource-version": "1537885258066",
+              "vf-link-status": "example-vf-link-status-val-51961",
+              "vf-mac-filter": "example-vf-mac-filter-val-75865",
+              "vf-insert-stag": true,
+              "vf-vlan-anti-spoof-check": true,
+              "vf-unknown-unicast-allow": true
+            }
+            ]
+          },
+          "network-name": "example-network-name-val-78237",
+          "management-option": "example-management-option-val-79362",
+          "interface-id": "example-interface-id-val-4824",
+          "interface-description": "example-interface-description-val-37355",
+          "l3-interface-ipv4-address-list": [{
+            "l3-interface-ipv4-prefix-length": 10115565,
+            "resource-version": "1537885258089",
+            "neutron-network-id": "example-neutron-network-id-val-77940",
+            "neutron-subnet-id": "example-neutron-subnet-id-val-24000",
+            "vlan-id-inner": 23368411,
+            "l3-interface-ipv4-address": "l3-interface-ipv4-address-2-generic-vnf-987654321-9-cleanup-later-PS2418",
+            "is-floating": true,
+            "vlan-id-outer": 32534763
+          }
+          ]
+        }
+        ]
+      },
+      "license-assignment-group-uuid": "example-license-assignment-group-uuid-val-60560",
+      "ipv4-loopback0-address": "example-ipv4-loopback0-address-val-37789",
+      "vnf-type": "example-vnf-type-val-46131",
+      "vlan-id-outer": 64688648,
+      "nf-function": "example-nf-function-val-27812",
+      "nm-profile-name": "example-nm-profile-name-val-6359",
+      "vmemory": 60496544,
+      "mso-catalog-key": "example-mso-catalog-key-val-35618",
+      "ipv4-oam-gateway-address": "example-ipv4-oam-gateway-address-val-18049",
+      "as-number": "example-as-number-val-65840",
+      "vmemory-units": "example-vmemory-units-val-98278",
+      "vnf-name2": "example-vnf-name2-val-8575",
+      "vcpu-units": "example-vcpu-units-val-32161",
+      "prov-status": "example-prov-status-val-99438",
+      "equipment-role": "example-equipment-role-val-75743",
+      "ipv4-oam-address": "example-ipv4-oam-address-val-14031",
+      "vf-modules": {
+        "vf-module": [{
+          "vf-module-name": "example-vf-module-name-val-34236",
+          "selflink": "example-selflink-val-53032",
+          "contrail-service-instance-fqdn": "example-contrail-service-instance-fqdn-val-9525",
+          "heat-stack-id": "example-heat-stack-id-val-30553",
+          "resource-version": "1537885258217",
+          "is-base-vf-module": true,
+          "vf-module-id": "vf-module-id-generic-vnf-987654321-9-cleanup-later-PS2418",
+          "module-index": 511,
+          "orchestration-status": "example-orchestration-status-val-56709",
+          "automated-assignment": true
+        }
+        ]
+      },
+      "vnf-name": "example-vnf-name-val-45282",
+      "vdisk": 42236577,
+      "nf-role": "example-nf-role-val-66079",
+      "ipv4-oam-gateway-address-prefix-length": 54487,
+      "vcpu": 53671028,
+      "entitlement-assignment-group-uuid": "example-entitlement-assignment-group-uuid-val-15128",
+      "regional-resource-zone": "example-regional-resource-zone-val-73874",
+      "management-v6-address": "example-management-v6-address-val-25900",
+      "operational-status": "example-operational-status-val-17036",
+      "vdisk-units": "example-vdisk-units-val-96988",
+      "entitlement-resource-uuid": "example-entitlement-resource-uuid-val-20774",
+      "orchestration-status": "example-orchestration-status-val-19396",
+      "nf-naming-code": "example-nf-naming-code-val-92256",
+      "selflink": "example-selflink-val-44462",
+      "heat-stack-id": "example-heat-stack-id-val-37828",
+      "license-key-uuid": "example-license-key-uuid-val-66274",
+      "license-key": "example-license-key-val-66815",
+      "lag-interfaces": {
+        "lag-interface": [{
+          "interface-role": "example-interface-role-val-83678",
+          "speed-value": "example-speed-value-val-38117",
+          "in-maint": true,
+          "resource-version": "1537885258117",
+          "l-interfaces": {
+            "l-interface": [{
+              "v6-wan-link-ip": "example-v6-wan-link-ip-val-56250",
+              "vlans": {
+                "vlan": [{
+                  "vlan-description": "example-vlan-description-val-47496",
+                  "vpn-key": "example-vpn-key-val-38828",
+                  "prov-status": "example-prov-status-val-99970",
+                  "vlan-id-inner": 89782443,
+                  "vlan-id-outer": 92728211,
+                  "orchestration-status": "example-orchestration-status-val-65649",
+                  "speed-value": "example-speed-value-val-87106",
+                  "in-maint": true,
+                  "l3-interface-ipv6-address-list": [{
+                    "resource-version": "1537885258152",
+                    "neutron-network-id": "example-neutron-network-id-val-73096",
+                    "neutron-subnet-id": "example-neutron-subnet-id-val-80915",
+                    "l3-interface-ipv6-prefix-length": 54785197,
+                    "vlan-id-inner": 25109147,
+                    "is-floating": true,
+                    "l3-interface-ipv6-address": "l3-interface-ipv6-address-3-generic-vnf-987654321-9-cleanup-later-PS2418",
+                    "vlan-id-outer": 79074706
+                  }
+                  ],
+                  "resource-version": "1537885258133",
+                  "is-ip-unnumbered": true,
+                  "speed-units": "example-speed-units-val-43767",
+                  "vlan-interface": "vlan-interface-2-generic-vnf-987654321-9-cleanup-later-PS2418",
+                  "backdoor-connection": "example-backdoor-connection-val-42851",
+                  "l3-interface-ipv4-address-list": [{
+                    "l3-interface-ipv4-prefix-length": 95616468,
+                    "resource-version": "1537885258142",
+                    "neutron-network-id": "example-neutron-network-id-val-60156",
+                    "neutron-subnet-id": "example-neutron-subnet-id-val-25666",
+                    "vlan-id-inner": 14957493,
+                    "l3-interface-ipv4-address": "l3-interface-ipv4-address-3-generic-vnf-987654321-9-cleanup-later-PS2418",
+                    "is-floating": true,
+                    "vlan-id-outer": 96248912
+                  }
+                  ]
+                }
+                ]
+              },
+              "l-interfaces": {
+                "l-interface": [{
+                  "v6-wan-link-ip": "example-v6-wan-link-ip-val-60751",
+                  "interface-name": "interface-name-5-generic-vnf-987654321-9-cleanup-later-PS2418",
+                  "allowed-address-pairs": "example-allowed-address-pairs-val-66261",
+                  "prov-status": "example-prov-status-val-79263",
+                  "macaddr": "example-macaddr-val-54377",
+                  "interface-role": "example-interface-role-val-57457",
+                  "selflink": "example-selflink-val-7547",
+                  "in-maint": true,
+                  "admin-status": "example-admin-status-val-99281",
+                  "is-port-mirrored": true,
+                  "resource-version": "1537885258177",
+                  "is-ip-unnumbered": true,
+                  "network-name": "example-network-name-val-53451",
+                  "management-option": "example-management-option-val-31869",
+                  "interface-id": "example-interface-id-val-21202",
+                  "interface-description": "example-interface-description-val-62128"
+                }
+                ]
+              },
+              "interface-name": "interface-name-4-generic-vnf-987654321-9-cleanup-later-PS2418",
+              "allowed-address-pairs": "example-allowed-address-pairs-val-67284",
+              "prov-status": "example-prov-status-val-41209",
+              "macaddr": "example-macaddr-val-27005",
+              "interface-role": "example-interface-role-val-28263",
+              "selflink": "example-selflink-val-41633",
+              "in-maint": true,
+              "admin-status": "example-admin-status-val-66518",
+              "l3-interface-ipv6-address-list": [{
+                "resource-version": "1537885258199",
+                "neutron-network-id": "example-neutron-network-id-val-62532",
+                "neutron-subnet-id": "example-neutron-subnet-id-val-98579",
+                "l3-interface-ipv6-prefix-length": 12026525,
+                "vlan-id-inner": 43455241,
+                "is-floating": true,
+                "l3-interface-ipv6-address": "l3-interface-ipv6-address-4-generic-vnf-987654321-9-cleanup-later-PS2418",
+                "vlan-id-outer": 25084087
+              }
+              ],
+              "is-port-mirrored": true,
+              "resource-version": "1537885258127",
+              "is-ip-unnumbered": true,
+              "sriov-vfs": {
+                "sriov-vf": [{
+                  "vf-vlan-filter": "example-vf-vlan-filter-val-18397",
+                  "vf-vlan-strip": true,
+                  "neutron-network-id": "example-neutron-network-id-val-15801",
+                  "vf-broadcast-allow": true,
+                  "vf-mac-anti-spoof-check": true,
+                  "vf-unknown-multicast-allow": true,
+                  "pci-id": "pci-id-2-generic-vnf-987654321-9-cleanup-later-PS2418",
+                  "vf-mirrors": "example-vf-mirrors-val-361",
+                  "resource-version": "1537885258167",
+                  "vf-link-status": "example-vf-link-status-val-32153",
+                  "vf-mac-filter": "example-vf-mac-filter-val-17599",
+                  "vf-insert-stag": true,
+                  "vf-vlan-anti-spoof-check": true,
+                  "vf-unknown-unicast-allow": true
+                }
+                ]
+              },
+              "network-name": "example-network-name-val-38641",
+              "management-option": "example-management-option-val-84248",
+              "interface-id": "example-interface-id-val-45628",
+              "interface-description": "example-interface-description-val-88021",
+              "l3-interface-ipv4-address-list": [{
+                "l3-interface-ipv4-prefix-length": 77529761,
+                "resource-version": "1537885258187",
+                "neutron-network-id": "example-neutron-network-id-val-58736",
+                "neutron-subnet-id": "example-neutron-subnet-id-val-42120",
+                "vlan-id-inner": 60074034,
+                "l3-interface-ipv4-address": "l3-interface-ipv4-address-4-generic-vnf-987654321-9-cleanup-later-PS2418",
+                "is-floating": true,
+                "vlan-id-outer": 97685113
+              }
+              ]
+            }
+            ]
+          },
+          "interface-name": "interface-name-3-generic-vnf-987654321-9-cleanup-later-PS2418",
+          "speed-units": "example-speed-units-val-67991",
+          "prov-status": "example-prov-status-val-33056",
+          "interface-description": "example-interface-description-val-473",
+          "interface-id": "example-interface-id-val-12642"
+        }
+        ]
+      },
+      "summary-status": "example-summary-status-val-6834",
+      "encrypted-access-flag": true,
+      "licenses": {
+        "license": [{
+          "resource-version": "1537885258229",
+          "group-uuid": "license-group-uuid-generic-vnf-987654321-9-cleanup-later-PS2418",
+          "resource-uuid": "example-resource-uuid-val-55651"
+        }
+        ]
+      },
+      "in-maint": true,
+      "nm-lan-v6-address": "example-nm-lan-v6-address-val-1909",
+      "resource-version": "1537885258008",
+      "regional-resource-subzone": "example-regional-resource-subzone-val-57379",
+      "management-option": "example-management-option-val-43163",
+      "is-closed-loop-disabled": true
+    }
+  },
+  "update-generic-vnf": {
+    "cambria.partition": "AAI",
+    "event-header": {
+      "severity": "NORMAL",
+      "entity-type": "generic-vnf",
+      "top-entity-type": "generic-vnf",
+      "entity-link": "/aai/v14/network/generic-vnfs/generic-vnf/generic-vnf-987654321-9-cleanup-later-PS2418",
+      "event-type": "AAI-EVENT",
+      "domain": "uINT4",
+      "action": "UPDATE",
+      "sequence-number": "0",
+      "id": "a1c98b90-7592-43ee-a68b-918201a0666b",
+      "source-name": "FitNesse-Relationship-Test-PS2418",
+      "version": "v14",
+      "timestamp": "20180925-14:20:59:170"
+    },
+    "entity": {
+      "entitlements": {
+        "entitlement": [{
+          "resource-version": "1537885258241",
+          "group-uuid": "entitlement-group-uuid-generic-vnf-987654321-9-cleanup-later-PS2418",
+          "resource-uuid": "example-resource-uuid-val-23438"
+        }
+        ]
+      },
+      "service-id": "example-service-id-val-86237",
+      "vnf-id": "generic-vnf-987654321-9-cleanup-later-PS2418",
+      "nf-type": "example-nf-type-val-6894",
+      "l-interfaces": {
+        "l-interface": [{
+          "v6-wan-link-ip": "example-v6-wan-link-ip-val-89762",
+          "vlans": {
+            "vlan": [{
+              "vlan-description": "example-vlan-description-val-78275",
+              "vpn-key": "example-vpn-key-val-72775",
+              "prov-status": "example-prov-status-val-22546",
+              "vlan-id-inner": 99053100,
+              "vlan-id-outer": 78357943,
+              "orchestration-status": "example-orchestration-status-val-68023",
+              "speed-value": "example-speed-value-val-80431",
+              "in-maint": true,
+              "l3-interface-ipv6-address-list": [{
+                "resource-version": "1537885258053",
+                "neutron-network-id": "example-neutron-network-id-val-3701",
+                "neutron-subnet-id": "example-neutron-subnet-id-val-10882",
+                "l3-interface-ipv6-prefix-length": 59706574,
+                "vlan-id-inner": 15251621,
+                "is-floating": true,
+                "l3-interface-ipv6-address": "l3-interface-ipv6-address-1-generic-vnf-987654321-9-cleanup-later-PS2418",
+                "vlan-id-outer": 53340121
+              }
+              ],
+              "resource-version": "1537885258033",
+              "is-ip-unnumbered": true,
+              "speed-units": "example-speed-units-val-39623",
+              "vlan-interface": "vlan-interface-1-generic-vnf-987654321-9-cleanup-later-PS2418",
+              "backdoor-connection": "example-backdoor-connection-val-37365",
+              "l3-interface-ipv4-address-list": [{
+                "l3-interface-ipv4-prefix-length": 66218823,
+                "resource-version": "1537885258043",
+                "neutron-network-id": "example-neutron-network-id-val-88451",
+                "neutron-subnet-id": "example-neutron-subnet-id-val-46196",
+                "vlan-id-inner": 15889692,
+                "l3-interface-ipv4-address": "l3-interface-ipv4-address-1-generic-vnf-987654321-9-cleanup-later-PS2418",
+                "is-floating": true,
+                "vlan-id-outer": 74465804
+              }
+              ]
+            }
+            ]
+          },
+          "l-interfaces": {
+            "l-interface": [{
+              "v6-wan-link-ip": "example-v6-wan-link-ip-val-69650",
+              "interface-name": "interface-name-2-generic-vnf-987654321-9-cleanup-later-PS2418",
+              "allowed-address-pairs": "example-allowed-address-pairs-val-68306",
+              "prov-status": "example-prov-status-val-69853",
+              "macaddr": "example-macaddr-val-34300",
+              "interface-role": "example-interface-role-val-41338",
+              "selflink": "example-selflink-val-22090",
+              "in-maint": true,
+              "admin-status": "example-admin-status-val-98172",
+              "is-port-mirrored": true,
+              "resource-version": "1537885258078",
+              "is-ip-unnumbered": true,
+              "network-name": "example-network-name-val-33414",
+              "management-option": "example-management-option-val-72200",
+              "interface-id": "example-interface-id-val-92751",
+              "interface-description": "example-interface-description-val-86621"
+            }
+            ]
+          },
+          "interface-name": "interface-name-1-generic-vnf-987654321-9-cleanup-later-PS2418",
+          "allowed-address-pairs": "example-allowed-address-pairs-val-88303",
+          "prov-status": "example-prov-status-val-30354",
+          "macaddr": "example-macaddr-val-74995",
+          "interface-role": "example-interface-role-val-62829",
+          "selflink": "example-selflink-val-34970",
+          "in-maint": true,
+          "admin-status": "example-admin-status-val-4462",
+          "l3-interface-ipv6-address-list": [{
+            "resource-version": "1537885258101",
+            "neutron-network-id": "example-neutron-network-id-val-32443",
+            "neutron-subnet-id": "example-neutron-subnet-id-val-40815",
+            "l3-interface-ipv6-prefix-length": 19424600,
+            "vlan-id-inner": 92534837,
+            "is-floating": true,
+            "l3-interface-ipv6-address": "l3-interface-ipv6-address-2-generic-vnf-987654321-9-cleanup-later-PS2418",
+            "vlan-id-outer": 78261005
+          }
+          ],
+          "is-port-mirrored": true,
+          "resource-version": "1537885258026",
+          "is-ip-unnumbered": true,
+          "sriov-vfs": {
+            "sriov-vf": [{
+              "vf-vlan-filter": "example-vf-vlan-filter-val-47642",
+              "vf-vlan-strip": true,
+              "neutron-network-id": "example-neutron-network-id-val-78281",
+              "vf-broadcast-allow": true,
+              "vf-mac-anti-spoof-check": true,
+              "vf-unknown-multicast-allow": true,
+              "pci-id": "pci-id-1-generic-vnf-987654321-9-cleanup-later-PS2418",
+              "vf-mirrors": "example-vf-mirrors-val-98879",
+              "resource-version": "1537885258066",
+              "vf-link-status": "example-vf-link-status-val-51961",
+              "vf-mac-filter": "example-vf-mac-filter-val-75865",
+              "vf-insert-stag": true,
+              "vf-vlan-anti-spoof-check": true,
+              "vf-unknown-unicast-allow": true
+            }
+            ]
+          },
+          "network-name": "example-network-name-val-78237",
+          "management-option": "example-management-option-val-79362",
+          "interface-id": "example-interface-id-val-4824",
+          "interface-description": "example-interface-description-val-37355",
+          "l3-interface-ipv4-address-list": [{
+            "l3-interface-ipv4-prefix-length": 10115565,
+            "resource-version": "1537885258089",
+            "neutron-network-id": "example-neutron-network-id-val-77940",
+            "neutron-subnet-id": "example-neutron-subnet-id-val-24000",
+            "vlan-id-inner": 23368411,
+            "l3-interface-ipv4-address": "l3-interface-ipv4-address-2-generic-vnf-987654321-9-cleanup-later-PS2418",
+            "is-floating": true,
+            "vlan-id-outer": 32534763
+          }
+          ]
+        }
+        ]
+      },
+      "license-assignment-group-uuid": "example-license-assignment-group-uuid-val-60560",
+      "ipv4-loopback0-address": "example-ipv4-loopback0-address-val-37789",
+      "vnf-type": "example-vnf-type-val-46131-generic-vnf-987654321-9-cleanup-later-PS2418-patched",
+      "vlan-id-outer": 64688648,
+      "nf-function": "example-nf-function-val-27812",
+      "nm-profile-name": "example-nm-profile-name-val-6359",
+      "vmemory": 60496544,
+      "mso-catalog-key": "example-mso-catalog-key-val-35618",
+      "ipv4-oam-gateway-address": "example-ipv4-oam-gateway-address-val-18049",
+      "as-number": "example-as-number-val-65840",
+      "vmemory-units": "example-vmemory-units-val-98278",
+      "vnf-name2": "example-vnf-name2-val-8575-generic-vnf-987654321-9-cleanup-later-PS2418-patched",
+      "vcpu-units": "example-vcpu-units-val-32161",
+      "prov-status": "example-prov-status-val-99438",
+      "equipment-role": "example-equipment-role-val-75743",
+      "ipv4-oam-address": "example-ipv4-oam-address-val-14031",
+      "vf-modules": {
+        "vf-module": [{
+          "vf-module-name": "example-vf-module-name-val-34236",
+          "selflink": "example-selflink-val-53032",
+          "contrail-service-instance-fqdn": "example-contrail-service-instance-fqdn-val-9525",
+          "heat-stack-id": "example-heat-stack-id-val-30553",
+          "resource-version": "1537885258217",
+          "is-base-vf-module": true,
+          "vf-module-id": "vf-module-id-generic-vnf-987654321-9-cleanup-later-PS2418",
+          "module-index": 511,
+          "orchestration-status": "example-orchestration-status-val-56709",
+          "automated-assignment": true
+        }
+        ]
+      },
+      "vnf-name": "example-vnf-name-val-45282-generic-vnf-987654321-9-cleanup-later-PS2418-patched",
+      "vdisk": 42236577,
+      "nf-role": "example-nf-role-val-66079",
+      "ipv4-oam-gateway-address-prefix-length": 54487,
+      "vcpu": 53671028,
+      "entitlement-assignment-group-uuid": "example-entitlement-assignment-group-uuid-val-15128",
+      "regional-resource-zone": "example-regional-resource-zone-val-73874",
+      "management-v6-address": "example-management-v6-address-val-25900",
+      "operational-status": "example-operational-status-val-17036",
+      "vdisk-units": "example-vdisk-units-val-96988",
+      "entitlement-resource-uuid": "example-entitlement-resource-uuid-val-20774",
+      "orchestration-status": "example-orchestration-status-val-19396",
+      "nf-naming-code": "example-nf-naming-code-val-92256",
+      "selflink": "example-selflink-val-44462",
+      "heat-stack-id": "example-heat-stack-id-val-37828",
+      "license-key-uuid": "example-license-key-uuid-val-66274",
+      "license-key": "example-license-key-val-66815",
+      "lag-interfaces": {
+        "lag-interface": [{
+          "interface-role": "example-interface-role-val-83678",
+          "speed-value": "example-speed-value-val-38117",
+          "in-maint": true,
+          "resource-version": "1537885258117",
+          "l-interfaces": {
+            "l-interface": [{
+              "v6-wan-link-ip": "example-v6-wan-link-ip-val-56250",
+              "vlans": {
+                "vlan": [{
+                  "vlan-description": "example-vlan-description-val-47496",
+                  "vpn-key": "example-vpn-key-val-38828",
+                  "prov-status": "example-prov-status-val-99970",
+                  "vlan-id-inner": 89782443,
+                  "vlan-id-outer": 92728211,
+                  "orchestration-status": "example-orchestration-status-val-65649",
+                  "speed-value": "example-speed-value-val-87106",
+                  "in-maint": true,
+                  "l3-interface-ipv6-address-list": [{
+                    "resource-version": "1537885258152",
+                    "neutron-network-id": "example-neutron-network-id-val-73096",
+                    "neutron-subnet-id": "example-neutron-subnet-id-val-80915",
+                    "l3-interface-ipv6-prefix-length": 54785197,
+                    "vlan-id-inner": 25109147,
+                    "is-floating": true,
+                    "l3-interface-ipv6-address": "l3-interface-ipv6-address-3-generic-vnf-987654321-9-cleanup-later-PS2418",
+                    "vlan-id-outer": 79074706
+                  }
+                  ],
+                  "resource-version": "1537885258133",
+                  "is-ip-unnumbered": true,
+                  "speed-units": "example-speed-units-val-43767",
+                  "vlan-interface": "vlan-interface-2-generic-vnf-987654321-9-cleanup-later-PS2418",
+                  "backdoor-connection": "example-backdoor-connection-val-42851",
+                  "l3-interface-ipv4-address-list": [{
+                    "l3-interface-ipv4-prefix-length": 95616468,
+                    "resource-version": "1537885258142",
+                    "neutron-network-id": "example-neutron-network-id-val-60156",
+                    "neutron-subnet-id": "example-neutron-subnet-id-val-25666",
+                    "vlan-id-inner": 14957493,
+                    "l3-interface-ipv4-address": "l3-interface-ipv4-address-3-generic-vnf-987654321-9-cleanup-later-PS2418",
+                    "is-floating": true,
+                    "vlan-id-outer": 96248912
+                  }
+                  ]
+                }
+                ]
+              },
+              "l-interfaces": {
+                "l-interface": [{
+                  "v6-wan-link-ip": "example-v6-wan-link-ip-val-60751",
+                  "interface-name": "interface-name-5-generic-vnf-987654321-9-cleanup-later-PS2418",
+                  "allowed-address-pairs": "example-allowed-address-pairs-val-66261",
+                  "prov-status": "example-prov-status-val-79263",
+                  "macaddr": "example-macaddr-val-54377",
+                  "interface-role": "example-interface-role-val-57457",
+                  "selflink": "example-selflink-val-7547",
+                  "in-maint": true,
+                  "admin-status": "example-admin-status-val-99281",
+                  "is-port-mirrored": true,
+                  "resource-version": "1537885258177",
+                  "is-ip-unnumbered": true,
+                  "network-name": "example-network-name-val-53451",
+                  "management-option": "example-management-option-val-31869",
+                  "interface-id": "example-interface-id-val-21202",
+                  "interface-description": "example-interface-description-val-62128"
+                }
+                ]
+              },
+              "interface-name": "interface-name-4-generic-vnf-987654321-9-cleanup-later-PS2418",
+              "allowed-address-pairs": "example-allowed-address-pairs-val-67284",
+              "prov-status": "example-prov-status-val-41209",
+              "macaddr": "example-macaddr-val-27005",
+              "interface-role": "example-interface-role-val-28263",
+              "selflink": "example-selflink-val-41633",
+              "in-maint": true,
+              "admin-status": "example-admin-status-val-66518",
+              "l3-interface-ipv6-address-list": [{
+                "resource-version": "1537885258199",
+                "neutron-network-id": "example-neutron-network-id-val-62532",
+                "neutron-subnet-id": "example-neutron-subnet-id-val-98579",
+                "l3-interface-ipv6-prefix-length": 12026525,
+                "vlan-id-inner": 43455241,
+                "is-floating": true,
+                "l3-interface-ipv6-address": "l3-interface-ipv6-address-4-generic-vnf-987654321-9-cleanup-later-PS2418",
+                "vlan-id-outer": 25084087
+              }
+              ],
+              "is-port-mirrored": true,
+              "resource-version": "1537885258127",
+              "is-ip-unnumbered": true,
+              "sriov-vfs": {
+                "sriov-vf": [{
+                  "vf-vlan-filter": "example-vf-vlan-filter-val-18397",
+                  "vf-vlan-strip": true,
+                  "neutron-network-id": "example-neutron-network-id-val-15801",
+                  "vf-broadcast-allow": true,
+                  "vf-mac-anti-spoof-check": true,
+                  "vf-unknown-multicast-allow": true,
+                  "pci-id": "pci-id-2-generic-vnf-987654321-9-cleanup-later-PS2418",
+                  "vf-mirrors": "example-vf-mirrors-val-361",
+                  "resource-version": "1537885258167",
+                  "vf-link-status": "example-vf-link-status-val-32153",
+                  "vf-mac-filter": "example-vf-mac-filter-val-17599",
+                  "vf-insert-stag": true,
+                  "vf-vlan-anti-spoof-check": true,
+                  "vf-unknown-unicast-allow": true
+                }
+                ]
+              },
+              "network-name": "example-network-name-val-38641",
+              "management-option": "example-management-option-val-84248",
+              "interface-id": "example-interface-id-val-45628",
+              "interface-description": "example-interface-description-val-88021",
+              "l3-interface-ipv4-address-list": [{
+                "l3-interface-ipv4-prefix-length": 77529761,
+                "resource-version": "1537885258187",
+                "neutron-network-id": "example-neutron-network-id-val-58736",
+                "neutron-subnet-id": "example-neutron-subnet-id-val-42120",
+                "vlan-id-inner": 60074034,
+                "l3-interface-ipv4-address": "l3-interface-ipv4-address-4-generic-vnf-987654321-9-cleanup-later-PS2418",
+                "is-floating": true,
+                "vlan-id-outer": 97685113
+              }
+              ]
+            }
+            ]
+          },
+          "interface-name": "interface-name-3-generic-vnf-987654321-9-cleanup-later-PS2418",
+          "speed-units": "example-speed-units-val-67991",
+          "prov-status": "example-prov-status-val-33056",
+          "interface-description": "example-interface-description-val-473",
+          "interface-id": "example-interface-id-val-12642"
+        }
+        ]
+      },
+      "summary-status": "example-summary-status-val-6834",
+      "encrypted-access-flag": true,
+      "licenses": {
+        "license": [{
+          "resource-version": "1537885258229",
+          "group-uuid": "license-group-uuid-generic-vnf-987654321-9-cleanup-later-PS2418",
+          "resource-uuid": "example-resource-uuid-val-55651"
+        }
+        ]
+      },
+      "in-maint": true,
+      "nm-lan-v6-address": "example-nm-lan-v6-address-val-1909",
+      "resource-version": "1537885258942",
+      "regional-resource-subzone": "example-regional-resource-subzone-val-57379",
+      "management-option": "example-management-option-val-43163",
+      "is-closed-loop-disabled": true
+    }
+  }
+}

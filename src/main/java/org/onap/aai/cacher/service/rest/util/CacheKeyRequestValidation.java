@@ -33,6 +33,23 @@ public class CacheKeyRequestValidation {
     public CacheKeyRequestValidation(CacheKeyRequestValidationType type) {
         this.type = type;
     }
+    
+    public List<String> checkMissingRequiredFields(JsonObject input, CacheHelperService chs) {
+        ArrayList<String> results = new ArrayList<>();
+        if (input == null) {
+            return results;
+        }
+        CacheKey cacheKey = CacheKey.fromJson(input);
+        String baseUrl = cacheKey.getBaseUrl();
+        String uri = cacheKey.getURI();
+        if ( CacheKey.DEFAULT_VALUE.equals(baseUrl)) {
+            results.add("baseUrl");
+        }
+        if ( CacheKey.DEFAULT_VALUE.equals(uri)) {
+            results.add("URI");
+        }
+        return results;
+    }
 
     public List<String> validateCacheKeyRequest(JsonObject input, CacheHelperService chs) {
         ArrayList<String> results = new ArrayList<>();

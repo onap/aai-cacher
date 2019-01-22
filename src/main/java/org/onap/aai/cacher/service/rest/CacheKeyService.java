@@ -58,8 +58,13 @@ public class CacheKeyService {
         EELF_LOGGER.info("Got the request to add cache key to mongodb");
         CacheKeyRequestValidation ckrv = new CacheKeyRequestValidation(CacheKeyRequestValidationType.ADD);
         JsonObject input = convertStringToJSON(payload);
-        List<String> issues = ckrv.validateCacheKeyRequest(input, chs);
+        List<String> missing = ckrv.checkMissingRequiredFields(input, chs);
         Response response;
+        if ( !missing.isEmpty()) {
+            response = chs.buildMissingFieldResponse(missing);
+            return response;
+        }
+        List<String> issues = ckrv.validateCacheKeyRequest(input, chs);
         if (!issues.isEmpty()) {
             response = chs.buildValidationResponse(issues);
         } else {

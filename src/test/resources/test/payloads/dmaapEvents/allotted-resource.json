@@ -1,0 +1,53 @@
+{
+    "cambria.partition": "AAI",
+    "event-header": {
+        "severity": "NORMAL",
+        "entity-type": "allotted-resource",
+        "top-entity-type": "customer",
+        "entity-link": "/aai/v15/business/customers/customer/customer-12083-jenkins/service-subscriptions/service-subscription/HOSTED-COMMUNICATIONS/service-instances/service-instance/servInstance-12083-jenkins/allotted-resources/allotted-resource/vfModule2-12083-jenkins/",
+        "event-type": "AAI-EVENT",
+        "domain": "uINT5",
+        "action": "UPDATE",
+        "sequence-number": "0",
+        "id": "070f11ad-751e-43ba-a393-fd3380aba19e",
+        "source-name": "FitNesse-Test-jenkins",
+        "version": "v15",
+        "timestamp": "20190115-07:42:54:258"
+    },
+    "entity": {
+        "global-customer-id": "customer-12083-jenkins",
+        "service-subscriptions": {
+            "service-subscription": [{
+                "service-type": "HOSTED-COMMUNICATIONS",
+                "service-instances": {
+                    "service-instance": [{
+                        "service-instance-id": "servInstance-12083-jenkins",
+                        "allotted-resources": {
+                            "allotted-resource": [{
+                                "selflink": "selflink-12083",
+                                "relationship-list": {
+                                    "relationship": [{
+                                        "related-to": "configuration",
+                                        "relationship-data": [{
+                                            "relationship-value": "config-12083-jenkins",
+                                            "relationship-key": "configuration.configuration-id"
+                                        }],
+                                        "related-link": "/aai/v15/network/configurations/configuration/config-12083-jenkins",
+                                        "relationship-label": "org.onap.relationships.inventory.Uses"
+                                    }]
+                                },
+                                "role": "role-12083",
+                                "resource-version": "1547538174222",
+                                "description": "description-12083",
+                                "operational-status": "operational-status-12083",
+                                "id": "vfModule2-12083-jenkins",
+                                "type": "type-12083",
+                                "orchestration-status": "orchestration-status-12083"
+                            }]
+                        }
+                    }]
+                }
+            }]
+        }
+    }
+}

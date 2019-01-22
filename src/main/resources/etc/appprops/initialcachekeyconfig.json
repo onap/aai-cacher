@@ -4,7 +4,7 @@
 		{
 			"cacheKey": "cloud-region",
 			"baseUrl": "https://AAI:AAI@localhost:8447",
-			"module": "/aai/v13/",
+			"module": "/aai/v14/",
 			"URI": "cloud-infrastructure/cloud-regions?depth=0&resultIndex=1&resultSize=3",
 			"timingIndicator": "onInit",
 			"httpMethod": "GET",
@@ -13,7 +13,7 @@
 		{
 			"cacheKey": "complex",
 			"baseUrl": "https://AAI:AAI@localhost:8447",
-			"module": "/aai/v13/",
+			"module": "/aai/v14/",
 			"URI": "cloud-infrastructure/complexes?resultIndex=1&resultSize=3",
 			"timingIndicator": "onInit",
 			"httpMethod": "GET",
@@ -22,7 +22,7 @@
 		{
 			"cacheKey": "pserver",
 			"baseUrl": "https://AAI:AAI@localhost:8447",
-			"module": "/aai/v13/",
+			"module": "/aai/v14/",
 			"URI": "cloud-infrastructure/pservers?depth=5807c3c3-92cd-44d7-a508-8539cd36ecda&resultIndex=1&resultSize=3",
 			"timingIndicator": "onInit",
 			"httpMethod": "GET",
@@ -31,7 +31,7 @@
 		{
 			"cacheKey": "generic-vnf",
 			"baseUrl": "https://AAI:AAI@localhost:8447",
-			"module": "/aai/v13/",
+			"module": "/aai/v14/",
 			"URI": "network/generic-vnfs?depth=5807c3c3-92cd-44d7-a508-8539cd36ecda&resultIndex=1&resultSize=3",
 			"timingIndicator": "onInit",
 			"httpMethod": "GET",

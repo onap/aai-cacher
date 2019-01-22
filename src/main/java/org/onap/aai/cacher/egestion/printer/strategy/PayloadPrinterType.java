@@ -20,10 +20,19 @@
 package org.onap.aai.cacher.egestion.printer.strategy;
 
 import java.util.Arrays;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 public enum PayloadPrinterType {
 
-    NONE_PRINTER("none-printer"), AAI_RESOURCE_GET_ALL_PRINTER("aai-resource-get-all-printer");
+    NONE_PRINTER("none-printer"),
+    AAI_RESOURCE_GET_ALL_PRINTER("aai-resource-get-all-printer");
+
+    private static final Map<String, PayloadPrinterType> MAP;
+    static {
+        MAP = Arrays.stream(values()).collect(Collectors.toMap(PayloadPrinterType::getValue, Function.identity()));
+    }
 
     private final String value;
 
@@ -41,6 +50,6 @@ public enum PayloadPrinterType {
     }
 
     public static PayloadPrinterType fromString(String text) {
-        return Arrays.stream(values()).filter(bl -> bl.getValue().equalsIgnoreCase(text)).findFirst().orElse(null);
+        return MAP.get(text);
     }
 }

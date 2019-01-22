@@ -4,14 +4,14 @@
     "severity": "NORMAL",
     "entity-type": "nos-server",
     "top-entity-type": "cloud-region",
-    "entity-link": "/aai/v13/cloud-infrastructure/cloud-regions/cloud-region/onap-cloud-owner/AAIAIC25/tenants/tenant/tenant-987654321-8991-ps2418/nos-servers/nos-server/nos-server-987654321-8991-ps2418",
+    "entity-link": "/aai/v14/cloud-infrastructure/cloud-regions/cloud-region/onap-cloud-owner/AAIAIC25/tenants/tenant/tenant-987654321-8991-ps2418/nos-servers/nos-server/nos-server-987654321-8991-ps2418",
     "event-type": "AAI-EVENT",
     "domain": "uINT1",
     "action": "CREATE",
     "sequence-number": "0",
     "id": "90105aab-78f6-4d83-83b4-48488998a9bd",
     "source-name": "SDNC",
-    "version": "v13",
+    "version": "v14",
     "timestamp": "20180625-15:29:20:696"
   },
   "entity": {
@@ -32,7 +32,7 @@
                           "relationship-key": "generic-vnf.vnf-id"
                         }
                       ],
-                      "related-link": "/aai/v13/network/generic-vnfs/generic-vnf/generic-vnf-987654321-89911-ps2418",
+                      "related-link": "/aai/v14/network/generic-vnfs/generic-vnf/generic-vnf-987654321-89911-ps2418",
                       "relationship-label": "tosca.relationships.HostedOn",
                       "related-to-property": [
                         {
@@ -49,7 +49,7 @@
                           "relationship-key": "generic-vnf.vnf-id"
                         }
                       ],
-                      "related-link": "/aai/v13/network/generic-vnfs/generic-vnf/generic-vnf-987654321-89922-ps2418",
+                      "related-link": "/aai/v14/network/generic-vnfs/generic-vnf/generic-vnf-987654321-89922-ps2418",
                       "relationship-label": "tosca.relationships.HostedOn",
                       "related-to-property": [
                         {
@@ -66,7 +66,7 @@
                           "relationship-key": "pserver.hostname"
                         }
                       ],
-                      "related-link": "/aai/v13/cloud-infrastructure/pservers/pserver/pserver-987654321-8991-ps2418",
+                      "related-link": "/aai/v14/cloud-infrastructure/pservers/pserver/pserver-987654321-8991-ps2418",
                       "relationship-label": "tosca.relationships.HostedOn",
                       "related-to-property": [
                         {

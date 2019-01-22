@@ -19,21 +19,38 @@
  */
 package org.onap.aai.cacher.injestion.parser;
 
+import com.github.fakemongo.Fongo;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.mongodb.DB;
+import com.mongodb.MongoClient;
+import com.mongodb.client.MongoDatabase;
+import de.flapdoodle.embed.mongo.MongodExecutable;
+import de.flapdoodle.embed.mongo.MongodProcess;
+import de.flapdoodle.embed.mongo.MongodStarter;
+import de.flapdoodle.embed.mongo.config.IMongodConfig;
+import de.flapdoodle.embed.mongo.config.MongoCmdOptionsBuilder;
+import de.flapdoodle.embed.mongo.config.MongodConfigBuilder;
+import de.flapdoodle.embed.mongo.config.Net;
+import de.flapdoodle.embed.mongo.distribution.Version;
+import de.flapdoodle.embed.process.runtime.Network;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.onap.aai.cacher.common.MongoHelperSingleton;
 import org.onap.aai.cacher.injestion.parser.strategy.PayloadParserType;
 import org.onap.aai.cacher.model.CacheEntry;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.io.IOException;
 import java.util.List;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -41,31 +58,72 @@ import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = InjestionTestComponent.class)
+@ContextConfiguration(classes = {InjestionTestComponent.class,PayloadParserServiceTest.class})
 public class PayloadParserServiceTest {
+
+	private static final String DB_NAME = PayloadParserServiceTest.class.getSimpleName();
+	private static MongoDatabase mongoDb;
+	private static DB db;
+	private static MongodProcess mongod;
+	private static MongoClient mongoC;
 
 	@Autowired
 	private PayloadParserService parserService;
+
 
 	private JsonParser parser = new JsonParser();
 
 	private String aaiGetAllServiceResponse =
 			"{" +
-			"	'service': [" +
-			"		{" +
-			"			'service-id': 'service-id-1:1'," +
-			"			'service-description': 'A'," +
-			"			'resource-version': '1'" +
-			"		}," +
-			"		{" +
-			"			'service-id': 'service-id-2'," +
-			"			'service-description': 'B'," +
-			"			'resource-version': '2'" +
-			"		}" +
-			"	]" +
-			"}";
+					"	'service': [" +
+					"		{" +
+					"			'service-id': 'service-id-1:1'," +
+					"			'service-description': 'A'," +
+					"			'resource-version': '1'" +
+					"		}," +
+					"		{" +
+					"			'service-id': 'service-id-2'," +
+					"			'service-description': 'B'," +
+					"			'resource-version': '2'" +
+					"		}" +
+					"	]" +
+					"}";
 	private JsonObject aaiGetAllServiceResponseJson = parser.parse(aaiGetAllServiceResponse).getAsJsonObject();
 
+	@Bean
+	public DB db() {
+		return db;
+	}
+
+	@Bean
+	public MongoDatabase mongoDatabase() {
+		return mongoDb;
+	}
+
+	@Bean
+	public MongoHelperSingleton mongoHelperSingleton(DB db, MongoDatabase mongoDb) {
+		return new MongoHelperSingleton(db, mongoDb);
+	}
+
+	@BeforeClass
+	public static void setup() throws IOException, InterruptedException {
+		Fongo fongo = new Fongo(DB_NAME);
+		mongoDb = fongo.getDatabase(DB_NAME);
+		db = fongo.getDB(DB_NAME);
+	}
+
+	protected static void startEmbedded(int port) throws IOException {
+		IMongodConfig mongoConfigConfig = new MongodConfigBuilder()
+				.version(Version.Main.PRODUCTION)
+				.net(new Net(port, Network.localhostIsIPv6()))
+				.cmdOptions(new MongoCmdOptionsBuilder().verbose(true).build())
+				.configServer(false)
+				.build();
+
+		MongodExecutable mongodExecutable = MongodStarter.getDefaultInstance().prepare(mongoConfigConfig);
+
+		mongod = mongodExecutable.start();
+	}
 
 
 	private void print(List<CacheEntry> result) {

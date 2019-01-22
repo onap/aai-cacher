@@ -19,6 +19,8 @@
  */
 package org.onap.aai.cacher;
 
+import com.att.eelf.configuration.EELFLogger;
+import com.att.eelf.configuration.EELFManager;
 import org.onap.aai.cacher.config.PropertyPasswordConfiguration;
 import org.onap.aai.logging.LoggingContext;
 import org.onap.aai.logging.LoggingContext.StatusCode;
@@ -30,18 +32,20 @@ import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfigurat
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
+import javax.annotation.PreDestroy;
 import java.util.UUID;
 
 @SpringBootApplication
 @EnableScheduling
 @EnableAutoConfiguration(exclude = { DataSourceAutoConfiguration.class, HibernateJpaAutoConfiguration.class })
 @ComponentScan(basePackages = { "org.onap.aai.cacher", "com" })
-@PropertySource("classpath:application.properties")
 public class Application extends SpringBootServletInitializer {
+
     private static final String APP_NAME = "cacher";
+    private static final EELFLogger logger = EELFManager.getInstance().getLogger(Application.class.getName());
+
 
     @Override
     protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
@@ -66,6 +70,21 @@ public class Application extends SpringBootServletInitializer {
         app.addInitializers(new PropertyPasswordConfiguration());
         app.run(args);
 
+        logger.info("Cacher MicroService Started");
+        logger.error("Cacher MicroService Started");
+        logger.debug("Cacher MicroService Started");
+
+        System.out.println("Cacher MicroService Started");
+
+    }
+
+    @PreDestroy
+    public void cleanup(){
+        logger.info("Cacher MicroService shutting down.");
+        logger.error("Cacher MicroService shutting down.");
+        logger.debug("Cacher MicroService shutting down.");
+
+        System.out.println("Cacher MicroService shutting down.");
     }
 
     public static void setDefaultProps() {

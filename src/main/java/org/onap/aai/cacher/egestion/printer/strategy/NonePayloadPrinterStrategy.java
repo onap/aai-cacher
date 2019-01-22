@@ -34,6 +34,7 @@ public class NonePayloadPrinterStrategy implements PayloadPrinterStrategy {
     @Override
     public JsonObject createJson(String collectionName, JsonArray jsonArray) {
         if (jsonArray != null && jsonArray.size() > 0) {
+            jsonArray.get(0).getAsJsonObject().remove("_id");
             return jsonArray.get(0).getAsJsonObject();
         } else {
             return null;

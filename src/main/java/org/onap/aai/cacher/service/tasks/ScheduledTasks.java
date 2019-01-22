@@ -98,7 +98,7 @@ public class ScheduledTasks {
             }
             // initialize the cache
             if (!cacheLoaded) {
-                LOGGER.info("Start loading cache @ " + dateFormat.format(new Date()));
+                LOGGER.info("initializing: Start loading cache @ " + dateFormat.format(new Date()));
                 init();
                 cacheLoaded = true;
             }
@@ -120,12 +120,13 @@ public class ScheduledTasks {
         for (CacheKey cacheKey : cacheKeys) {
             if ("onInit".equalsIgnoreCase(cacheKey.getTimingIndicator())) {
                 try {
+                    LOGGER.info("initializing: cacheKey " + cacheKey.getCacheKey() + " loading");
                     ResponseEntity respEntity = rchs.triggerRestCall(cacheKey);
                     if (respEntity.getStatusCode().is2xxSuccessful()) {
                         Response resp = chs.populateCache(cacheKey, (String) respEntity.getBody());
                         if (resp != null) {
                             if (resp.getStatus() == Response.Status.CREATED.getStatusCode()) {
-                                LOGGER.debug("cacheKey " + cacheKey.getCacheKey() + " loaded");
+                                LOGGER.info("initializing: cacheKey " + cacheKey.getCacheKey() + " loaded");
                             } else {
                                 LOGGER.error("unexpected 2xx response status for cacheKey " + cacheKey.getCacheKey()
                                         + " " + resp.getStatusInfo());
@@ -142,7 +143,7 @@ public class ScheduledTasks {
                 }
             }
         }
-
+        LOGGER.info("initializing: cache completed @ " + dateFormat.format(new Date()));
         DmaapConsumerSingleton.getInstance().setProcessEvents(true);
     }
 }

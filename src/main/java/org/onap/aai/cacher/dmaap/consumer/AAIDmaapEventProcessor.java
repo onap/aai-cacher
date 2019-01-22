@@ -21,13 +21,14 @@ package org.onap.aai.cacher.dmaap.consumer;
 
 import com.att.eelf.configuration.EELFLogger;
 import com.att.eelf.configuration.EELFManager;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.google.gson.JsonSyntaxException;
 import com.mongodb.MongoCommandException;
-import org.bson.Document;
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.onap.aai.cacher.common.MongoHelperSingleton;
+import org.onap.aai.cacher.egestion.printer.PayloadPrinterService;
+import org.onap.aai.cacher.egestion.printer.strategy.PayloadPrinterType;
 import org.onap.aai.cacher.injestion.parser.PayloadParserService;
 import org.onap.aai.cacher.injestion.parser.strategy.PayloadParserType;
 import org.onap.aai.cacher.model.CacheEntry;
@@ -37,7 +38,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class AAIDmaapEventProcessor implements DmaapProcessor {
@@ -46,21 +46,18 @@ public class AAIDmaapEventProcessor implements DmaapProcessor {
 
     private final JsonParser parser = new JsonParser();
 
-    private JSONObject event;
-    private JSONObject eventHeader;
-    private JSONObject eventBody;
-
     private MongoHelperSingleton mongoHelper;
     private PayloadParserService payloadParserService;
+    private PayloadPrinterService payloadPrinterService;
 
     @Autowired
-    public AAIDmaapEventProcessor(MongoHelperSingleton mongoHelper, PayloadParserService payloadParserService) {
+    public AAIDmaapEventProcessor(MongoHelperSingleton mongoHelper, PayloadParserService payloadParserService, PayloadPrinterService payloadPrinterService) {
         this.mongoHelper = mongoHelper;
         this.payloadParserService = payloadParserService;
+        this.payloadPrinterService = payloadPrinterService;
     }
 
-    public AAIDmaapEventProcessor() {
-    }
+    public AAIDmaapEventProcessor(){}
 
     /**
      * 
@@ -68,14 +65,13 @@ public class AAIDmaapEventProcessor implements DmaapProcessor {
      * @return
      */
     public void process(String eventMessage) throws Exception {
-        this.event = null;
-        this.eventHeader = null;
-        this.eventBody = null;
+        JsonObject event;
+        JsonObject eventHeader;
 
         try {
             LOGGER.debug("Processing event: " + eventMessage);
-            this.event = new JSONObject(eventMessage);
-        } catch (JSONException je) {
+            event = parser.parse(eventMessage).getAsJsonObject();
+        } catch (JsonSyntaxException | IllegalStateException je) {
             LOGGER.error("ERROR: Event is not valid JSON [" + eventMessage + "].");
             ErrorLogHelper.logException(new AAIException("AAI_4000", je));
             throw je;
@@ -83,8 +79,8 @@ public class AAIDmaapEventProcessor implements DmaapProcessor {
 
         try {
             LOGGER.debug("Validating event header.");
-            this.validateEventHeader(this.event);
-        } catch (JSONException je) {
+            eventHeader = this.getEventHeader(event);
+        } catch (JsonSyntaxException | IllegalStateException je) {
             LOGGER.error("ERROR: Event header is not valid [" + eventMessage + "].");
             ErrorLogHelper.logException(new AAIException("AAI_4000", je));
             throw je;
@@ -92,30 +88,32 @@ public class AAIDmaapEventProcessor implements DmaapProcessor {
 
         try {
             LOGGER.debug("Processing entity.");
-            eventBody = this.event.getJSONObject("entity");
-        } catch (JSONException je) {
+            validateEventBody(event);
+        } catch (JsonSyntaxException | IllegalStateException je) {
             LOGGER.error("ERROR: Event body is not valid JSON [" + eventMessage + "].");
             ErrorLogHelper.logException(new AAIException("AAI_4000", je));
             throw je;
         }
 
-        List<CacheEntry> dmaapCacheEntries = payloadParserService.doParse("aai-dmaap",
-                parser.parse(eventMessage).getAsJsonObject(), PayloadParserType.AAI_RESOURCE_DMAAP);
+        JsonObject dmaapJson = parser.parse(eventMessage).getAsJsonObject();
 
         // Get existing object if is update
-        Optional<Document> existingObj = Optional.empty();
-        if (this.eventHeader != null && "UPDATE".equals(eventHeader.getString("action"))) {
-            existingObj = mongoHelper.getObject(dmaapCacheEntries.get(0));
+        if (eventHeader != null && "UPDATE".equals(eventHeader.get("action").getAsString())) {
+            String uri = eventHeader.get("entity-link").getAsString()
+                    .replaceAll("/aai/v\\d+", "");
+            String type = eventHeader.getAsJsonObject().get("entity-type").getAsString();
+
+            List<JsonObject> found = mongoHelper.findAllWithIdsStartingWith(type, uri);
+            if (!found.isEmpty()) {
+                JsonArray ja = new JsonArray();
+                found.forEach(ja::add);
+                JsonObject existing = payloadPrinterService.createJson(type, ja, PayloadPrinterType.AAI_RESOURCE_GET_ALL_PRINTER);
+                dmaapJson.add("existing-obj", existing);
+            }
         }
 
-        // Add existing object to payload to be parsed by AAI_RESOURCE_DMAAP parser
-        if (existingObj.isPresent()) {
-            JsonObject eventMessageObj = parser.parse(eventMessage).getAsJsonObject();
-            eventMessageObj.add("existing-obj", parser.parse(existingObj.get().toJson()).getAsJsonObject());
-            eventMessage = eventMessageObj.toString();
-            dmaapCacheEntries = payloadParserService.doParse("aai-dmaap", parser.parse(eventMessage).getAsJsonObject(),
-                    PayloadParserType.AAI_RESOURCE_DMAAP);
-        }
+        List<CacheEntry> dmaapCacheEntries = payloadParserService.doParse("aai-dmaap",
+                dmaapJson, PayloadParserType.AAI_RESOURCE_DMAAP);
 
         for (CacheEntry cacheEntry : dmaapCacheEntries) {
             try {
@@ -139,37 +137,34 @@ public class AAIDmaapEventProcessor implements DmaapProcessor {
 
     }
 
+    private void validateEventBody(JsonObject event) {
+        if (!event.has("entity")) {
+            throw new JsonSyntaxException("Event header missing.");
+        }
+
+        event.get("entity").getAsJsonObject();
+    }
+
     /**
      * Validates that the event header has the id and source name for processing.
      * (needed for status response msg)
      * 
      * @param event
-     * @throws JSONException
+     * @throws JsonSyntaxException
      */
-    private void validateEventHeader(JSONObject event) throws JSONException {
-        eventHeader = event.getJSONObject("event-header");
-        if (this.eventHeader.getString("id") == null || this.eventHeader.getString("id").isEmpty()) {
-            throw new JSONException("Event header id missing.");
-        } else if (this.eventHeader.getString("source-name") == null
-                || this.eventHeader.getString("source-name").isEmpty()) {
-            throw new JSONException("Event header source-name missing.");
+    private JsonObject getEventHeader(JsonObject event) throws JsonSyntaxException {
+
+        if (!event.has("event-header")) {
+            throw new JsonSyntaxException("Event header missing.");
         }
-    }
-
-    /**
-     * 
-     * @return
-     */
-    public JSONObject getEventHeader() {
+        JsonObject eventHeader = event.get("event-header").getAsJsonObject();
+        if (eventHeader.get("id") == null || eventHeader.get("id").getAsString().isEmpty()) {
+            throw new JsonSyntaxException("Event header id missing.");
+        } else if (eventHeader.get("source-name") == null || eventHeader.get("source-name").getAsString().isEmpty()) {
+            throw new JsonSyntaxException("Event header source-name missing.");
+        }
         return eventHeader;
-    }
 
-    /**
-     * 
-     * @return
-     */
-    public JSONObject getEventBody() {
-        return eventBody;
     }
 
 }

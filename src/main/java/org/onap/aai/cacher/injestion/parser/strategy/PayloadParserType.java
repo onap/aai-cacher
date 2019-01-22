@@ -20,26 +20,38 @@
 package org.onap.aai.cacher.injestion.parser.strategy;
 
 import java.util.Arrays;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 public enum PayloadParserType {
 
-    NONE("none"), AAI_RESOURCE_GET_ALL("aai-resource-get-all"), AAI_RESOURCE_DMAAP("aai-resource-dmaap");
-    private final String value;
+	NONE("none"),
+	AAI_RESOURCE_GET_ALL("aai-resource-get-all"),
+	AAI_RESOURCE_DMAAP("aai-resource-dmaap");
 
-    PayloadParserType(String input) {
-        this.value = input;
-    }
+	private static final Map<String, PayloadParserType> MAP;
+	static {
+		MAP = Arrays.stream(values()).collect(Collectors.toMap(PayloadParserType::getValue, Function.identity()));
+	}
 
-    public String getValue() {
-        return this.value;
-    }
+	private final String value;
 
-    @Override
-    public String toString() {
-        return this.value;
-    }
+	PayloadParserType(String input) {
+		this.value = input;
+	}
 
-    public static PayloadParserType fromString(String text) {
-        return Arrays.stream(values()).filter(bl -> bl.getValue().equalsIgnoreCase(text)).findFirst().orElse(null);
-    }
+	public String getValue() {
+		return this.value;
+	}
+
+	@Override
+	public String toString() {
+		return this.value;
+	}
+
+	public static PayloadParserType fromString(String text) {
+		return MAP.get(text);
+	}
 }
+

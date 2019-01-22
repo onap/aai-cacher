@@ -193,7 +193,7 @@ public class AAIResourceDmaapParserStrategyTestConstants {
 				"		'severity': 'NORMAL'," +
 				"		'entity-type': 'generic-vnf'," +
 				"		'top-entity-type': 'generic-vnf'," +
-				"		'entity-link': '/aai/v13/network/generic-vnfs/generic-vnf/cc1703a9-a63f-46c5-a6b1-7ff67f3a9848'," +
+				"		'entity-link': '/aai/v14/network/generic-vnfs/generic-vnf/cc1703a9-a63f-46c5-a6b1-7ff67f3a9848'," +
 				"		'event-type': 'AAI-EVENT'," +
 				"		'domain': 'e2e1'," +
 				"		'action': 'UPDATE'," +
@@ -222,7 +222,7 @@ public class AAIResourceDmaapParserStrategyTestConstants {
 				"				{" +
 				"					'related-to': 'service-instance'," +
 				"					'relationship-label': 'org.onap.relationships.inventory.ComposedOf'," +
-				"					'related-link': '/aai/v13/business/customers/customer/1702_IT3_SubscGblID_20170426162928/service-subscriptions/service-subscription/XXXX-VMS/service-instances/service-instance/SERVERNAME'," +
+				"					'related-link': '/aai/v14/business/customers/customer/1702_IT3_SubscGblID_20170426162928/service-subscriptions/service-subscription/XXXX-VMS/service-instances/service-instance/SERVERNAME'," +
 				"					'relationship-data': [" +
 				"						{" +
 				"							'relationship-key': 'customer.global-customer-id'," +
@@ -246,7 +246,7 @@ public class AAIResourceDmaapParserStrategyTestConstants {
 				"				{" +
 				"					'related-to': 'vserver'," +
 				"					'relationship-label': 'tosca.relationships.HostedOn'," +
-				"					'related-link': '/aai/v13/cloud-infrastructure/cloud-regions/cloud-region/onap-cloud-owner/AAIAIC25/tenants/tenant/SERVERNAME%3A%3AXXXX-VMS/vservers/vserver/e77451f2-1c07-4db4-b92b-9907b840fc8f'," +
+				"					'related-link': '/aai/v14/cloud-infrastructure/cloud-regions/cloud-region/onap-cloud-owner/AAIAIC25/tenants/tenant/SERVERNAME%3A%3AXXXX-VMS/vservers/vserver/e77451f2-1c07-4db4-b92b-9907b840fc8f'," +
 				"					'relationship-data': [" +
 				"						{" +
 				"							'relationship-key': 'cloud-region.cloud-owner'," +
@@ -297,7 +297,7 @@ public class AAIResourceDmaapParserStrategyTestConstants {
 				"										'relationship-key': 'l3-network.network-id'" +
 				"									}" +
 				"								]," +
-				"								'related-link': '/aai/v13/network/l3-networks/l3-network/91eae07d-6f38-4fd8-b929-e7c04614c8c3'," +
+				"								'related-link': '/aai/v14/network/l3-networks/l3-network/91eae07d-6f38-4fd8-b929-e7c04614c8c3'," +
 				"								'relationship-label': 'org.onap.relationships.inventory.Uses'," +
 				"								'related-to-property': [" +
 				"									{" +
@@ -317,7 +317,7 @@ public class AAIResourceDmaapParserStrategyTestConstants {
 				"				{" +
 				"					'related-to': 'vserver'," +
 				"					'relationship-label': 'tosca.relationships.HostedOn'," +
-				"					'related-link': '/aai/v13/cloud-infrastructure/cloud-regions/cloud-region/onap-cloud-owner/AAIAIC25/tenants/tenant/SERVERNAME%3A%3AXXXX-VMS/vservers/vserver/e77451f2-1c07-4db4-b92b-9907b840fc8f'," +
+				"					'related-link': '/aai/v14/cloud-infrastructure/cloud-regions/cloud-region/onap-cloud-owner/AAIAIC25/tenants/tenant/SERVERNAME%3A%3AXXXX-VMS/vservers/vserver/e77451f2-1c07-4db4-b92b-9907b840fc8f'," +
 				"					'relationship-data': [" +
 				"						{" +
 				"							'relationship-key': 'cloud-region.cloud-owner'," +
@@ -355,7 +355,7 @@ public class AAIResourceDmaapParserStrategyTestConstants {
 			"		'severity': 'NORMAL'," +
 			"		'entity-type': 'generic-vnf'," +
 			"		'top-entity-type': 'generic-vnf'," +
-			"		'entity-link': '/aai/v13/network/generic-vnfs/generic-vnf/cc1703a9-a63f-46c5-a6b1-7ff67f3a9848'," +
+			"		'entity-link': '/aai/v14/network/generic-vnfs/generic-vnf/cc1703a9-a63f-46c5-a6b1-7ff67f3a9848'," +
 			"		'event-type': 'AAI-EVENT'," +
 			"		'domain': 'e2e1'," +
 			"		'action': 'UPDATE'," +

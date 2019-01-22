@@ -30,7 +30,7 @@ public class CacheKeyTest {
     public String inputGETOnInit = "{" +
             "'cacheKey': 'cloud-region'," +
             "'baseUrl': 'http://localhost:8447'," +
-            "'module': '/aai/v13/'," +
+            "'module': '/aai/v14/'," +
             "'URI': 'cloud-infrastructure/cloud-regions?depth=0&resultIndex=1&resultSize=3'," +
             "'timingIndicator': 'onInit'," +
             "'httpMethod': 'GET'}";
@@ -38,20 +38,20 @@ public class CacheKeyTest {
     public String inputGETFirstHitDefault = "{" +
             "'cacheKey': 'cloud-region'," +
             "'baseUrl': 'http://localhost:8447'," +
-            "'module': '/aai/v13/'," +
+            "'module': '/aai/v14/'," +
             "'URI': 'cloud-infrastructure/cloud-regions?depth=0&resultIndex=1&resultSize=3'}";
 
     public String inputGETScheduledDefault = "{" +
             "'cacheKey': 'cloud-region'," +
             "'baseUrl': 'http://localhost:8447'," +
-            "'module': '/aai/v13/'," +
+            "'module': '/aai/v14/'," +
             "'timingIndicator': 'scheduled'," +
             "'URI': 'cloud-infrastructure/cloud-regions?depth=0&resultIndex=1&resultSize=3'}";
 
     public String inputGETScheduledWithSyncInterval = "{" +
             "'cacheKey': 'cloud-region'," +
             "'baseUrl': 'http://localhost:8447'," +
-            "'module': '/aai/v13/'," +
+            "'module': '/aai/v14/'," +
             "'syncInterval': '2'," +
             "'timingIndicator': 'scheduled'," +
             "'URI': 'cloud-infrastructure/cloud-regions?depth=0&resultIndex=1&resultSize=3'}";
@@ -59,7 +59,7 @@ public class CacheKeyTest {
     public String inputGETScheduledWithSyncIntervalWithId = "{" +
             "'_id': 'cloud-region'," +
             "'baseUrl': 'http://localhost:8447'," +
-            "'module': '/aai/v13/'," +
+            "'module': '/aai/v14/'," +
             "'syncInterval': '2'," +
             "'timingIndicator': 'scheduled'," +
             "'URI': 'cloud-infrastructure/cloud-regions?depth=0&resultIndex=1&resultSize=3'}";
@@ -72,7 +72,7 @@ public class CacheKeyTest {
         CacheKey ck = CacheKey.fromJson(ckJson);
         assertEquals("cacheKey was incorrect", "cloud-region", ck.getCacheKey());
         assertEquals("baseUrl was incorrect", "http://localhost:8447", ck.getBaseUrl());
-        assertEquals("Module was incorrect", "/aai/v13/", ck.getModule());
+        assertEquals("Module was incorrect", "/aai/v14/", ck.getModule());
         assertEquals("URI was incorrect", "cloud-infrastructure/cloud-regions?depth=0&resultIndex=1&resultSize=3", ck.getURI());
         assertEquals("timingIndicator was incorrect", "onInit", ck.getTimingIndicator());
         assertEquals("Http Method was incorrect", "GET", ck.getHttpMethod());
@@ -89,7 +89,7 @@ public class CacheKeyTest {
         CacheKey ck = CacheKey.fromJson(ckJson);
         assertEquals("cacheKey was incorrect", "cloud-region", ck.getCacheKey());
         assertEquals("baseUrl was incorrect", "http://localhost:8447", ck.getBaseUrl());
-        assertEquals("Module was incorrect", "/aai/v13/", ck.getModule());
+        assertEquals("Module was incorrect", "/aai/v14/", ck.getModule());
         assertEquals("URI was incorrect", "cloud-infrastructure/cloud-regions?depth=0&resultIndex=1&resultSize=3", ck.getURI());
         assertEquals("timingIndicator was incorrect", "firstHit", ck.getTimingIndicator());
         assertEquals("Http Method was incorrect", "GET", ck.getHttpMethod());
@@ -123,7 +123,7 @@ public class CacheKeyTest {
         CacheKey ck = CacheKey.fromJson(ckJson);
         assertEquals("cacheKey was incorrect", "cloud-region", ck.getCacheKey());
         assertEquals("baseUrl was incorrect", "http://localhost:8447", ck.getBaseUrl());
-        assertEquals("Module was incorrect", "/aai/v13/", ck.getModule());
+        assertEquals("Module was incorrect", "/aai/v14/", ck.getModule());
         assertEquals("URI was incorrect", "cloud-infrastructure/cloud-regions?depth=0&resultIndex=1&resultSize=3", ck.getURI());
         assertEquals("timingIndicator was incorrect", "scheduled", ck.getTimingIndicator());
         assertEquals("Http Method was incorrect", "GET", ck.getHttpMethod());
@@ -140,7 +140,7 @@ public class CacheKeyTest {
         CacheKey ck = CacheKey.fromJson(ckJson);
         assertEquals("cacheKey was incorrect", "cloud-region", ck.getCacheKey());
         assertEquals("baseUrl was incorrect", "http://localhost:8447", ck.getBaseUrl());
-        assertEquals("Module was incorrect", "/aai/v13/", ck.getModule());
+        assertEquals("Module was incorrect", "/aai/v14/", ck.getModule());
         assertEquals("URI was incorrect", "cloud-infrastructure/cloud-regions?depth=0&resultIndex=1&resultSize=3", ck.getURI());
         assertEquals("timingIndicator was incorrect", "scheduled", ck.getTimingIndicator());
         assertEquals("Http Method was incorrect", "GET", ck.getHttpMethod());
@@ -157,7 +157,7 @@ public class CacheKeyTest {
         CacheKey ck = CacheKey.fromJson(ckJson);
         assertEquals("cacheKey was incorrect", "cloud-region", ck.getCacheKey());
         assertEquals("baseUrl was incorrect", "http://localhost:8447", ck.getBaseUrl());
-        assertEquals("Module was incorrect", "/aai/v13/", ck.getModule());
+        assertEquals("Module was incorrect", "/aai/v14/", ck.getModule());
         assertEquals("URI was incorrect", "cloud-infrastructure/cloud-regions?depth=0&resultIndex=1&resultSize=3", ck.getURI());
         assertEquals("timingIndicator was incorrect", "scheduled", ck.getTimingIndicator());
         assertEquals("Http Method was incorrect", "GET", ck.getHttpMethod());

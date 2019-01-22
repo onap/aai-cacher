@@ -26,7 +26,6 @@ import org.apache.http.ssl.SSLContextBuilder;
 import org.onap.aai.util.AAIConfig;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
-import org.springframework.core.env.Environment;
 import org.springframework.http.*;
 import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
@@ -43,12 +42,9 @@ import java.nio.charset.Charset;
 import java.security.KeyStore;
 import java.util.Collections;
 
-//@Component
 public class RestClient {
 
     private HttpClient restClient = null;
-    
-    private Environment environment;
 
     public RestClient() {
         this.restClient = initClient();
@@ -64,14 +60,15 @@ public class RestClient {
      */
     private HttpClient initClient() {
         HttpClient rc;
-
         try {
             String truststore_path = AAIConstants.AAI_HOME_ETC_AUTH
                     + AAIConfig.get(AAIConstants.AAI_TRUSTSTORE_FILENAME);
             String truststore_password = AAIConfig.get(AAIConstants.AAI_TRUSTSTORE_PASSWD);
-            SSLContextBuilder sslContextBuilder = SSLContextBuilder.create();
-     
-            SSLContext sslContext = sslContextBuilder
+            String keystore_path = AAIConstants.AAI_HOME_ETC_AUTH + AAIConfig.get(AAIConstants.AAI_KEYSTORE_FILENAME);
+            String keystore_password = AAIConfig.get(AAIConstants.AAI_KEYSTORE_PASSWD);
+            SSLContext sslContext = SSLContextBuilder.create()
+                    .loadKeyMaterial(loadPfx(keystore_path, keystore_password.toCharArray()),
+                            keystore_password.toCharArray())
                     .loadTrustMaterial(ResourceUtils.getFile(truststore_path), truststore_password.toCharArray())
                     .build();
 
@@ -118,7 +115,7 @@ public class RestClient {
                 urlUpdate = baseUrl;
             }
             HttpEntity httpEntity = new HttpEntity(headers);
-            responseEntity = restTemplate.exchange(urlUpdate + endpoint, HttpMethod.GET, httpEntity, String.class);
+            responseEntity = restTemplate.exchange(baseUrl + endpoint, HttpMethod.GET, httpEntity, String.class);
         } catch (Exception e) {
             e.printStackTrace();
             // TODO handle exceptions

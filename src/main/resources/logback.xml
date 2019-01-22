@@ -170,7 +170,12 @@
 			<pattern>${eelfLogPattern}</pattern>
 		</encoder>
 	</appender>
-	<logger name="org.onap.aai.cacher" level="DEBUG" additivity="false">
+
+	<logger name="mongo" level="DEBUG" additivity="false">
+		<appender-ref ref="external" />
+	</logger>
+
+	<logger name="org.onap.aai" level="DEBUG" additivity="false">
 		<appender-ref ref="asyncDEBUG" />
 		<appender-ref ref="asyncERROR" />
 		<appender-ref ref="asyncMETRIC" />

@@ -4,14 +4,14 @@
     "severity": "NORMAL",
     "entity-type": "generic-vnf",
     "top-entity-type": "generic-vnf",
-    "entity-link": "/aai/v13/network/generic-vnfs/generic-vnf/generic-vnf-id",
+    "entity-link": "/aai/v14/network/generic-vnfs/generic-vnf/generic-vnf-id",
     "event-type": "AAI-EVENT",
     "domain": "uINT1",
     "action": "CREATE",
     "sequence-number": "0",
     "id": "d56359e7-4dcb-471a-9a6a-2afbb353b5bd",
     "source-name": "junit",
-    "version": "v13",
+    "version": "v14",
     "timestamp": "20180712-17:47:24:440"
   },
   "entity": {

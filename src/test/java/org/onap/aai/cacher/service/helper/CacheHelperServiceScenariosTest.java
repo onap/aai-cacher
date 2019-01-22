@@ -19,18 +19,11 @@
  */
 package org.onap.aai.cacher.service.helper;
 
+import com.github.fakemongo.Fongo;
 import com.mongodb.DB;
 import com.mongodb.MongoClient;
 import com.mongodb.client.MongoDatabase;
-import de.flapdoodle.embed.mongo.MongodExecutable;
 import de.flapdoodle.embed.mongo.MongodProcess;
-import de.flapdoodle.embed.mongo.MongodStarter;
-import de.flapdoodle.embed.mongo.config.IMongodConfig;
-import de.flapdoodle.embed.mongo.config.MongoCmdOptionsBuilder;
-import de.flapdoodle.embed.mongo.config.MongodConfigBuilder;
-import de.flapdoodle.embed.mongo.config.Net;
-import de.flapdoodle.embed.mongo.distribution.Version;
-import de.flapdoodle.embed.process.runtime.Network;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -49,6 +42,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import javax.ws.rs.core.Response;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -56,9 +50,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import javax.ws.rs.core.Response;
-
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @Configuration
@@ -120,28 +113,9 @@ public class CacheHelperServiceScenariosTest {
 
 	@BeforeClass
 	public static void setup() throws IOException, InterruptedException {
-
-		String bindIp = "localhost";
-		int port = 27017;
-		startEmbedded(port);
-
-		mongoC = new MongoClient(bindIp, port);
-		mongoDb = mongoC.getDatabase(DB_NAME);
-		db = mongoC.getDB(DB_NAME);
-
-	}
-
-	protected static void startEmbedded(int port) throws IOException {
-		IMongodConfig mongoConfigConfig = new MongodConfigBuilder()
-				.version(Version.Main.PRODUCTION)
-				.net(new Net(port, Network.localhostIsIPv6()))
-				.cmdOptions(new MongoCmdOptionsBuilder().verbose(true).build())
-				.configServer(false)
-				.build();
-
-		MongodExecutable mongodExecutable = MongodStarter.getDefaultInstance().prepare(mongoConfigConfig);
-
-		mongod = mongodExecutable.start();
+		Fongo fongo = new Fongo(DB_NAME);
+		mongoDb = fongo.getDatabase(DB_NAME);
+		db = fongo.getDB(DB_NAME);
 	}
 
 	@AfterClass
@@ -203,7 +177,7 @@ public class CacheHelperServiceScenariosTest {
         cacheHelperService.updateCacheKey(retrieveCk);
 
         resp = cacheHelperService.forceSync(retrieveCk);
-        assertEquals("forceSync", 500, resp.getStatus());
+        assertEquals("forceSync", 400, resp.getStatus());
         retrieveCk.lastSyncStartTime = syncStartTime;
         retrieveCk.lastSyncEndTime = syncEndTime;
         assertTrue("isShouldTrigger2", cacheHelperService.isShouldTrigger(retrieveCk));
@@ -229,4 +203,12 @@ public class CacheHelperServiceScenariosTest {
 		assertEquals("buildExceptionResponse", 500, resp.getStatus());
 		
 	}
+    
+    @Test
+    public void buildMissingFieldResponseTest() throws Exception {
+        List<String> issueList = Arrays.asList("First Field", "Second Field");
+        Response resp = cacheHelperService.buildMissingFieldResponse(issueList);
+        assertEquals("buildMissingFieldResponse", 400, resp.getStatus());
+        
+    }	
 }

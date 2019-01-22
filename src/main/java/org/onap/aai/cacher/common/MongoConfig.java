@@ -24,22 +24,26 @@ import com.att.eelf.configuration.EELFManager;
 import com.mongodb.DB;
 import com.mongodb.MongoClient;
 import com.mongodb.client.MongoDatabase;
+import de.flapdoodle.embed.mongo.Command;
 import de.flapdoodle.embed.mongo.MongodExecutable;
 import de.flapdoodle.embed.mongo.MongodProcess;
 import de.flapdoodle.embed.mongo.MongodStarter;
-import de.flapdoodle.embed.mongo.config.IMongodConfig;
-import de.flapdoodle.embed.mongo.config.MongodConfigBuilder;
-import de.flapdoodle.embed.mongo.config.Net;
+import de.flapdoodle.embed.mongo.config.*;
 import de.flapdoodle.embed.mongo.distribution.Version;
+import de.flapdoodle.embed.process.config.io.ProcessOutput;
+import de.flapdoodle.embed.process.io.Processors;
+import de.flapdoodle.embed.process.io.Slf4jLevel;
 import de.flapdoodle.embed.process.runtime.Network;
 import org.onap.aai.exceptions.AAIException;
 import org.onap.aai.logging.ErrorLogHelper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import javax.annotation.PostConstruct;
 import java.io.IOException;
+
 
 @Configuration
 public class MongoConfig {
@@ -53,8 +57,10 @@ public class MongoConfig {
     @Value("${mongodb.port}")
     private int MONGO_DB_PORT;
 
+    private MongodProcess mongod;
+
     @Bean
-    public MongoClient mongoClient() {
+    public MongoClient mongoClient(MongodProcess mongodProcess) {
         try {
             // To connect to mongodb server
             MongoClient mongoC = new MongoClient(MONGO_DB_HOST, MONGO_DB_PORT);
@@ -83,21 +89,33 @@ public class MongoConfig {
     }
 
     @Bean
-    @PostConstruct
-    public MongodProcess mongoEmbedded() throws IOException, InterruptedException {
+    public MongodProcess mongoEmbedded() throws IOException {
 
-        MongodStarter starter = MongodStarter.getDefaultInstance();
-
-        String bindIp = MONGO_DB_HOST;
+        Logger logger = LoggerFactory.getLogger("mongo");
         int port = MONGO_DB_PORT;
-        IMongodConfig mongodConfig = new MongodConfigBuilder().version(Version.Main.PRODUCTION)
-                .net(new Net(port, Network.localhostIsIPv6())).configServer(false).build();
 
-        MongodExecutable mongodExecutable = starter.prepare(mongodConfig);
-        // Thread.sleep(20000L);
-        MongodProcess mongod = mongodExecutable.start();
+        IMongodConfig mongoConfigConfig = new MongodConfigBuilder()
+                .version(Version.Main.PRODUCTION)
+                .net(new Net(port, Network.localhostIsIPv6()))
+                .cmdOptions(new MongoCmdOptionsBuilder().enableTextSearch(true).useNoPrealloc(false).build())
+                .configServer(false)
+                .build();
+
+        ProcessOutput processOutput = new ProcessOutput(Processors.logTo(logger, Slf4jLevel.WARN), Processors.logTo(logger,
+                Slf4jLevel.WARN), Processors.logTo(logger, Slf4jLevel.WARN));
+
+        MongodExecutable mongodExecutable = MongodStarter
+                .getInstance((new RuntimeConfigBuilder())
+                        .defaults(Command.MongoD)
+                        .processOutput(processOutput)
+                        .build())
+                .prepare(mongoConfigConfig);
+
+        mongod = mongodExecutable.start();
+
         if (mongod.isProcessRunning()) {
-            System.out.println("RUNNING");
+            System.out.println("Embedded mongo RUNNING");
+            logger.info("Embedded mongo RUNNING");
         }
         return mongod;
     }

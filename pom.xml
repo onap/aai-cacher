@@ -71,7 +71,7 @@
 
 		<start-class>org.onap.aai.cacher.Application</start-class>
 
-		<aai-core.version>1.3.0</aai-core.version>
+		<aai-core.version>1.4.1-SNAPSHOT</aai-core.version>
 		<activemq.version>5.15.8</activemq.version>
 		
 		<!-- Start of the jacoco plugin properties -->
@@ -394,66 +394,71 @@
 			<version>2.0.1</version>
 		</dependency>
 		<dependency>
-			<groupId>org.onap.aai.aai-common</groupId>
-			<artifactId>aai-core</artifactId>
-			<version>${aai-core.version}</version>
-			<exclusions>
-				<exclusion>
-					<groupId>com.sun.jersey</groupId>
-					<artifactId>jersey-core</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.slf4j</groupId>
-					<artifactId>slf4j-log4j12</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.apache.cxf</groupId>
-					<artifactId>cxf-core</artifactId>
-				</exclusion>
-			</exclusions>
+            <groupId>org.onap.aai.aai-common</groupId>
+            <artifactId>aai-core</artifactId>
+            <version>${aai-core.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.sun.jersey</groupId>
+                    <artifactId>jersey-core</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-log4j12</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.apache.cxf</groupId>
+                    <artifactId>cxf-core</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+		<dependency>
+			<groupId>org.onap.aai.schema-service</groupId>
+			<artifactId>aai-schema</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
 		</dependency>
 		<dependency>
-			<groupId>commons-configuration</groupId>
-			<artifactId>commons-configuration</artifactId>
-			<version>${commons.configuration.version}</version>
-			<exclusions>
-				<exclusion>
-					<artifactId>commons-lang</artifactId>
-					<groupId>commons-lang</groupId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-		<dependency>
-			<groupId>com.att.eelf</groupId>
-			<artifactId>eelf-core</artifactId>
-			<version>${eelf.core.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>ch.qos.logback</groupId>
-			<artifactId>logback-core</artifactId>
-			<version>${logback.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>ch.qos.logback</groupId>
-			<artifactId>logback-classic</artifactId>
-			<version>${logback.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>ch.qos.logback</groupId>
-			<artifactId>logback-access</artifactId>
-			<version>${logback.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.mockito</groupId>
-			<artifactId>mockito-all</artifactId>
-			<version>${mockito.version}</version>
-			<scope>test</scope>
-		</dependency>
+            <groupId>commons-configuration</groupId>
+            <artifactId>commons-configuration</artifactId>
+            <version>${commons.configuration.version}</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>commons-lang</artifactId>
+                    <groupId>commons-lang</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>        
+        <dependency>
+            <groupId>com.att.eelf</groupId>
+            <artifactId>eelf-core</artifactId>
+            <version>${eelf.core.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-core</artifactId>
+            <version>${logback.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>${logback.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-access</artifactId>
+            <version>${logback.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-all</artifactId>
+            <version>${mockito.version}</version>
+            <scope>test</scope>
+        </dependency>
 		<dependency>
 			<groupId>org.skyscreamer</groupId>
 			<artifactId>jsonassert</artifactId>
@@ -470,7 +475,6 @@
         Note - Use of this dme2 dependency is itself a harm to spring boot as this
         dependency will crash the application without this exclusion
         since the dme2 dependency does shading so we need exclude the javax servlet
-
         <dependency>
             <groupId>com.att.aft</groupId>
             <artifactId>dme2</artifactId>
@@ -691,11 +695,11 @@
 		<!-- mention the logback.xml location through system property or environment 
 			variable to edit logback.xml at run time -->
 		<resources>
-			<resource>
-				<directory>${project.basedir}/src/main/swm</directory>
-				<targetPath>${project.build.directory}/swm</targetPath>
-				<filtering>false</filtering>
-			</resource>
+            <resource>
+                <directory>${project.basedir}/src/main/swm</directory>
+                <targetPath>${project.build.directory}/swm</targetPath>
+                <filtering>false</filtering>
+            </resource>		
 			<resource>
 				<directory>${project.basedir}/src/main/resources</directory>
 				<includes>
@@ -709,8 +713,8 @@
 			<resource>
 				<directory>${project.basedir}/src/main/resources/etc/auth/</directory>
 				<includes>
-					<include>aai-client-cert.p12</include>
-					<include>tomcat_keystore</include>
+					<include>realm.properties</include>
+					<include>aai_keystore</include>
 				</includes>
 				<targetPath>${project.build.directory}/swm/package/nix/dist_files/opt/app/aai-cacher/appconfig</targetPath>
 				<filtering>true</filtering>

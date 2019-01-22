@@ -4,14 +4,14 @@
     "severity": "NORMAL",
     "entity-type": "l3-interface-ipv4-address-list",
     "top-entity-type": "generic-vnf",
-    "entity-link": "/aai/v13/network/generic-vnfs/generic-vnf/generic-vnf-987654321-39-jenkins/l-interfaces/l-interface/interface-name-generic-vnf-987654321-39-jenkins/vlans/vlan/vlan-interface-generic-vnf-987654321-39-jenkins/l3-interface-ipv4-address-list/l3-interface-ipv4-address-generic-vnf-987654321-39-jenkins",
+    "entity-link": "/aai/v14/network/generic-vnfs/generic-vnf/generic-vnf-987654321-39-jenkins/l-interfaces/l-interface/interface-name-generic-vnf-987654321-39-jenkins/vlans/vlan/vlan-interface-generic-vnf-987654321-39-jenkins/l3-interface-ipv4-address-list/l3-interface-ipv4-address-generic-vnf-987654321-39-jenkins",
     "event-type": "AAI-EVENT",
     "domain": "uINT1",
     "action": "DELETE",
     "sequence-number": "0",
     "id": "7a899562-a0c1-414e-83aa-0021a5c7646b",
     "source-name": "FitNesse-Test-generic-vnf-AAI-9278-02",
-    "version": "v13",
+    "version": "v14",
     "timestamp": "20180625-00:05:26:664"
   },
   "entity": {

@@ -20,30 +20,17 @@
 package org.onap.aai.cacher.dmaap.consumer;
 
 import com.att.nsa.mr.client.MRConsumer;
+import com.github.fakemongo.Fongo;
 import com.mongodb.DB;
 import com.mongodb.MongoClient;
 import com.mongodb.client.MongoDatabase;
-
-import de.flapdoodle.embed.mongo.MongodExecutable;
 import de.flapdoodle.embed.mongo.MongodProcess;
-import de.flapdoodle.embed.mongo.MongodStarter;
-import de.flapdoodle.embed.mongo.config.IMongodConfig;
-import de.flapdoodle.embed.mongo.config.MongoCmdOptionsBuilder;
-import de.flapdoodle.embed.mongo.config.MongodConfigBuilder;
-import de.flapdoodle.embed.mongo.config.Net;
-import de.flapdoodle.embed.mongo.distribution.Version;
-import de.flapdoodle.embed.process.runtime.Network;
-
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.hamcrest.Matchers;
+import org.junit.*;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.onap.aai.cacher.common.MongoHelperSingleton;
-import org.onap.aai.cacher.egestion.printer.EgestionTestComponent;
+import org.onap.aai.cacher.egestion.printer.PayloadPrinterService;
 import org.onap.aai.cacher.injestion.parser.InjestionTestComponent;
 import org.onap.aai.cacher.injestion.parser.PayloadParserService;
 import org.onap.aai.cacher.service.helper.RestClientHelperService;
@@ -57,6 +44,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
+
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertThat;
 
 //@Ignore
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -96,54 +86,35 @@ public class AAIEventConsumerTest  {
 	}
 	
 	@Bean
-	public AAIDmaapEventProcessor aaiDmaapEventProcessor(MongoHelperSingleton mongoHelperSingleton, PayloadParserService payloadParserService) {
-		return new AAIDmaapEventProcessor(mongoHelperSingleton, payloadParserService);
+	public AAIDmaapEventProcessor aaiDmaapEventProcessor(MongoHelperSingleton mongoHelperSingleton, PayloadParserService payloadParserService, PayloadPrinterService payloadPrinterService) {
+		return new AAIDmaapEventProcessor(mongoHelperSingleton, payloadParserService, payloadPrinterService);
 	}
 
 
 	MRConsumer client;
-	private String validEventMessage = "{'cambria.partition':'AAI','event-header':{'severity':'NORMAL','entity-type':'pserver','top-entity-type':'pserver','entity-link':'/aai/v13/cloud-infrastructure/pservers/pserver/pserver-1','event-type':'AAI-EVENT','domain':'JUNIT','action':'CREATE','sequence-number':'0','id':'0c3b336d-6554-4ddf-a4d7-90f97876a966','source-name':'JUNIT','version':'v13','timestamp':'20180209-21:02:20:344'},'entity':{'hostname':'pserver-1','in-maint':false}}";
-	private String validHeldEventMessage = "{'cambria.partition':'AAI','event-header':{'severity':'NORMAL','entity-type':'pserver','top-entity-type':'pserver','entity-link':'/aai/v13/cloud-infrastructure/pservers/pserver/pserver-1','event-type':'AAI-EVENT','domain':'JUNIT','action':'CREATE','sequence-number':'0','id':'0c3b336d-6554-4ddf-a4d7-90f97876a966','source-name':'JUNIT','version':'v13','timestamp':'20180209-21:02:20:344'},'entity':{'hostname':'pserver-1','in-maint':false}}";
+	private String validEventMessage = "{'cambria.partition':'AAI','event-header':{'severity':'NORMAL','entity-type':'pserver','top-entity-type':'pserver','entity-link':'/aai/v14/cloud-infrastructure/pservers/pserver/pserver-1','event-type':'AAI-EVENT','domain':'JUNIT','action':'CREATE','sequence-number':'0','id':'0c3b336d-6554-4ddf-a4d7-90f97876a966','source-name':'JUNIT','version':'v14','timestamp':'20180209-21:02:20:344'},'entity':{'hostname':'pserver-1','in-maint':false}}";
+	private String validHeldEventMessage = "{'cambria.partition':'AAI','event-header':{'severity':'NORMAL','entity-type':'pserver','top-entity-type':'pserver','entity-link':'/aai/v14/cloud-infrastructure/pservers/pserver/pserver-1','event-type':'AAI-EVENT','domain':'JUNIT','action':'CREATE','sequence-number':'0','id':'0c3b336d-6554-4ddf-a4d7-90f97876a966','source-name':'JUNIT','version':'v14','timestamp':'20180209-21:02:20:344'},'entity':{'hostname':'pserver-1','in-maint':false}}";
 	DmaapConsumerSingleton singleton = DmaapConsumerSingleton.getInstance();
 	List<String> eventMessageList = new ArrayList<>();
 
-   
-	@BeforeClass
-    public static void setUp() throws Exception {
-		String bindIp = "localhost";
-		int port = 27017;
-		startEmbedded(port);
 
-		mongoC = new MongoClient(bindIp, port);
-		mongoDb = mongoC.getDatabase(DB_NAME);
-		db = mongoC.getDB(DB_NAME);
-    	
-    }
+	@BeforeClass
+	public static void setup() throws IOException, InterruptedException {
+		Fongo fongo = new Fongo(DB_NAME);
+		mongoDb = fongo.getDatabase(DB_NAME);
+		db = fongo.getDB(DB_NAME);
+	}
 	
 	@Before
     public void init() throws Exception {
 		eventMessageList.add(validEventMessage);
-    	//super.setupBundleconfig();
     	aaiEventConsumer = new AAIEventConsumer("aaiDmaaPEventConsumer.properties", true);
     	Properties prop = aaiEventConsumer.getDmaapEventConsumerProperties();
+    	assertThat("dmaap group is generated", prop.getProperty("group"), Matchers.startsWith("cacher-"));
+		assertNotEquals("dmaap id generated", "NA", prop.getProperty("id"));
     	client = Mockito.mock(MRConsumer.class);
     	aaiEventConsumer.setConsumer(client);
-
-    	
     }
-	
-	protected static void startEmbedded(int port) throws IOException {
-		IMongodConfig mongoConfigConfig = new MongodConfigBuilder()
-				.version(Version.Main.PRODUCTION)
-				.net(new Net(port, Network.localhostIsIPv6()))
-				.cmdOptions(new MongoCmdOptionsBuilder().verbose(true).build())
-				.configServer(false)
-				.build();
-
-		MongodExecutable mongodExecutable = MongodStarter.getDefaultInstance().prepare(mongoConfigConfig);
-
-		mongod = mongodExecutable.start();
-	}
 
 	@AfterClass
 	public static void tearDown() {

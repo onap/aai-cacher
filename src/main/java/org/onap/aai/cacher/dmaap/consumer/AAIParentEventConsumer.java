@@ -46,6 +46,7 @@ public class AAIParentEventConsumer {
 
     protected String dmaapPropertyHome = "";
     protected String dmaapConusmerId = "";
+    private String dmaapGroup;
     protected String transId = "";
 
     protected Properties aaiDmaapEventConsumerProperties = new Properties();
@@ -73,6 +74,11 @@ public class AAIParentEventConsumer {
             dmaapConsumerSingleton.setDmaapConsumerId(UUID.randomUUID().toString());
         }
         this.dmaapConusmerId = dmaapConsumerSingleton.getDmaapConsumerId();
+
+        if (dmaapConsumerSingleton.getDmaapGroup() == null) {
+            dmaapConsumerSingleton.setDmaapGroup("cacher-" + UUID.randomUUID().toString());
+        }
+        this.dmaapGroup = dmaapConsumerSingleton.getDmaapGroup();
 
         processPropertyFiles(consumerPropFile);
         if (!injestConsumer) {
@@ -127,8 +133,10 @@ public class AAIParentEventConsumer {
             this.aaiDmaapEventConsumerProperties.load(reader);
         }
 
+
         aaiDmaapEventConsumerProperties.setProperty("id", this.dmaapConusmerId);
-        LOGGER.debug("Updated " + this.aaiDmaapEventConsumerPropertiesFile + " id " + this.dmaapConusmerId);
+        aaiDmaapEventConsumerProperties.setProperty("group", this.dmaapGroup);
+        LOGGER.debug("Updated " + this.aaiDmaapEventConsumerPropertiesFile + " group" + this.dmaapGroup + " id " + this.dmaapConusmerId);
 
         aaiDmaapEventConsumerProperties.setProperty("DME2preferredRouterFilePath", this.preferredRouterFilePath);
         if (aaiDmaapEventConsumerProperties.getProperty("password") != null
@@ -144,11 +152,12 @@ public class AAIParentEventConsumer {
         }
         LOGGER.debug("Using limit " + aaiDmaapEventConsumerProperties.getProperty("limit"));
         LOGGER.debug("Using filter " + aaiDmaapEventConsumerProperties.getProperty("filter"));
+
+        LOGGER.debug("Dmaap Properties = " + aaiDmaapEventConsumerProperties);
     }
 
     public void startProcessing(DmaapProcessor dmaapProcessor) throws Exception {
         int fetchFailCounter = 0;
-
         while (AAIConfig.get("aai.cacher.dmaap.consumer.enableEventProcessing").equals("true")) {
             try {
                 LOGGER.debug("processEvents=" + dmaapConsumerSingleton.getProcessEvents() + " isInitialized="

@@ -19,13 +19,9 @@
  */
 package org.onap.aai.cacher.dmaap.consumer;
 
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.google.gson.JsonSyntaxException;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
-
-import static org.junit.Assert.assertEquals;
 
 
 public class AAIDmaapEventProcessorTest {
@@ -43,37 +39,27 @@ public class AAIDmaapEventProcessorTest {
     	eventProcessor = new AAIDmaapEventProcessor();
     }
 
-    @Ignore
-    @Test
-    public void testValidEventMessage() throws Exception {
-    	eventProcessor.process(validEventMessage);
-    	JSONObject header = eventProcessor.getEventHeader();
-    	JSONObject body = eventProcessor.getEventBody();
-    	assertEquals("header id", "ABC",header.getString("id") );
-    	assertEquals("hostname", "hostName",body.getString("hostname") );
-    }
-    
-    @Test(expected = JSONException.class)
+    @Test(expected = IllegalStateException.class)
     public void testJSONException() throws Exception {
     	eventProcessor.process("invalidJson");
     }
     
-    @Test(expected = JSONException.class)
+    @Test(expected = JsonSyntaxException.class)
     public void testInvalidHeader() throws Exception {
     	eventProcessor.process(invalidEventMessageHeader);
     }
     
-    @Test(expected = JSONException.class)
+    @Test(expected = JsonSyntaxException.class)
     public void testInvalidHeaderMissingId() throws Exception {
     	eventProcessor.process(invalidEventMessageHeaderMissingId);
     }
     
-    @Test(expected = JSONException.class)
+    @Test(expected = JsonSyntaxException.class)
     public void testInvalidHeaderMissingSourceName() throws Exception {
     	eventProcessor.process(invalidEventMessageHeaderMissingSourceName);
     }
     
-    @Test(expected = JSONException.class)
+    @Test(expected = JsonSyntaxException.class)
     public void testInvalidEventMessageBody() throws Exception {
     	eventProcessor.process(invalidEventMessageBody);
     }

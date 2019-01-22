@@ -1,0 +1,49 @@
+{
+  "createPserverWithoutNested": {
+    "cambria.partition": "AAI",
+    "event-header": {
+      "severity": "NORMAL",
+      "entity-type": "pserver",
+      "top-entity-type": "pserver",
+      "entity-link": "/aai/v14/cloud-infrastructure/pservers/pserver/pserver-1",
+      "event-type": "AAI-EVENT",
+      "domain": "test",
+      "action": "CREATE",
+      "sequence-number": "0",
+      "id": "40925a50-b9d3-423a-8054-e772f9a1fde2",
+      "source-name": "test",
+      "version": "v14",
+      "timestamp": "20180927-05:02:12:378"
+    },
+    "entity": {
+      "hostname": "pserver-1"
+    }
+  },
+  "addNested": {
+    "cambria.partition": "AAI",
+    "event-header": {
+      "severity": "NORMAL",
+      "entity-type": "p-interface",
+      "top-entity-type": "pserver",
+      "entity-link": "/aai/v14/cloud-infrastructure/pservers/pserver/pserver-1/p-interfaces/p-interface/interface-1",
+      "event-type": "AAI-EVENT",
+      "domain": "test",
+      "action": "CREATE",
+      "sequence-number": "0",
+      "id": "40925a50-b9d3-423a-8054-e772f9a1fde2",
+      "source-name": "test",
+      "version": "v14",
+      "timestamp": "20180927-05:02:12:378"
+    },
+    "entity": {
+      "hostname": "pserver-1",
+      "p-interfaces": {
+        "p-interface": [
+          {
+            "interface-name": "interface-1"
+          }
+        ]
+      }
+    }
+  }
+}

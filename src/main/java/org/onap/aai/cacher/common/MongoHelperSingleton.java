@@ -23,6 +23,7 @@ import com.att.eelf.configuration.EELFLogger;
 import com.att.eelf.configuration.EELFManager;
 import com.google.common.collect.Lists;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.mongodb.*;
 import com.mongodb.client.AggregateIterable;
 import com.mongodb.client.MongoCollection;
@@ -61,6 +62,8 @@ public class MongoHelperSingleton {
     private DB db;
 
     private MongoDatabase mongoDatabase;
+
+    private JsonParser jsonParser = new JsonParser();
 
     @Autowired
     public MongoHelperSingleton(DB db, MongoDatabase mongoDatabase) {
@@ -167,11 +170,10 @@ public class MongoHelperSingleton {
         MongoCollection<Document> collection = mongoDatabase.getCollection(cacheEntry.getCollection());
 
         Document findQuery = Document.parse(cacheEntry.getFindQuery().toString());
-        Document payload = Document.parse(cacheEntry.getPayload().toString());
 
         if (!cacheEntry.isNested()) {
+            Document payload = Document.parse(cacheEntry.getPayload().toString());
             UpdateResult updateResult = collection.replaceOne(findQuery, payload, new UpdateOptions().upsert(true));
-
             return updateResult.wasAcknowledged();
         } else {
             CacheEntry localCacheEntry = CacheEntry.CacheEntryBuilder.createCacheEntry().deepCopy(cacheEntry).build();
@@ -184,7 +186,12 @@ public class MongoHelperSingleton {
 
             ArrayList<Document> filters = this.getFiltersAndUpdateNestedField(localCacheEntry);
             Document doc = new Document();
-            doc.put(localCacheEntry.getNestedField(), payload);
+            if (localCacheEntry.isNestedPayloadString()) {
+                doc.put(localCacheEntry.getNestedField(), localCacheEntry.getNestedString());
+            } else {
+                Document payload = Document.parse(cacheEntry.getPayload().toString());
+                doc.put(localCacheEntry.getNestedField(), payload);
+            }
             Document push = new Document();
             push.put("$push", doc);
 
@@ -266,7 +273,7 @@ public class MongoHelperSingleton {
                 Document.parse(localCacheEntry.getNestedFieldIdentifierObj().toString()));
         Document pull = new Document();
         pull.put("$pull", pullObj);
-        collection.findOneAndUpdate(nestedFind, pull, new FindOneAndUpdateOptions().arrayFilters(filters).upsert(true));
+        collection.findOneAndUpdate(nestedFind, pull, new FindOneAndUpdateOptions().upsert(true));
         // TODO remove wrapping if there are no entries in array.
 
     }
@@ -307,6 +314,38 @@ public class MongoHelperSingleton {
         cacheEntry.setNestedField(newNestedField.toString());
 
         return filters;
+    }
+
+    public List<JsonObject> findByIds(String collection, List<String> ids) {
+        final List<JsonObject> results  = new ArrayList<>(ids.size());
+        Document findDoc = Document.parse("{}");
+        Document findIn = Document.parse("{}");
+        findIn.put("$in", ids);
+        findDoc.put("_id", findIn);
+        this.mongoDatabase.getCollection(collection)
+                .find(findDoc)
+                .iterator()
+                .forEachRemaining(doc -> results.add(jsonParser.parse(doc.toJson()).getAsJsonObject()));
+        return results;
+    }
+
+    /**
+     * Find in the specified collection all of the documents who's _id starts with (inclusive) prefix.
+     * @param collection collection to be searched
+     * @param prefix id prefix to be used in the search
+     * @return Collection of JsonObjects satisfying the search
+     */
+    public List<JsonObject> findAllWithIdsStartingWith(String collection, String prefix) {
+        final List<JsonObject> results  = new ArrayList<>();
+        Document findDoc = Document.parse("{}");
+        Document findIn = Document.parse("{}");
+        findIn.put("$regex", "^"+prefix);
+        findDoc.put("_id", findIn);
+        this.mongoDatabase.getCollection(collection)
+                .find(findDoc)
+                .iterator()
+                .forEachRemaining(doc -> results.add(jsonParser.parse(doc.toJson()).getAsJsonObject()));
+        return results;
     }
 
 }

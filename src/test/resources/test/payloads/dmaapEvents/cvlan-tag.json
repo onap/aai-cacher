@@ -1,0 +1,61 @@
+{
+    "cambria.partition": "AAI",
+    "event-header": {
+        "severity": "NORMAL",
+        "entity-type": "service-instance",
+        "top-entity-type": "customer",
+        "entity-link": "/aai/v14/business/customers/customer/081/service-subscriptions/service-subscription/SDN-ETHERNET-INTERNET/service-instances/service-instance/MIS%2F1810%2F25081%2FSW_INTERNET",
+        "event-type": "AAI-EVENT",
+        "domain": "IST4-1810",
+        "action": "UPDATE",
+        "sequence-number": "0",
+        "id": "fcecbaa8-3295-43f5-8560-e7caf2e89d01",
+        "source-name": "SDNC",
+        "version": "v14",
+        "timestamp": "20181129-19:41:57:088"
+    },
+    "entity": {
+        "global-customer-id": "081",
+        "subscriber-name": "1810_25_AT_PG_081",
+        "service-subscriptions": {
+            "service-subscription": [{
+                "service-type": "SDN-ETHERNET-INTERNET",
+                "service-instances": {
+                    "service-instance": [{
+                        "relationship-list": {
+                            "relationship": [{
+                                "related-to": "cvlan-tag",
+                                "relationship-data": [{
+                                    "relationship-value": "3b61d9ad-7b88-4e21-87e6-c5e832da669a",
+                                    "relationship-key": "vce.vnf-id"
+                                }, {
+                                    "relationship-value": "mtn08415vbc.ipag",
+                                    "relationship-key": "port-group.interface-id"
+                                }, {
+                                    "relationship-value": "2006",
+                                    "relationship-key": "cvlan-tag.cvlan-tag"
+                                }],
+                                "related-link": "/aai/v14/network/vces/vce/3b61d9ad-7b88-4e21-87e6-c5e832da669a/port-groups/port-group/mtn08415vbc.ipag/cvlan-tags/cvlan-tag/2006",
+                                "relationship-label": "org.onap.relationships.inventory.ComposedOf"
+                            }, {
+                                "related-to": "vce",
+                                "relationship-data": [{
+                                    "relationship-value": "3b61d9ad-7b88-4e21-87e6-c5e832da669a",
+                                    "relationship-key": "vce.vnf-id"
+                                }],
+                                "related-link": "/aai/v14/network/vces/vce/3b61d9ad-7b88-4e21-87e6-c5e832da669a",
+                                "relationship-label": "org.onap.relationships.inventory.ComposedOf",
+                                "related-to-property": [{
+                                    "property-key": "vce.vnf-name",
+                                    "property-value": "mtn08415vbc"
+                                }]
+                            }]
+                        },
+                        "service-instance-id": "MIS/1810/25081/SW_INTERNET",
+                        "resource-version": "1543520517015"
+                    }]
+                }
+            }]
+        }
+    }
+}

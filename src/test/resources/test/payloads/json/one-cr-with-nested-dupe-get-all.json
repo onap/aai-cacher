@@ -1,0 +1,183 @@
+{
+  "cloud-region": [
+    {
+      "cloud-owner": "cloud-owner",
+      "cloud-region-id": "cloud-id",
+      "cloud-region-version": "2.5",
+      "cloud-type": "cloud-type-1",
+      "cloud-zone": "rs-CloudZone",
+      "owner-defined-type": "1",
+      "relationship-list": {
+        "relationship": [
+          {
+            "related-link": "/aai/v14/cloud-infrastructure/pservers/pserver/2abau-tessst.hostname4.test.com-rs804s",
+            "related-to": "pserver",
+            "related-to-property": [
+              {
+                "property-key": "pserver.pserver-name2"
+              }
+            ],
+            "relationship-data": [
+              {
+                "relationship-key": "pserver.hostname",
+                "relationship-value": "2abau-tessst.hostname4.test.com-rs804s"
+              }
+            ],
+            "relationship-label": "org.onap.relationships.inventory.LocatedIn"
+          }
+        ]
+      },
+      "resource-version": "1535381565645",
+      "tenants": {
+        "tenant": [
+          {
+            "resource-version": "1535381565926",
+            "tenant-id": "tenant-id",
+            "tenant-name": "tenant-name-987654321-09",
+            "vservers": {
+              "vserver": [
+                {
+                  "in-maint": false,
+                  "is-closed-loop-disabled": false,
+                  "l-interfaces": {
+                    "l-interface": [
+                      {
+                        "in-maint": false,
+                        "interface-id": "ae3f7b37-1885-40ea-bbf4-e78edd7466a9",
+                        "interface-name": "l-interface-key",
+                        "is-ip-unnumbered": false,
+                        "is-port-mirrored": false,
+                        "macaddr": "fa:16:3e:77:0c:86",
+                        "network-name": "VLAN_OVERLAY_422",
+                        "resource-version": "1535381640126",
+                        "selflink": "https://network-aic.pdk1.cci.att.com:9696/v2.0/ports/ae3f7b37-1885-40ea-bbf4-e78edd7466a9",
+                        "sriov-vfs": {
+                          "sriov-vf": [
+                            {
+                              "neutron-network-id": "example-neutron-network-id-val-22522",
+                              "pci-id": "sirov-id",
+                              "relationship-list": {
+                                "relationship": [
+                                  {
+                                    "related-link": "/aai/v14/cloud-infrastructure/pservers/pserver/2abau-tessst.hostname4.test.com-rs804s/p-interfaces/p-interface/NA/sriov-pfs/sriov-pf/0000%3A81%3A00.30",
+                                    "related-to": "sriov-pf",
+                                    "relationship-data": [
+                                      {
+                                        "relationship-key": "pserver.hostname",
+                                        "relationship-value": "2abau-tessst.hostname4.test.com-rs804s"
+                                      },
+                                      {
+                                        "relationship-key": "p-interface.interface-name",
+                                        "relationship-value": "NA"
+                                      },
+                                      {
+                                        "relationship-key": "sriov-pf.pf-pci-id",
+                                        "relationship-value": "0000:81:00.30"
+                                      }
+                                    ],
+                                    "relationship-label": "org.onap.relationships.inventory.Uses"
+                                  }
+                                ]
+                              },
+                              "resource-version": "1535381640154",
+                              "vf-insert-stag": true,
+                              "vf-link-status": "example-vf-link-status-val-72770",
+                              "vf-mac-filter": "example-vf-mac-filter-val-74354",
+                              "vf-vlan-filter": "example-vf-vlan-filter-val-7707"
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  },
+                  "relationship-list": {
+                    "relationship": [
+                      {
+                        "related-link": "/aai/v14/cloud-infrastructure/pservers/pserver/2abau-tessst.hostname4.test.com-rs804s",
+                        "related-to": "pserver",
+                        "related-to-property": [
+                          {
+                            "property-key": "pserver.pserver-name2"
+                          }
+                        ],
+                        "relationship-data": [
+                          {
+                            "relationship-key": "pserver.hostname",
+                            "relationship-value": "2abau-tessst.hostname4.test.com-rs804s"
+                          }
+                        ],
+                        "relationship-label": "tosca.relationships.HostedOn"
+                      }
+                    ]
+                  },
+                  "resource-version": "1535381640077",
+                  "vserver-id": "vserver-id",
+                  "vserver-name": "rs804s",
+                  "vserver-name2": "this-should-be-there",
+                  "vserver-selflink": "https://compute-aic.pdk1.cci.att.com:8774/v2/9eee808655904f46b0c614dd1186baae/servers/b964a6fb-f57b-48d3-9220-e95a6bc27f1e"
+                },
+                {
+                  "in-maint": false,
+                  "is-closed-loop-disabled": false,
+                  "l-interfaces": {
+                    "l-interface": [
+                      {
+                        "in-maint": false,
+                        "interface-id": "ae3f7b37-1885-40ea-bbf4-e78edd7466a9",
+                        "interface-name": "l-interface-key",
+                        "is-ip-unnumbered": false,
+                        "is-port-mirrored": false,
+                        "macaddr": "fa:16:3e:77:0c:86",
+                        "network-name": "VLAN_OVERLAY_422",
+                        "resource-version": "1535381640201",
+                        "selflink": "https://network-aic.pdk1.cci.att.com:9696/v2.0/ports/ae3f7b37-1885-40ea-bbf4-e78edd7466a9",
+                        "sriov-vfs": {
+                          "sriov-vf": [
+                            {
+                              "neutron-network-id": "example-neutron-network-id-val-22522",
+                              "pci-id": "sirov-id",
+                              "resource-version": "1535381640214",
+                              "vf-insert-stag": true,
+                              "vf-link-status": "example-vf-link-status-val-72770",
+                              "vf-mac-filter": "example-vf-mac-filter-val-74354",
+                              "vf-vlan-filter": "example-vf-vlan-filter-val-7707"
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  },
+                  "relationship-list": {
+                    "relationship": [
+                      {
+                        "related-link": "/aai/v14/cloud-infrastructure/pservers/pserver/2abau-tessst.hostname4.test.com-rs804s",
+                        "related-to": "pserver",
+                        "related-to-property": [
+                          {
+                            "property-key": "pserver.pserver-name2"
+                          }
+                        ],
+                        "relationship-data": [
+                          {
+                            "relationship-key": "pserver.hostname",
+                            "relationship-value": "2abau-tessst.hostname4.test.com-rs804s"
+                          }
+                        ],
+                        "relationship-label": "tosca.relationships.HostedOn"
+                      }
+                    ]
+                  },
+                  "resource-version": "1535381640180",
+                  "vserver-id": "vserver-id",
+                  "vserver-name": "rs804s",
+                  "vserver-name2": "this-should-be-there",
+                  "vserver-selflink": "https://compute-aic.pdk1.cci.att.com:8774/v2/9eee808655904f46b0c614dd1186baae/servers/b964a6fb-f57b-48d3-9220-e95a6bc27f1e"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

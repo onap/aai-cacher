@@ -3,11 +3,6 @@
 APP_HOME=$(pwd);
 RESOURCES_HOME=${APP_HOME}/resources/;
 
-export CHEF_CONFIG_REPO=${CHEF_CONFIG_REPO:-aai-config};
-export CHEF_GIT_URL=${CHEF_GIT_URL:-http://gerrit.onap.org/r/aai};
-export CHEF_CONFIG_GIT_URL=${CHEF_CONFIG_GIT_URL:-$CHEF_GIT_URL};
-export CHEF_DATA_GIT_URL=${CHEF_DATA_GIT_URL:-$CHEF_GIT_URL};
-
 export SERVER_PORT=${SERVER_PORT:-8444};
 
 USER_ID=${LOCAL_USER_ID:-9001}
@@ -29,7 +24,7 @@ if [ $(cat /etc/passwd | grep aaiadmin | wc -l) -eq 0 ]; then
 	}
 fi;
 
-chown -R aaiadmin:aaiadmin /opt/app /opt/aai/logroot /var/chef
+chown -R aaiadmin:aaiadmin /opt/app /opt/aai/logroot
 find /opt/app/ -name "*.sh" -exec chmod +x {} +
 
 gosu aaiadmin ln -s bin scripts
@@ -66,8 +61,7 @@ fi;
 
 MIN_HEAP_SIZE=${MIN_HEAP_SIZE:-512m};
 MAX_HEAP_SIZE=${MAX_HEAP_SIZE:-1024m};
-MAX_PERM_SIZE=${MAX_PERM_SIZE:-512m};
-PERM_SIZE=${PERM_SIZE:-512m};
+MAX_METASPACE_SIZE=${MAX_METASPACE_SIZE:-512m};
 
 JAVA_CMD="exec gosu aaiadmin java";
 
@@ -78,8 +72,7 @@ JVM_OPTS="${JVM_OPTS} -Xmx${MAX_HEAP_SIZE}";
 
 JVM_OPTS="${JVM_OPTS} -XX:+PrintGCDetails";
 JVM_OPTS="${JVM_OPTS} -XX:+PrintGCTimeStamps";
-JVM_OPTS="${JVM_OPTS} -XX:MaxPermSize=${MAX_PERM_SIZE}";
-JVM_OPTS="${JVM_OPTS} -XX:PermSize=${PERM_SIZE}";
+JVM_OPTS="${JVM_OPTS} -XX:MaxMetaspaceSize=${MAX_METASPACE_SIZE}";
 
 JVM_OPTS="${JVM_OPTS} -server";
 JVM_OPTS="${JVM_OPTS} -XX:NewSize=512m";
@@ -114,6 +107,7 @@ JAVA_OPTS="${JAVA_OPTS} -DAFT_ENVIRONMENT=${AFT_ENVIRONMENT}";
 JAVA_OPTS="${JAVA_OPTS} -DAAI_BUILD_VERSION=${AAI_BUILD_VERSION}";
 JAVA_OPTS="${JAVA_OPTS} -Djava.security.egd=file:/dev/./urandom";
 JAVA_OPTS="${JAVA_OPTS} -Dlogback.configurationFile=./resources/logback.xml";
+JAVA_OPTS="${JAVA_OPTS} -Dgroovy.use.classvalue=true";
 JAVA_OPTS="${JAVA_OPTS} -Dloader.path=$APP_HOME/resources";
 if [ ! -z ${PROXY_HOST} ]; then
         JAVA_OPTS="${JAVA_OPTS} -DproxySet=true -DproxyHost=${PROXY_HOST} -DproxyPort=8080";

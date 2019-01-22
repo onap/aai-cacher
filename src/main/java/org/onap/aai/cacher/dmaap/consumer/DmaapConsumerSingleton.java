@@ -25,6 +25,8 @@ public class DmaapConsumerSingleton {
     private boolean isInitialized;
 
     private String dmaapConsumerId;
+    private String dmaapGroup;
+
 
     private String firstEventMessage;
 
@@ -69,6 +71,13 @@ public class DmaapConsumerSingleton {
 
     public void setDmaapConsumerId(String dmaapConsumerId) {
         this.dmaapConsumerId = dmaapConsumerId;
+    }
+    public String getDmaapGroup() {
+        return dmaapGroup;
+    }
+
+    public void setDmaapGroup(String dmaapGroup) {
+        this.dmaapGroup = dmaapGroup;
     }
 
     public String getDmaapConsumerId() {

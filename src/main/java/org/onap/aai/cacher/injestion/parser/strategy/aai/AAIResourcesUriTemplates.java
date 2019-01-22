@@ -17,11 +17,15 @@
  * limitations under the License.
  * ============LICENSE_END=========================================================
  */
-package org.onap.aai.cacher.injestion.parser;
+package org.onap.aai.cacher.injestion.parser.strategy.aai;
 
+import com.att.eelf.configuration.EELFLogger;
+import com.att.eelf.configuration.EELFManager;
 import com.google.gson.JsonObject;
 import org.apache.commons.lang3.StringUtils;
+import org.onap.aai.annotations.Metadata;
 import org.onap.aai.cacher.util.AAIConstants;
+import org.reflections.Reflections;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -29,6 +33,7 @@ import org.springframework.web.util.UriTemplate;
 import org.springframework.web.util.UriUtils;
 
 import javax.ws.rs.core.UriBuilder;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -38,6 +43,8 @@ import java.util.*;
 @Component
 @Scope(scopeName = ConfigurableBeanFactory.SCOPE_SINGLETON)
 public class AAIResourcesUriTemplates {
+
+    private final static EELFLogger LOGGER = EELFManager.getInstance().getLogger(AAIResourcesUriTemplates.class);
 
     private final Map<String, String> typeToUriTemplate;
 
@@ -53,6 +60,22 @@ public class AAIResourcesUriTemplates {
                 typeToUriTemplate.put("relationship", "/relationship-list/relationship/{related-link}");
             }
         }
+
+        Reflections reflections = new Reflections("org.onap.aai.domain.yang");
+        reflections.getTypesAnnotatedWith(Metadata.class)
+                .stream()
+                .filter(aClass -> "org.onap.aai.domain.yang".equals(aClass.getPackage().getName()))
+                .filter(aClass -> !aClass.getAnnotation(Metadata.class).uriTemplate().isEmpty())
+                .forEach(aClass -> typeToUriTemplate.put(
+                        aClass.getAnnotation(XmlRootElement.class).name(),
+                        aClass.getAnnotation(Metadata.class).uriTemplate())
+                );
+
+        LOGGER.info("AAI uri templates: " + typeToUriTemplate);
+    }
+
+    public boolean hasType(String type) {
+        return this.typeToUriTemplate.containsKey(type);
     }
 
     /**
@@ -65,6 +88,12 @@ public class AAIResourcesUriTemplates {
         return typeToUriTemplate.get(type);
     }
 
+    /**
+     * For the given template and uri get the variable key value pairs
+     * @param uri
+     * @param template
+     * @return
+     */
     public Map<String, String> getUriTemplateMappings(String uri, String template) {
 
         UriTemplate uriTemplate = new UriTemplate(template);
@@ -85,13 +114,20 @@ public class AAIResourcesUriTemplates {
         List<String> uriTemplateList = new ArrayList<>();
         String template = "";
         String truncatedUri = uri;
+        Optional<String> matchingStartingTemplate;
 
         while (truncatedUri.contains("/")) {
-            template = this.getMatchingStartingTemplate(truncatedUri).get();
+            matchingStartingTemplate = this.getMatchingStartingTemplate(truncatedUri);
+            if ( !matchingStartingTemplate.isPresent()) {
+                LOGGER.error("failed in uriToTemplates for truncatedUri " + truncatedUri);
+                // exception expected for missing template
+            }
+            template = matchingStartingTemplate.get();
             uriTemplateList.add(template);
             int count = StringUtils.countMatches(template, "/");
             if (count < StringUtils.countMatches(truncatedUri, "/")) {
-                truncatedUri = StringUtils.substring(truncatedUri,
+                truncatedUri = StringUtils.substring(
+                        truncatedUri,
                         StringUtils.ordinalIndexOf(truncatedUri, "/", count + 1));
             } else {
                 truncatedUri = "";
@@ -204,5 +240,29 @@ public class AAIResourcesUriTemplates {
         } catch (UnsupportedEncodingException e) {
             return "";
         }
+    }
+
+    public String getAAIUriFromEntityUri(String fullUri) {
+        return fullUri.replaceAll("/aai/v\\d+", "");
+    }
+
+    public String getAAIUriFromEntityUriPrefix(String fullUri) {
+        return StringUtils.substring(fullUri, 0, StringUtils.ordinalIndexOf(fullUri, "/", 3));
+    }
+
+    public List<AAIUriSegment> getAaiUriSegments(String uri) {
+        List<String> uriSegmentTemplates = uriToTemplates(uri);
+        List<String> uriSegments = uriToSegments(uri);
+
+        List<AAIUriSegment> uriSegmentList = new ArrayList<>(uriSegments.size());
+
+        AAIUriSegment aus;
+        for (int i = 0; i < uriSegments.size(); i++) {
+            aus = new AAIUriSegment(uriSegments.get(i), uriSegmentTemplates.get(i));
+            aus.setSegmentKeyValues(
+                    getUriTemplateMappings(aus.getSegment(), aus.getSegmentTemplate()));
+            uriSegmentList.add(aus);
+        }
+        return uriSegmentList;
     }
 }

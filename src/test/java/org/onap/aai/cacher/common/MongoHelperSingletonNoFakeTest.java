@@ -25,14 +25,15 @@ import com.mongodb.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.UpdateOptions;
+import de.flapdoodle.embed.mongo.Command;
 import de.flapdoodle.embed.mongo.MongodExecutable;
 import de.flapdoodle.embed.mongo.MongodProcess;
 import de.flapdoodle.embed.mongo.MongodStarter;
-import de.flapdoodle.embed.mongo.config.IMongodConfig;
-import de.flapdoodle.embed.mongo.config.MongoCmdOptionsBuilder;
-import de.flapdoodle.embed.mongo.config.MongodConfigBuilder;
-import de.flapdoodle.embed.mongo.config.Net;
+import de.flapdoodle.embed.mongo.config.*;
 import de.flapdoodle.embed.mongo.distribution.Version;
+import de.flapdoodle.embed.process.config.io.ProcessOutput;
+import de.flapdoodle.embed.process.io.Processors;
+import de.flapdoodle.embed.process.io.Slf4jLevel;
 import de.flapdoodle.embed.process.runtime.Network;
 import org.bson.Document;
 import org.json.JSONException;
@@ -42,6 +43,8 @@ import org.onap.aai.cacher.dmaap.consumer.AAIDmaapEventProcessorScenariosTest;
 import org.onap.aai.cacher.model.CacheEntry;
 import org.onap.aai.cacher.model.DBAction;
 import org.skyscreamer.jsonassert.JSONAssert;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -78,14 +81,24 @@ public class MongoHelperSingletonNoFakeTest {
 	}
 
 	protected static void startEmbedded(int port) throws IOException {
+		Logger logger = LoggerFactory.getLogger("mongo");
+
 		IMongodConfig mongoConfigConfig = new MongodConfigBuilder()
 				.version(Version.Main.PRODUCTION)
 				.net(new Net(port, Network.localhostIsIPv6()))
-				.cmdOptions(new MongoCmdOptionsBuilder().verbose(true).build())
+				.cmdOptions(new MongoCmdOptionsBuilder().enableTextSearch(true).useNoPrealloc(false).build())
 				.configServer(false)
 				.build();
 
-		MongodExecutable mongodExecutable = MongodStarter.getDefaultInstance().prepare(mongoConfigConfig);
+		ProcessOutput processOutput = new ProcessOutput(Processors.logTo(logger, Slf4jLevel.WARN), Processors.logTo(logger,
+				Slf4jLevel.WARN), Processors.logTo(logger, Slf4jLevel.WARN));
+
+		MongodExecutable mongodExecutable = MongodStarter
+				.getInstance((new RuntimeConfigBuilder())
+						.defaults(Command.MongoD)
+						.processOutput(processOutput)
+						.build())
+				.prepare(mongoConfigConfig);
 
 		mongod = mongodExecutable.start();
 	}
@@ -106,7 +119,7 @@ public class MongoHelperSingletonNoFakeTest {
 	public void cleanup() {
 		final List<String> collectionNames = new ArrayList<>();
 		mongoDatabase.listCollections().iterator().forEachRemaining(document -> collectionNames.add(document.getString("name")));
-		collectionNames.stream().forEach(collectionName -> mongoDatabase.getCollection(collectionName).drop());
+		collectionNames.forEach(collectionName -> mongoDatabase.getCollection(collectionName).drop());
 	}
 
 

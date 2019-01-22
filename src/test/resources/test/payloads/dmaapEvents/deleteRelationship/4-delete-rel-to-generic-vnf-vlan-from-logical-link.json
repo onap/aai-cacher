@@ -4,14 +4,14 @@
     "severity": "NORMAL",
     "entity-type": "logical-link",
     "top-entity-type": "logical-link",
-    "entity-link": "/aai/v13/network/logical-links/logical-link/logical-link",
+    "entity-link": "/aai/v14/network/logical-links/logical-link/logical-link",
     "event-type": "AAI-EVENT",
     "domain": "uINT1",
     "action": "UPDATE",
     "sequence-number": "0",
     "id": "3f9ea0cf-da42-4a9e-817b-7fb1eab0cabe",
     "source-name": "junit",
-    "version": "v13",
+    "version": "v14",
     "timestamp": "20180712-17:47:25:057"
   },
   "entity": {

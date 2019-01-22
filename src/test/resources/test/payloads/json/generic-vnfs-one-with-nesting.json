@@ -1,0 +1,78 @@
+{
+  "generic-vnf": [
+    {
+      "vnf-id": "69baf763-b82f-4904-b800-8f59f86d64c8",
+      "vnf-name": "vn2f0-SDN",
+      "vnf-type": "test-gvnf-type",
+      "service-id": "a92a77d5a0-123e-4",
+      "orchestration-status": "active",
+      "in-maint": true,
+      "is-closed-loop-disabled": false,
+      "resource-version": "1506978203538",
+      "vf-modules": {
+        "vf-module": [
+          {
+            "vf-module-id": "3a3ac831-4e53-4c2e-bec3-6703bc818f8a",
+            "vf-module-name": "example-vf-module-name",
+            "heat-stack-id": "example-heat-stack-id",
+            "orchestration-status": "example-orchestration-status",
+            "is-base-vf-module": true,
+            "automated-assignment": true
+          },
+          {
+            "vf-module-id": "9eb3fb5d-7c9c-4ec0-ad73-e1ca6a4b45c4",
+            "vf-module-name": "example-vf-module-name",
+            "heat-stack-id": "example-heat-stack-id",
+            "orchestration-status": "example-orchestration-status",
+            "is-base-vf-module": true,
+            "automated-assignment": true
+          },
+          {
+            "vf-module-id": "d79f5d9e-fb3f-4b22-9392-8f6a0ede9348",
+            "vf-module-name": "example-vf-module-name",
+            "heat-stack-id": "example-heat-stack-id",
+            "orchestration-status": "example-orchestration-status",
+            "is-base-vf-module": true,
+            "automated-assignment": true
+          },
+          {
+            "vf-module-id": "fa5a1a04-16a6-4211-a6fe-7c3db50825fc",
+            "vf-module-name": "example-vf-module-name",
+            "heat-stack-id": "example-heat-stack-id",
+            "orchestration-status": "example-orchestration-status",
+            "is-base-vf-module": true,
+            "automated-assignment": true
+          },
+          {
+            "vf-module-id": "c8ea54eb-c28d-40a4-85fa-8f9005d9bf6e",
+            "vf-module-name": "example-vf-module-name",
+            "heat-stack-id": "example-heat-stack-id",
+            "orchestration-status": "example-orchestration-status",
+            "is-base-vf-module": true,
+            "automated-assignment": true
+          }
+        ]
+      }
+    },
+    {
+      "vnf-id": "e7cb342a-b1ca-4e58-80d5-1c92dd63730f",
+      "vnf-name": "vn2f0-SDN",
+      "vnf-type": "test-gvnf-type",
+      "service-id": "a92a77d5a0-123e-4",
+      "orchestration-status": "active",
+      "in-maint": true,
+      "is-closed-loop-disabled": false,
+      "resource-version": "1506978203538"
+    },
+    {
+      "vnf-id": "bb580c02-dcb2-48e3-904f-379a25fb1d01",
+      "vnf-name": "vn2f0-SDN",
+      "vnf-type": "test-gvnf-type",
+      "service-id": "a92a77d5a0-123e-4",
+      "orchestration-status": "active",
+      "in-maint": true,
+      "is-closed-loop-disabled": false,
+      "resource-version": "1506978203538"
+    }
+  ]
+}

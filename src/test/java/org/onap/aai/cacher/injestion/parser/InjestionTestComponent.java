@@ -25,7 +25,7 @@ import org.springframework.context.annotation.Configuration;
 import java.nio.file.FileSystems;
 
 @Configuration
-@ComponentScan(basePackages = {"org.onap.aai.cacher.injestion"})
+@ComponentScan(basePackages = {"org.onap.aai.cacher.injestion","org.onap.aai.cacher.egestion"})
 public class InjestionTestComponent {
 	public InjestionTestComponent() {
 		System.setProperty("AJSC_HOME", FileSystems.getDefault().getPath(".").toAbsolutePath().toString());

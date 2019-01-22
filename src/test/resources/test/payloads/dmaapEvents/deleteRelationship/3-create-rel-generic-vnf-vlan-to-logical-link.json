@@ -4,14 +4,14 @@
     "severity": "NORMAL",
     "entity-type": "vlan",
     "top-entity-type": "generic-vnf",
-    "entity-link": "/aai/v13/network/generic-vnfs/generic-vnf/generic-vnf-id/l-interfaces/l-interface/l-interface-name-1/vlans/vlan/vlan-1",
+    "entity-link": "/aai/v14/network/generic-vnfs/generic-vnf/generic-vnf-id/l-interfaces/l-interface/l-interface-name-1/vlans/vlan/vlan-1",
     "event-type": "AAI-EVENT",
     "domain": "uINT1",
     "action": "UPDATE",
     "sequence-number": "0",
     "id": "bd2bc927-d28b-4472-a582-317c4c19c98b",
     "source-name": "FitNesse-Relationship-Test-ps2418",
-    "version": "v13",
+    "version": "v14",
     "timestamp": "20180712-17:47:24:609"
   },
   "entity": {
@@ -28,7 +28,7 @@
                   "relationship-key": "logical-link.link-name"
                 }
                 ],
-                "related-link": "/aai/v13/network/logical-links/logical-link/logical-link",
+                "related-link": "/aai/v14/network/logical-links/logical-link/logical-link",
                 "relationship-label": "org.onap.relationships.inventory.Uses"
               }
               ]
