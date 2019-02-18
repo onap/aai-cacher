@@ -58,7 +58,6 @@
 		<service.account>aai-svc-account</service.account>
 		<docker.namespace>openecomp</docker.namespace>
 
-		<license.goal.type>check</license.goal.type>
         
         <!--
             Nexus Proxy Properties and Snapshot Locations
@@ -681,15 +680,6 @@
 					<skipExistingHeaders>false</skipExistingHeaders>
 					<skip>false</skip>
 				</configuration>
-				<executions>
-					<execution>
-						<goals>
-                            <!-- Set goal to "format" to auto update license headers -->
-							<goal>${license.goal.type}</goal>
-						</goals>
-						<phase>process-sources</phase>
-					</execution>
-				</executions>
 			</plugin>
 		</plugins>
 		<!-- mention the logback.xml location through system property or environment 
