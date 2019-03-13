@@ -70,7 +70,7 @@
 
 		<start-class>org.onap.aai.cacher.Application</start-class>
 
-		<aai-core.version>1.4.1-SNAPSHOT</aai-core.version>
+		<aai-core.version>1.4.1</aai-core.version>
 		<activemq.version>5.15.8</activemq.version>
 		
 		<!-- Start of the jacoco plugin properties -->
@@ -414,7 +414,7 @@
 		<dependency>
 			<groupId>org.onap.aai.schema-service</groupId>
 			<artifactId>aai-schema</artifactId>
-			<version>1.0.0-SNAPSHOT</version>
+			<version>1.0.0</version>
 		</dependency>
 		<dependency>
             <groupId>commons-configuration</groupId>
