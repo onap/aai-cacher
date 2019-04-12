@@ -94,21 +94,20 @@
 		<dme2.version>2.8.5</dme2.version>
 		<commons.configuration.version>1.9</commons.configuration.version>
 
-		<docker.fabric.version>0.23.0</docker.fabric.version>
+		<docker.fabric.version>0.31.0</docker.fabric.version>
 		<!-- Default docker registry that maven fabric plugin will try to pull from -->
-		<docker.registry>docker.io</docker.registry>
+<!--		<docker.registry>docker.io</docker.registry>-->
 		<!-- Specifying the docker push registry where the image should be pushed -->
 		<!-- This value should be overwritten at runtime to wherever need to be pushed to -->
 		<docker.push.registry>localhost:5000</docker.push.registry>
-
 		<aai.docker.version>1.0.0</aai.docker.version>
 		<!--
              Location where assembly of our scripts, resources and main jar will be held
              Check the aai-cacher/src/main/assembly/descriptor.xml for more info
         -->
 		<aai.build.directory>${project.build.directory}/${project.artifactId}-${project.version}-build/</aai.build.directory>
-		<aai.docker.namespace>openecomp</aai.docker.namespace>
-
+		<aai.docker.namespace>onap</aai.docker.namespace>
+		<aai.base.image.version>1.6.0</aai.base.image.version>
 		<maven.skip.tests>true</maven.skip.tests>
 
 		<jacoco.line.coverage.limit>.001</jacoco.line.coverage.limit>
@@ -134,7 +133,7 @@
 							<apiVersion>1.23</apiVersion>
 							<images>
 								<image>
-									<name>${docker.push.registry}/${aai.docker.namespace}/aai-cacher:%l</name>
+									<name>${docker.push.registry}/${docker.namespace}/aai-cacher:%l</name>
 									<build>
 										<filter>@</filter>
 										<tags>

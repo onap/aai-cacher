@@ -41,6 +41,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.DependsOn;
 
 import java.io.IOException;
 
@@ -59,7 +60,7 @@ public class MongoConfig {
 
     private MongodProcess mongod;
 
-    @Bean
+    @Bean("mongo-client")
     public MongoClient mongoClient(MongodProcess mongodProcess) {
         try {
             // To connect to mongodb server
@@ -79,16 +80,18 @@ public class MongoConfig {
     }
 
     @Bean
+    @DependsOn({"mongo-embedded", "mongo-client"})
     public DB db(MongoClient mongoClient) {
         return mongoClient.getDB(MONGO_DB_NAME);
     }
 
     @Bean
+    @DependsOn({"mongo-embedded", "mongo-client"})
     public MongoDatabase mongoDatabase(MongoClient mongoClient) {
         return mongoClient.getDatabase(MONGO_DB_NAME);
     }
 
-    @Bean
+    @Bean("mongo-embedded")
     public MongodProcess mongoEmbedded() throws IOException {
 
         Logger logger = LoggerFactory.getLogger("mongo");

@@ -30,7 +30,7 @@ find /opt/app/ -name "*.sh" -exec chmod +x {} +
 gosu aaiadmin ln -s bin scripts
 gosu aaiadmin ln -s /opt/aai/logroot/AAI-CACHER logs
 mkdir -p /opt/app/aai-cacher/logs/gc
-chown -R aaiadmin:aaiadmin /opt/app/aai-cacher/logs
+chown -R -L aaiadmin:aaiadmin /opt/app/aai-cacher/logs
 
 if [ -f ${APP_HOME}/aai.sh ]; then
     mv ${APP_HOME}/aai.sh /etc/profile.d/aai.sh
