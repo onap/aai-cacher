@@ -93,7 +93,7 @@
 		<dme2.version>2.8.5</dme2.version>
 		<commons.configuration.version>1.9</commons.configuration.version>
 
-		<docker.fabric.version>0.23.0</docker.fabric.version>
+		<docker.fabric.version>0.28.0</docker.fabric.version>
 		<!-- Default docker registry that maven fabric plugin will try to pull from -->
 		<docker.registry>docker.io</docker.registry>
 		<!-- Specifying the docker push registry where the image should be pushed -->
