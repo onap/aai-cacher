@@ -21,24 +21,19 @@
 # ECOMP is a trademark and service mark of AT&T Intellectual Property.
 #
 
-PROJECT_HOME=/opt/app/aai-cacher
-export PROJECT_HOME
+export PROJECT_HOME=/opt/app/aai-cacher
 
-JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
-export JAVA_HOME
+export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-`dpkg --print-architecture | awk -F- '{ print $NF }'`
 
-AAIENV=dev
-export AAIENV
+export AAIENV=dev
 
-PATH=/usr/lib/jvm/java-8-openjdk-amd64:$PATH
+export PATH=$PATH:${JAVA_HOME}/jre/bin:${JAVA_HOME}/bin
 
-PROJECT_OWNER=aaiadmin
-PROJECT_GROUP=aaiadmin
-PROJECT_UNIXHOMEROOT=/opt/aaihome
-export PROJECT_OWNER PROJECT_GROUP PROJECT_UNIXHOMEROOT
+export PROJECT_OWNER=aaiadmin
+export PROJECT_GROUP=aaiadmin
+export PROJECT_UNIXHOMEROOT=/opt/aaihome
 umask 0022
 
 export idns_api_url=
 export idnscred=
 export idnstenant=
-
