@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "13d038ca_2f635057",
+        "filename": "src/main/docker/Dockerfile",
+        "patchSetId": 3
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 5040
+      },
+      "writtenOn": "2019-05-02T14:36:38Z",
+      "side": 1,
+      "message": "Please find comment at https://gerrit.onap.org/r/#/c/85311/3/aai-resources/src/main/docker/Dockerfile@1",
+      "parentUuid": "b7d81d85_44d9d3d7",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 29
+      },
+      "revId": "4dd01a9e21ec70e6bd3e9229fb9bb5a17ed53fe7",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e946943c_71908b5c",
         "filename": "src/main/docker/Dockerfile",
         "patchSetId": 3
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "cd43ac1e_8e069256",
+        "filename": "src/main/docker/Dockerfile",
+        "patchSetId": 3
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5040
+      },
+      "writtenOn": "2019-05-02T14:36:38Z",
+      "side": 1,
+      "message": "Will fix, sure.",
+      "parentUuid": "e946943c_71908b5c",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 42
+      },
+      "revId": "4dd01a9e21ec70e6bd3e9229fb9bb5a17ed53fe7",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dc71335c_39c6e552",
         "filename": "src/main/docker/docker-entrypoint.sh",
         "patchSetId": 3
@@ -59,6 +107,30 @@
       "writtenOn": "2019-05-01T01:45:29Z",
       "side": 1,
       "message": "why is this version in cacher done differently from every other entrypoint in this series of updates?",
+      "range": {
+        "startLine": 33,
+        "startChar": 0,
+        "endLine": 33,
+        "endChar": 12
+      },
+      "revId": "4dd01a9e21ec70e6bd3e9229fb9bb5a17ed53fe7",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "57643ee0_18171ef2",
+        "filename": "src/main/docker/docker-entrypoint.sh",
+        "patchSetId": 3
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5040
+      },
+      "writtenOn": "2019-05-02T14:36:38Z",
+      "side": 1,
+      "message": "The difference is following:\n/opt/app/aai-cacher/logs is a symlink, by default chown doesn\u0027t traverse symlinks (man chown) and chown does nothing.\nFor example graphadmin\u0027s docker-entrypoint.sh has \nchown -R aaiadmin:aaiadmin /opt/app/aai-graphadmin/logs/gc where /opt/app/aai-graphadmin/logs/gc is a directory and chown traverse up to gc directory and change owner as expected.",
+      "parentUuid": "dc71335c_39c6e552",
       "range": {
         "startLine": 33,
         "startChar": 0,
