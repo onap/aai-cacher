@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4202f1d0_09a02332",
+        "filename": "src/main/java/org/onap/aai/cacher/common/MongoConfig.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5299
+      },
+      "writtenOn": "2019-08-29T05:31:52Z",
+      "side": 1,
+      "message": "Please be consistent in either using EELFLogger or not using it: mongoClient vs mongoEmbedded\npersonally, I think it should go as it doesn\u0027t add value.",
+      "range": {
+        "startLine": 52,
+        "startChar": 0,
+        "endLine": 52,
+        "endChar": 105
+      },
+      "revId": "21323123c89e0ca46dd682574eb70f6ef462972c",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "06beaf76_a034ec13",
+        "filename": "src/main/java/org/onap/aai/cacher/common/MongoConfig.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5299
+      },
+      "writtenOn": "2019-08-29T05:31:52Z",
+      "side": 1,
+      "message": "camelCase\nALL_CAP for constants",
+      "range": {
+        "startLine": 55,
+        "startChar": 19,
+        "endLine": 55,
+        "endChar": 32
+      },
+      "revId": "21323123c89e0ca46dd682574eb70f6ef462972c",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d94cd06e_e4a93782",
+        "filename": "src/main/java/org/onap/aai/cacher/common/MongoConfig.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5299
+      },
+      "writtenOn": "2019-08-29T05:31:52Z",
+      "side": 1,
+      "message": "Connected",
+      "range": {
+        "startLine": 70,
+        "startChar": 30,
+        "endLine": 70,
+        "endChar": 38
+      },
+      "revId": "21323123c89e0ca46dd682574eb70f6ef462972c",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "26e6c9ac_98d2c06b",
+        "filename": "src/main/java/org/onap/aai/cacher/common/MongoConfig.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 5299
+      },
+      "writtenOn": "2019-08-29T05:31:52Z",
+      "side": 1,
+      "message": "Not a helpful error message. What is AAI_4000. If someone is reading the container logs, what will they see? Would they have any idea that it\u0027s a mongo-related connection issue?",
+      "range": {
+        "startLine": 75,
+        "startChar": 57,
+        "endLine": 75,
+        "endChar": 67
+      },
+      "revId": "21323123c89e0ca46dd682574eb70f6ef462972c",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bb3682c8_feb43a5a",
+        "filename": "src/main/java/org/onap/aai/cacher/common/MongoConfig.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 5299
+      },
+      "writtenOn": "2019-08-29T05:31:52Z",
+      "side": 1,
+      "message": "should this be in the catch ?",
+      "range": {
+        "startLine": 79,
+        "startChar": 8,
+        "endLine": 79,
+        "endChar": 20
+      },
+      "revId": "21323123c89e0ca46dd682574eb70f6ef462972c",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7c8c8f46_96bec72d",
+        "filename": "src/main/java/org/onap/aai/cacher/common/MongoConfig.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 5299
+      },
+      "writtenOn": "2019-08-29T05:31:52Z",
+      "side": 1,
+      "message": "This is good, get rid of EELFLogger everywhere.",
+      "range": {
+        "startLine": 97,
+        "startChar": 24,
+        "endLine": 97,
+        "endChar": 48
+      },
+      "revId": "21323123c89e0ca46dd682574eb70f6ef462972c",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f967406b_9e48391d",
+        "filename": "src/main/java/org/onap/aai/cacher/common/MongoConfig.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 5299
+      },
+      "writtenOn": "2019-08-29T05:31:52Z",
+      "side": 1,
+      "message": "3rd method of logging.....",
+      "range": {
+        "startLine": 118,
+        "startChar": 0,
+        "endLine": 123,
+        "endChar": 0
+      },
+      "revId": "21323123c89e0ca46dd682574eb70f6ef462972c",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
