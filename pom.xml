@@ -71,7 +71,7 @@
 		<start-class>org.onap.aai.cacher.Application</start-class>
 
 		<aai-core.version>1.5.1</aai-core.version>
-		<aai-schema-service.version>1.5.0</aai-schema-service.version>
+		<aai-schema-service.version>1.6.0</aai-schema-service.version>
 		<activemq.version>5.15.8</activemq.version>
 		
 		<!-- Start of the jacoco plugin properties -->
