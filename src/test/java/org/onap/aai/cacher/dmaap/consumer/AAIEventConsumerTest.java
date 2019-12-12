@@ -19,7 +19,7 @@
  */
 package org.onap.aai.cacher.dmaap.consumer;
 
-import com.att.nsa.mr.client.MRConsumer;
+import org.onap.dmaap.mr.client.MRConsumer;
 import com.github.fakemongo.Fongo;
 import com.mongodb.DB;
 import com.mongodb.MongoClient;

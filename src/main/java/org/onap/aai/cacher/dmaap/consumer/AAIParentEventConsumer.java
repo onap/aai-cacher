@@ -21,8 +21,8 @@ package org.onap.aai.cacher.dmaap.consumer;
 
 import com.att.eelf.configuration.EELFLogger;
 import com.att.eelf.configuration.EELFManager;
-import com.att.nsa.mr.client.MRClientFactory;
-import com.att.nsa.mr.client.MRConsumer;
+import org.onap.dmaap.mr.client.MRClientFactory;
+import org.onap.dmaap.mr.client.MRConsumer;
 import org.apache.commons.configuration.ConfigurationException;
 import org.eclipse.jetty.util.security.Password;
 import org.onap.aai.cacher.util.AAIConstants;

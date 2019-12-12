@@ -21,7 +21,7 @@ package org.onap.aai.cacher.dmaap.consumer;
 
 import com.att.eelf.configuration.EELFLogger;
 import com.att.eelf.configuration.EELFManager;
-import com.att.nsa.mr.client.MRConsumer;
+import org.onap.dmaap.mr.client.MRConsumer;
 import org.springframework.http.HttpHeaders;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
