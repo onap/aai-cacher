@@ -1,4 +1,4 @@
-/**
+﻿/**
  * ============LICENSE_START=======================================================
  * org.onap.aai
  * ================================================================================
@@ -50,11 +50,11 @@ public class MongoConfig {
 
     private final static EELFLogger EELF_LOGGER = EELFManager.getInstance().getLogger(MongoConfig.class);
 
-    @Value("${mongodb.host}")
+    @Value("${spring.data.mongodb.host}")
     private String MONGO_DB_HOST;
-    @Value("${mongodb.dbName}")
+    @Value("${spring.data.mongodb.database}")
     private String MONGO_DB_NAME;
-    @Value("${mongodb.port}")
+    @Value("${spring.data.mongodb.port}")
     private int MONGO_DB_PORT;
 
     private MongodProcess mongod;
@@ -78,7 +78,8 @@ public class MongoConfig {
         return null;
     }
 
-    @Bean
+    @SuppressWarnings("deprecation")
+	@Bean
     public DB db(MongoClient mongoClient) {
         return mongoClient.getDB(MONGO_DB_NAME);
     }

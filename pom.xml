@@ -24,16 +24,15 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>org.onap.aai.cacher</groupId>
-	<artifactId>aai-cacher</artifactId>
-	<version>1.6.0-SNAPSHOT</version>
-
 	<parent>
 		<groupId>org.onap.oparent</groupId>
 		<artifactId>oparent</artifactId>
-		<version>2.0.0</version>
+		<version>2.1.0</version>
 	</parent>
-
+	<groupId>org.onap.aai.cacher</groupId>
+	<artifactId>aai-cacher</artifactId>
+	<version>1.6.6-SNAPSHOT</version>
+	<packaging>pom</packaging>
 	<properties>
 		<icd.file>service.json</icd.file>
 		<icd.package>org.onap.aai.cacher.service.rest</icd.package>
@@ -52,7 +51,11 @@
 		<spring.boot.version>1.5.21.RELEASE</spring.boot.version>
 
 		<eclipse.jetty.version>9.4.1.v20170120</eclipse.jetty.version>
-
+		<powermock.api.mockito2.version>2.0.4</powermock.api.mockito2.version>
+		<json.simple.version>1.1.1</json.simple.version>
+		<mockito.all.version>1.10.19</mockito.all.version>
+		<mockito.core.version>2.15.0</mockito.core.version>
+		<powermock.version>1.6.6</powermock.version>
 		<docker.registry>docker.io</docker.registry>
 		<build.number>local</build.number>
 		<service.account>aai-svc-account</service.account>
@@ -188,7 +191,7 @@
 				</plugins>
 			</build>
 		</profile>
-		<profile>
+                <profile>
 			<id>runAjsc</id>
 			<properties>
 				<skipTests>${maven.skip.tests}</skipTests>
@@ -200,7 +203,34 @@
 						<groupId>org.codehaus.mojo</groupId>
 						<artifactId>exec-maven-plugin</artifactId>
 						<version>1.6.0</version>
+						<executions><id>runAjsc</id>
+			<properties>
+				<skipTests>${maven.skip.tests}</skipTests>
+			</properties>
+			<build>
+				<defaultGoal>pre-integration-test</defaultGoal>
+				<plugins>
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>exec-maven-plugin</artifactId>
+						<version>1.6.0</version>
 						<executions>
+							<execution>
+								<id>run-spring-boot</id>
+								<phase>package</phase>
+								<goals>
+									<goal>java</goal>
+								</goals>
+							</execution>
+						</executions>
+						<configuration>
+							<mainClass>${start-class}</mainClass>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 							<execution>
 								<id>run-spring-boot</id>
 								<phase>package</phase>
@@ -291,6 +321,7 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-mongodb</artifactId>
+			<version>2.1.6.RELEASE</version>
 		</dependency>
         <!--
             Explicitly stating the security spring framework and
@@ -479,13 +510,12 @@
             <groupId>com.att.aft</groupId>
             <artifactId>dme2</artifactId>
             <version>${dme2.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>javax.servlet</groupId>
-                    <artifactId>servlet-api</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>	
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>3.1.0</version>
+			<scope>provided</scope>
+		</dependency>
         -->
 		<dependency>
 			<groupId>com.att.nsa</groupId>
@@ -507,6 +537,42 @@
 			<artifactId>commons-net</artifactId>
 			<version>3.6</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-jetty -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-jetty</artifactId>
+			<version>2.2.4.RELEASE</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.googlecode.json-simple</groupId>
+			<artifactId>json-simple</artifactId>
+			<version>${json.simple.version}</version>
+		</dependency>
+
+
+		<dependency>
+			<groupId>org.powermock</groupId>
+			<artifactId>powermock-module-junit4-rule-agent</artifactId>
+			<version>${powermock.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.powermock</groupId>
+			<artifactId>powermock-api-mockito2</artifactId>
+			<version>${powermock.api.mockito2.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.powermock</groupId>
+			<artifactId>powermock-core</artifactId>
+			<version>${powermock.api.mockito2.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.powermock</groupId>
+			<artifactId>powermock-module-javaagent</artifactId>
+			<version>${powermock.version}</version>
+		</dependency>
+
 	</dependencies>
 	<build>
 		<pluginManagement>
