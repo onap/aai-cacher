@@ -1,4 +1,4 @@
-/**
+﻿/**
  * ============LICENSE_START=======================================================
  * org.onap.aai
  * ================================================================================
@@ -17,6 +17,7 @@
  * limitations under the License.
  * ============LICENSE_END=========================================================
  */
+
 package org.onap.aai.cacher;
 
 import com.att.eelf.configuration.EELFLogger;
@@ -30,10 +31,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
 import org.springframework.boot.builder.SpringApplicationBuilder;
-import org.springframework.boot.web.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.scheduling.annotation.EnableScheduling;
-
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import javax.annotation.PreDestroy;
 import java.util.UUID;
 
