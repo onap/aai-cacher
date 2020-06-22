@@ -48,7 +48,9 @@ import java.util.stream.Collectors;
 @Scope(scopeName = ConfigurableBeanFactory.SCOPE_SINGLETON)
 public class AAIResourceDmaapParserStrategy extends AAIResourceGetAllPayloadParserStrategy {
     
-    private final static EELFLogger LOGGER = EELFManager.getInstance().getLogger(AAIResourceDmaapParserStrategy.class);
+    private static final EELFLogger LOGGER = EELFManager.getInstance().getLogger(AAIResourceDmaapParserStrategy.class);
+
+    public static final String RELATED_LINK_PROPERTY_KEY = "related-link";
 
     @Autowired
     public AAIResourceDmaapParserStrategy(AAIResourcesUriTemplates aaiResourcesUriTemplates) {
@@ -133,7 +135,7 @@ public class AAIResourceDmaapParserStrategy extends AAIResourceGetAllPayloadPars
     private CacheEntry getParentUpdateCacheEntry(String topEntityType, String entityUri, DmaapAction actionType, List<AAIUriSegment> uriSegments) {
         String parentUri = String.join(
                 "",
-                uriSegments.stream().limit(uriSegments.size()-1).map(AAIUriSegment::getSegment).collect(Collectors.toList()));
+                uriSegments.stream().limit(uriSegments.size()-1L).map(AAIUriSegment::getSegment).collect(Collectors.toList()));
         JsonObject findQuery = new JsonObject();
         findQuery.addProperty("_id", parentUri);
         JsonObject nestedFindQuery = new JsonObject();
@@ -181,10 +183,10 @@ public class AAIResourceDmaapParserStrategy extends AAIResourceGetAllPayloadPars
         findQuery.addProperty("_id", uri);
         JsonObject nestedFindQuery = new JsonObject();
         nestedFindQuery.addProperty("_id", uri);
-        nestedFindQuery.addProperty("relationship-list.relationship.related-link", entity.get("related-link").getAsString());
+        nestedFindQuery.addProperty("relationship-list.relationship.related-link", entity.get(RELATED_LINK_PROPERTY_KEY).getAsString());
         String nestedField = "relationship-list.relationship";
         JsonObject nestedIdentifier = new JsonObject();
-        nestedIdentifier.addProperty("related-link", entity.get("related-link").getAsString());
+        nestedIdentifier.addProperty(RELATED_LINK_PROPERTY_KEY, entity.get(RELATED_LINK_PROPERTY_KEY).getAsString());
 
         return CacheEntry.CacheEntryBuilder.createCacheEntry().inCollection(collection).withDbAction(actionType.getDbAction())
                 .withId(uri).isNested(true).withPayload(entity).withFindQuery(findQuery)
@@ -197,18 +199,17 @@ public class AAIResourceDmaapParserStrategy extends AAIResourceGetAllPayloadPars
         existingCacheEntriesRelationships.forEach((k, v) -> {
             if (cacheEntriesRelationships.containsKey(k)) {
                 v.forEach(oldA -> {
-                    int found = -1;
-                    for (int i = 0; i < cacheEntriesRelationships.get(k).size(); i++) {
-                        if (cacheEntriesRelationships.get(k).get(i).getFullUri().equals(oldA.getFullUri())) {
-                            found = i;
-                            break;
-                        }
-                    }
-                    if (found != -1) {
-                        cacheEntriesRelationships.get(k).remove(cacheEntriesRelationships.get(k).get(found));
+                    List<AAIRelatedToDetails> cacheEntriesRelationshipsForK = cacheEntriesRelationships.get(k);
+
+                    Optional<AAIRelatedToDetails> foundEntryOpt = cacheEntriesRelationshipsForK.stream()
+                        .filter(entry -> entry.getFullUri().equals(oldA.getFullUri()))
+                        .findFirst();
+
+                    if (foundEntryOpt.isPresent()) {
+                        cacheEntriesRelationshipsForK.remove(foundEntryOpt.get());
                     } else {
                         oldA.setActionType(DmaapAction.DELETE);
-                        cacheEntriesRelationships.get(k).add(oldA);
+                        cacheEntriesRelationshipsForK.add(oldA);
                     }
                 });
             } else {
@@ -231,7 +232,7 @@ public class AAIResourceDmaapParserStrategy extends AAIResourceGetAllPayloadPars
                     JsonArray relationships = e.getValue().getAsJsonObject().getAsJsonArray("relationship");
                     for (JsonElement relationship : relationships) {
                         relationshipMapping.add(fullUriPrefix + cacheEntry.getId(), new AAIRelatedToDetails(
-                                relationship.getAsJsonObject().get("related-link").getAsString(),
+                                relationship.getAsJsonObject().get(RELATED_LINK_PROPERTY_KEY).getAsString(),
                                 relationship.getAsJsonObject().get("relationship-label").getAsString(), actionType));
                     }
                 }
@@ -256,7 +257,7 @@ public class AAIResourceDmaapParserStrategy extends AAIResourceGetAllPayloadPars
         if (label != null) {
             relObj.addProperty("relationship-label", label);
         }
-        relObj.addProperty("related-link", fullUri);
+        relObj.addProperty(RELATED_LINK_PROPERTY_KEY, fullUri);
 
         for (AAIUriSegment aaiUriSegment : uriSegmentList) {
             aaiUriSegment.getSegmentKeyValues().forEach((k, v) -> {
@@ -281,35 +282,35 @@ public class AAIResourceDmaapParserStrategy extends AAIResourceGetAllPayloadPars
         if (uriSegments.size() > 1) {
             Optional<String> segmentPlural;
             String segmentSingular;
-            String jsonStr;
             JsonObject jsonObj;
             JsonArray jsonArray;
-            JsonElement jsonElement;
 
             for (int i = 1; i < uriSegments.size(); i++) {
+                segmentPlural = uriSegments.get(i).getSegmentPlural();
+                segmentSingular = uriSegments.get(i).getSegmentSingular();
 
-                if (uriSegments.get(i).getSegmentPlural().isPresent()) {
-                    segmentPlural = uriSegments.get(i).getSegmentPlural();
-                    segmentSingular = uriSegments.get(i).getSegmentSingular();
-                    if ( segmentSingular.equals("cvlan-tag")) {
-                            // map to what is in the entity
+                if (segmentPlural.isPresent()) {
+                    if (segmentSingular.equals("cvlan-tag")) {
+                        // map to what is in the entity
                         segmentSingular = "cvlan-tag-entry";
                     }
-                    jsonObj = entityBody.getAsJsonObject(uriSegments.get(i).getSegmentPlural().get());
+                    jsonObj = entityBody.getAsJsonObject(segmentPlural.get());
                     jsonArray = jsonObj.getAsJsonArray(segmentSingular);
-                    if ( jsonArray == null ) {
-                        LOGGER.error("failed in getWrappedEntityObject " + segmentSingular + " not found in " + jsonObj );
+                    if (jsonArray == null) {
+                        LOGGER
+                            .error("failed in getWrappedEntityObject " + segmentSingular + " not found in " + jsonObj);
                         // exception expected for missing template
+                    } else {
+                        entityBody = jsonArray.get(0).getAsJsonObject();
+                        arrayKey = segmentSingular;
                     }
-                    entityBody = jsonArray.get(0).getAsJsonObject();
-                    arrayKey = uriSegments.get(i).getSegmentSingular();
                 } else {
-                    entityBody = entityBody.getAsJsonArray(uriSegments.get(i).getSegmentSingular()).get(0).getAsJsonObject();
-                    arrayKey = uriSegments.get(i).getSegmentSingular();
+                    entityBody = entityBody.getAsJsonArray(segmentSingular).get(0).getAsJsonObject();
+                    arrayKey = segmentSingular;
                 }
-
             }
         }
+
         arrayWrapper.add(entityBody);
         objectWrapper.add(arrayKey, arrayWrapper);
         return objectWrapper;
@@ -321,7 +322,4 @@ public class AAIResourceDmaapParserStrategy extends AAIResourceGetAllPayloadPars
         }
         return String.join("", uriSegments.subList(0, uriSegments.size()-1).stream().map(AAIUriSegment::getSegment).collect(Collectors.toList()));
     }
-
-
-
 }
