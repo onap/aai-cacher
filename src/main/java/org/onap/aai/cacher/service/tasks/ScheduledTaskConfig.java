@@ -31,18 +31,18 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 import org.springframework.scheduling.config.IntervalTask;
 import org.springframework.scheduling.config.ScheduledTaskRegistrar;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Configuration
 public class ScheduledTaskConfig {
 
-    private final static EELFLogger EELF_LOGGER = EELFManager.getInstance().getLogger(ScheduledTaskConfig.class);
-    private static final SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
-    private final static int THREAD_POOL_SIZE = 10;
-    private final static String THREAD_POOL_PREFIX = "poolScheduler";
-    private final static int TASK_INTERVAL_TIME = 30000;
-    private final static int TASK_DELAY_TIME = 0;
+    private static final EELFLogger EELF_LOGGER = EELFManager.getInstance().getLogger(ScheduledTaskConfig.class);
+    private static final int THREAD_POOL_SIZE = 10;
+    private static final String THREAD_POOL_PREFIX = "poolScheduler";
+    private static final int TASK_INTERVAL_TIME = 30000;
+    private static final int TASK_DELAY_TIME = 0;
+
+    private ScheduledTaskConfig(){}
 
     @Configuration
     static class RegisterTaskSchedulerViaSchedulingConfigurer implements SchedulingConfigurer {
@@ -53,13 +53,10 @@ public class ScheduledTaskConfig {
         @Override
         public void configureTasks(ScheduledTaskRegistrar taskRegistrar) {
             taskRegistrar.setTaskScheduler(poolScheduler());
-            taskRegistrar.addFixedRateTask(new IntervalTask(new Runnable() {
-                @Override
-                public void run() {
-                    EELF_LOGGER.info(
-                            "Job @ fixed rate " + new Date() + ", Thread name is " + Thread.currentThread().getName());
-                    chs.checkAndInitTasks();
-                }
+            taskRegistrar.addFixedRateTask(new IntervalTask(() -> {
+                EELF_LOGGER.info(
+                        "Job @ fixed rate " + new Date() + ", Thread name is " + Thread.currentThread().getName());
+                chs.checkAndInitTasks();
             }, TASK_INTERVAL_TIME, TASK_DELAY_TIME));
         }
 
