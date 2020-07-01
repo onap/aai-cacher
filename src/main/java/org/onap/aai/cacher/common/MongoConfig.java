@@ -48,7 +48,7 @@ import java.io.IOException;
 @Configuration
 public class MongoConfig {
 
-    private final static EELFLogger EELF_LOGGER = EELFManager.getInstance().getLogger(MongoConfig.class);
+    private static final EELFLogger EELF_LOGGER = EELFManager.getInstance().getLogger(MongoConfig.class);
 
     @Value("${mongodb.host}")
     private String MONGO_DB_HOST;
@@ -61,9 +61,8 @@ public class MongoConfig {
 
     @Bean
     public MongoClient mongoClient(MongodProcess mongodProcess) {
-        try {
-            // To connect to mongodb server
-            MongoClient mongoC = new MongoClient(MONGO_DB_HOST, MONGO_DB_PORT);
+        // To connect to mongodb server
+        try (MongoClient mongoC = new MongoClient(MONGO_DB_HOST, MONGO_DB_PORT)) {
 
             // Now connect to your databases
             EELF_LOGGER.info("Connect to database successfully");
