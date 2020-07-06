@@ -24,6 +24,7 @@ import com.att.eelf.configuration.EELFManager;
 import com.google.gson.JsonObject;
 import org.apache.commons.lang3.StringUtils;
 import org.onap.aai.annotations.Metadata;
+import org.onap.aai.cacher.exceptions.MissingTemplateException;
 import org.onap.aai.cacher.util.AAIConstants;
 import org.reflections.Reflections;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
@@ -44,7 +45,7 @@ import java.util.*;
 @Scope(scopeName = ConfigurableBeanFactory.SCOPE_SINGLETON)
 public class AAIResourcesUriTemplates {
 
-    private final static EELFLogger LOGGER = EELFManager.getInstance().getLogger(AAIResourcesUriTemplates.class);
+    private static final EELFLogger LOGGER = EELFManager.getInstance().getLogger(AAIResourcesUriTemplates.class);
 
     private final Map<String, String> typeToUriTemplate;
 
@@ -120,17 +121,18 @@ public class AAIResourcesUriTemplates {
             matchingStartingTemplate = this.getMatchingStartingTemplate(truncatedUri);
             if ( !matchingStartingTemplate.isPresent()) {
                 LOGGER.error("failed in uriToTemplates for truncatedUri " + truncatedUri);
-                // exception expected for missing template
-            }
-            template = matchingStartingTemplate.get();
-            uriTemplateList.add(template);
-            int count = StringUtils.countMatches(template, "/");
-            if (count < StringUtils.countMatches(truncatedUri, "/")) {
-                truncatedUri = StringUtils.substring(
+                throw new MissingTemplateException(truncatedUri);
+            } else {
+                template = matchingStartingTemplate.get();
+                uriTemplateList.add(template);
+                int count = StringUtils.countMatches(template, "/");
+                if (count < StringUtils.countMatches(truncatedUri, "/")) {
+                    truncatedUri = StringUtils.substring(
                         truncatedUri,
                         StringUtils.ordinalIndexOf(truncatedUri, "/", count + 1));
-            } else {
-                truncatedUri = "";
+                } else {
+                    truncatedUri = "";
+                }
             }
         }
 
@@ -149,14 +151,17 @@ public class AAIResourcesUriTemplates {
         String truncatedUri = uri;
 
         while (truncatedUri.contains("/")) {
-            template = this.getMatchingStartingTemplate(truncatedUri).get();
-            int count = StringUtils.countMatches(template, "/");
-            int cutIndex = truncatedUri.length();
-            if (count != StringUtils.countMatches(truncatedUri, "/")) {
-                cutIndex = StringUtils.ordinalIndexOf(truncatedUri, "/", count + 1);
+            Optional<String> templateOpt = this.getMatchingStartingTemplate(truncatedUri);
+            if (templateOpt.isPresent()) {
+                template = templateOpt.get();
+                int count = StringUtils.countMatches(template, "/");
+                int cutIndex = truncatedUri.length();
+                if (count != StringUtils.countMatches(truncatedUri, "/")) {
+                    cutIndex = StringUtils.ordinalIndexOf(truncatedUri, "/", count + 1);
+                }
+                uriList.add(StringUtils.substring(truncatedUri, 0, cutIndex));
+                truncatedUri = StringUtils.substring(truncatedUri, cutIndex);
             }
-            uriList.add(StringUtils.substring(truncatedUri, 0, cutIndex));
-            truncatedUri = StringUtils.substring(truncatedUri, cutIndex);
         }
 
         return uriList;
