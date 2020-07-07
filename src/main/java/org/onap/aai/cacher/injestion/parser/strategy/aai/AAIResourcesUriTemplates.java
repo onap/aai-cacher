@@ -24,6 +24,7 @@ import com.att.eelf.configuration.EELFManager;
 import com.google.gson.JsonObject;
 import org.apache.commons.lang3.StringUtils;
 import org.onap.aai.annotations.Metadata;
+import org.onap.aai.cacher.exceptions.MissingTemplateException;
 import org.onap.aai.cacher.util.AAIConstants;
 import org.reflections.Reflections;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
@@ -44,7 +45,7 @@ import java.util.*;
 @Scope(scopeName = ConfigurableBeanFactory.SCOPE_SINGLETON)
 public class AAIResourcesUriTemplates {
 
-    private final static EELFLogger LOGGER = EELFManager.getInstance().getLogger(AAIResourcesUriTemplates.class);
+    private static final EELFLogger LOGGER = EELFManager.getInstance().getLogger(AAIResourcesUriTemplates.class);
 
     private final Map<String, String> typeToUriTemplate;
 
@@ -63,13 +64,13 @@ public class AAIResourcesUriTemplates {
 
         Reflections reflections = new Reflections("org.onap.aai.domain.yang");
         reflections.getTypesAnnotatedWith(Metadata.class)
-                .stream()
-                .filter(aClass -> "org.onap.aai.domain.yang".equals(aClass.getPackage().getName()))
-                .filter(aClass -> !aClass.getAnnotation(Metadata.class).uriTemplate().isEmpty())
-                .forEach(aClass -> typeToUriTemplate.put(
-                        aClass.getAnnotation(XmlRootElement.class).name(),
-                        aClass.getAnnotation(Metadata.class).uriTemplate())
-                );
+            .stream()
+            .filter(aClass -> "org.onap.aai.domain.yang".equals(aClass.getPackage().getName()))
+            .filter(aClass -> !aClass.getAnnotation(Metadata.class).uriTemplate().isEmpty())
+            .forEach(aClass -> typeToUriTemplate.put(
+                aClass.getAnnotation(XmlRootElement.class).name(),
+                aClass.getAnnotation(Metadata.class).uriTemplate())
+            );
 
         LOGGER.info("AAI uri templates: " + typeToUriTemplate);
     }
@@ -80,7 +81,7 @@ public class AAIResourcesUriTemplates {
 
     /**
      * Get templated aai uri segment by type.
-     * 
+     *
      * @param type
      * @return
      */
@@ -90,6 +91,7 @@ public class AAIResourcesUriTemplates {
 
     /**
      * For the given template and uri get the variable key value pairs
+     *
      * @param uri
      * @param template
      * @return
@@ -106,7 +108,7 @@ public class AAIResourcesUriTemplates {
 
     /**
      * For a given uri get an ordered list of templates.
-     * 
+     *
      * @param uri
      * @return
      */
@@ -118,19 +120,20 @@ public class AAIResourcesUriTemplates {
 
         while (truncatedUri.contains("/")) {
             matchingStartingTemplate = this.getMatchingStartingTemplate(truncatedUri);
-            if ( !matchingStartingTemplate.isPresent()) {
+            if (!matchingStartingTemplate.isPresent()) {
                 LOGGER.error("failed in uriToTemplates for truncatedUri " + truncatedUri);
-                // exception expected for missing template
-            }
-            template = matchingStartingTemplate.get();
-            uriTemplateList.add(template);
-            int count = StringUtils.countMatches(template, "/");
-            if (count < StringUtils.countMatches(truncatedUri, "/")) {
-                truncatedUri = StringUtils.substring(
+                throw new MissingTemplateException(truncatedUri);
+            } else {
+                template = matchingStartingTemplate.get();
+                uriTemplateList.add(template);
+                int count = StringUtils.countMatches(template, "/");
+                if (count < StringUtils.countMatches(truncatedUri, "/")) {
+                    truncatedUri = StringUtils.substring(
                         truncatedUri,
                         StringUtils.ordinalIndexOf(truncatedUri, "/", count + 1));
-            } else {
-                truncatedUri = "";
+                } else {
+                    truncatedUri = "";
+                }
             }
         }
 
@@ -139,7 +142,7 @@ public class AAIResourcesUriTemplates {
 
     /**
      * For a given uri get an ordered list of templates.
-     * 
+     *
      * @param uri
      * @return
      */
@@ -149,14 +152,17 @@ public class AAIResourcesUriTemplates {
         String truncatedUri = uri;
 
         while (truncatedUri.contains("/")) {
-            template = this.getMatchingStartingTemplate(truncatedUri).get();
-            int count = StringUtils.countMatches(template, "/");
-            int cutIndex = truncatedUri.length();
-            if (count != StringUtils.countMatches(truncatedUri, "/")) {
-                cutIndex = StringUtils.ordinalIndexOf(truncatedUri, "/", count + 1);
+            Optional<String> templateOpt = this.getMatchingStartingTemplate(truncatedUri);
+            if (templateOpt.isPresent()) {
+                template = templateOpt.get();
+                int count = StringUtils.countMatches(template, "/");
+                int cutIndex = truncatedUri.length();
+                if (count != StringUtils.countMatches(truncatedUri, "/")) {
+                    cutIndex = StringUtils.ordinalIndexOf(truncatedUri, "/", count + 1);
+                }
+                uriList.add(StringUtils.substring(truncatedUri, 0, cutIndex));
+                truncatedUri = StringUtils.substring(truncatedUri, cutIndex);
             }
-            uriList.add(StringUtils.substring(truncatedUri, 0, cutIndex));
-            truncatedUri = StringUtils.substring(truncatedUri, cutIndex);
         }
 
         return uriList;
@@ -164,7 +170,7 @@ public class AAIResourcesUriTemplates {
 
     /**
      * returns the template matching the start of the uri.
-     * 
+     *
      * @param uri
      * @return @see java.util.Optional
      */
@@ -174,7 +180,7 @@ public class AAIResourcesUriTemplates {
 
     /**
      * Given aai type and json object generate the uri for it.
-     * 
+     *
      * @param type
      * @param jo
      * @return
@@ -190,7 +196,7 @@ public class AAIResourcesUriTemplates {
 
     /**
      * Get encoded values from json object for each key in keys
-     * 
+     *
      * @param keys
      * @param jo
      * @return
@@ -204,7 +210,7 @@ public class AAIResourcesUriTemplates {
 
     /**
      * extract uri keys from the templated uri
-     * 
+     *
      * @param template
      * @return
      */
@@ -216,7 +222,7 @@ public class AAIResourcesUriTemplates {
 
     /**
      * UTF-8 encoding of @param string
-     * 
+     *
      * @param string string to be encoded
      * @return
      */
@@ -230,7 +236,7 @@ public class AAIResourcesUriTemplates {
 
     /**
      * UTF-8 decoding of @param string
-     * 
+     *
      * @param string string to be encoded
      * @return
      */
@@ -260,7 +266,7 @@ public class AAIResourcesUriTemplates {
         for (int i = 0; i < uriSegments.size(); i++) {
             aus = new AAIUriSegment(uriSegments.get(i), uriSegmentTemplates.get(i));
             aus.setSegmentKeyValues(
-                    getUriTemplateMappings(aus.getSegment(), aus.getSegmentTemplate()));
+                getUriTemplateMappings(aus.getSegment(), aus.getSegmentTemplate()));
             uriSegmentList.add(aus);
         }
         return uriSegmentList;
