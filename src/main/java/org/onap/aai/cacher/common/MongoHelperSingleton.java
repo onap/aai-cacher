@@ -57,7 +57,11 @@ import java.util.stream.Collectors;
 @Scope(scopeName = ConfigurableBeanFactory.SCOPE_SINGLETON)
 public class MongoHelperSingleton {
 
-    private final static EELFLogger EELF_LOGGER = EELFManager.getInstance().getLogger(MongoHelperSingleton.class);
+    public static final String AAI_4000_LBL = "AAI_4000";
+
+    public static final String AAI_5105_LBL = "AAI_5105";
+
+    private static final EELFLogger EELF_LOGGER = EELFManager.getInstance().getLogger(MongoHelperSingleton.class);
 
     private DB db;
 
@@ -80,7 +84,7 @@ public class MongoHelperSingleton {
             db.getCollection(name);
             EELF_LOGGER.info("Collection " + name + " created successfully");
         } catch (Exception e) {
-            AAIException aaiException = new AAIException("AAI_4000");
+            AAIException aaiException = new AAIException(AAI_4000_LBL);
             ErrorLogHelper.logException(aaiException);
         }
     }
@@ -100,11 +104,11 @@ public class MongoHelperSingleton {
                 return false;
             }
         } catch (MongoException ex) {
-            AAIException aaiException = new AAIException("AAI_5105");
+            AAIException aaiException = new AAIException(AAI_5105_LBL);
             ErrorLogHelper.logException(aaiException);
             return false;
         } catch (Exception e) {
-            AAIException aaiException = new AAIException("AAI_4000");
+            AAIException aaiException = new AAIException(AAI_4000_LBL);
             ErrorLogHelper.logException(aaiException);
             return false;
         }
@@ -118,11 +122,11 @@ public class MongoHelperSingleton {
             result = collection.update(searchQuery, (BasicDBObject) document, updateOptions);
             return result.wasAcknowledged();
         } catch (MongoException ex) {
-            AAIException aaiException = new AAIException("AAI_5105");
+            AAIException aaiException = new AAIException(AAI_5105_LBL);
             ErrorLogHelper.logException(aaiException);
             return false;
         } catch (Exception e) {
-            AAIException aaiException = new AAIException("AAI_4000");
+            AAIException aaiException = new AAIException(AAI_4000_LBL);
             ErrorLogHelper.logException(aaiException);
             return false;
         }
@@ -144,7 +148,7 @@ public class MongoHelperSingleton {
                 return "NOT_FOUND";
             }
         } catch (MongoException ex) {
-            AAIException aaiException = new AAIException("AAI_5105");
+            AAIException aaiException = new AAIException(AAI_5105_LBL);
             ErrorLogHelper.logException(aaiException);
             return "EXCEPTION_THROWN";
         }
@@ -266,7 +270,6 @@ public class MongoHelperSingleton {
 
     protected void mongoPull(CacheEntry cacheEntry, MongoCollection<Document> collection, Document nestedFind) {
         CacheEntry localCacheEntry = CacheEntry.CacheEntryBuilder.createCacheEntry().deepCopy(cacheEntry).build();
-        ArrayList<Document> filters = this.getFiltersAndUpdateNestedField(localCacheEntry);
 
         Document pullObj = new Document();
         pullObj.put(localCacheEntry.getNestedField(),
@@ -275,42 +278,46 @@ public class MongoHelperSingleton {
         pull.put("$pull", pullObj);
         collection.findOneAndUpdate(nestedFind, pull, new FindOneAndUpdateOptions().upsert(true));
         // TODO remove wrapping if there are no entries in array.
-
     }
 
     private ArrayList<Document> getFiltersAndUpdateNestedField(CacheEntry cacheEntry) {
-
-        if (StringUtils.countMatches(cacheEntry.getNestedField(), ".$.") < 2) {
-            return new ArrayList<>();
-        }
-
         ArrayList<Document> filters = new ArrayList<>();
-        List<String> keys = cacheEntry.getNestedFind().entrySet().stream().map(Map.Entry::getKey)
-                .filter(s -> !s.equals("_id")).sorted((s, t1) -> {
-                    if (StringUtils.countMatches(s, ".") > StringUtils.countMatches(t1, ".")) {
-                        return 1;
-                    }
-                    return s.compareTo(t1);
-                }).collect(Collectors.toList());
         String filterKey;
         String filterValue;
         String key;
         char filterIndex = 'a';
         StringBuilder newNestedField = new StringBuilder();
+
+        if (StringUtils.countMatches(cacheEntry.getNestedField(), ".$.") < 2) {
+            return new ArrayList<>();
+        }
+
+        List<String> keys = cacheEntry.getNestedFind().entrySet().stream()
+            .map(Map.Entry::getKey)
+            .filter(s -> !s.equals("_id")).sorted((s, t1) -> {
+                if (StringUtils.countMatches(s, ".") > StringUtils.countMatches(t1, ".")) {
+                    return 1;
+                }
+                return s.compareTo(t1);
+            }).collect(Collectors.toList());
         List<String> fieldSplit = Arrays.asList(cacheEntry.getNestedField().split("\\.\\$"));
+
         for (int i = 0; i < fieldSplit.size(); i++) {
             final String subSplit = StringUtils.join(fieldSplit.subList(0, i + 1), "");
-            key = keys.stream().filter(s -> s.startsWith(subSplit)).findFirst().get();
-            filterIndex += i;
-            filterKey = filterIndex + "." + key.substring(key.lastIndexOf(".") + 1);
-            filterValue = cacheEntry.getNestedFind().get(key).getAsString();
-            newNestedField.append(fieldSplit.get(i));
-            if (i + 1 != fieldSplit.size()) {
-                newNestedField.append(".$[").append(filterIndex).append("]");
-                filters.add(new Document().append(filterKey, filterValue));
+            Optional<String> keyOpt = keys.stream().filter(s -> s.startsWith(subSplit)).findFirst();
+            if (keyOpt.isPresent()) {
+                key = keyOpt.get();
+                filterIndex += i;
+                filterKey = filterIndex + "." + key.substring(key.lastIndexOf(".") + 1);
+                filterValue = cacheEntry.getNestedFind().get(key).getAsString();
+                newNestedField.append(fieldSplit.get(i));
+                if (i + 1 != fieldSplit.size()) {
+                    newNestedField.append(".$[").append(filterIndex).append("]");
+                    filters.add(new Document().append(filterKey, filterValue));
+                }
             }
-
         }
+
         cacheEntry.setNestedField(newNestedField.toString());
 
         return filters;
