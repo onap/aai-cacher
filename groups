@@ -2,4 +2,3 @@
 #
 daebbf523be390041a1a9c0e340a6d833aae5043                                   	GitHub Replication
 e914c2c02a825415c39e82d3c847eeb47ec1d0dd                                   	saml/onap-gerrit-aai-cacher-committers
-ldap:cn=onap-gerrit-aai-cacher-committers,ou=Groups,dc=freestandards,dc=org	ldap/onap-gerrit-aai-cacher-committers
