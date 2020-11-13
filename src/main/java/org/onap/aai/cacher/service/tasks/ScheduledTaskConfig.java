@@ -42,7 +42,7 @@ public class ScheduledTaskConfig {
     private static final int TASK_INTERVAL_TIME = 30000;
     private static final int TASK_DELAY_TIME = 0;
 
-    private ScheduledTaskConfig(){}
+    //private ScheduledTaskConfig(){}
 
     @Configuration
     static class RegisterTaskSchedulerViaSchedulingConfigurer implements SchedulingConfigurer {

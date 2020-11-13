@@ -227,11 +227,7 @@ public class AAIResourcesUriTemplates {
      * @return
      */
     public String encodeProp(String string) {
-        try {
-            return UriUtils.encode(string, "UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            return "";
-        }
+        return UriUtils.encode(string, "UTF-8");
     }
 
     /**
@@ -241,11 +237,7 @@ public class AAIResourcesUriTemplates {
      * @return
      */
     public String decodeProp(String string) {
-        try {
-            return UriUtils.decode(string, "UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            return "";
-        }
+        return UriUtils.decode(string, "UTF-8");
     }
 
     public String getAAIUriFromEntityUri(String fullUri) {

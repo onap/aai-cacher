@@ -22,9 +22,9 @@ package org.onap.aai.cacher.web;
 import ch.qos.logback.access.jetty.RequestLogImpl;
 import org.eclipse.jetty.server.handler.HandlerCollection;
 import org.eclipse.jetty.server.handler.RequestLogHandler;
-import org.springframework.boot.context.embedded.EmbeddedServletContainerFactory;
-import org.springframework.boot.context.embedded.jetty.JettyEmbeddedServletContainerFactory;
-import org.springframework.boot.context.embedded.jetty.JettyServerCustomizer;
+import org.springframework.boot.web.embedded.jetty.JettyServerCustomizer;
+import org.springframework.boot.web.embedded.jetty.JettyServletWebServerFactory;
+import org.springframework.boot.web.servlet.server.AbstractServletWebServerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -34,8 +34,8 @@ import java.util.Arrays;
 public class LocalHostAccessLog {
 
     @Bean
-    public EmbeddedServletContainerFactory jettyConfigBean() {
-        JettyEmbeddedServletContainerFactory jef = new JettyEmbeddedServletContainerFactory();
+    public AbstractServletWebServerFactory jettyConfigBean() {
+        JettyServletWebServerFactory jef = new JettyServletWebServerFactory();
         jef.addServerCustomizers((JettyServerCustomizer) server -> {
 
             HandlerCollection handlers = new HandlerCollection();

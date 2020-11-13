@@ -83,19 +83,18 @@ public class MongoHelperSingletonNoFakeTest {
 	protected static void startEmbedded(int port) throws IOException {
 		Logger logger = LoggerFactory.getLogger("mongo");
 
-		IMongodConfig mongoConfigConfig = new MongodConfigBuilder()
+		MongodConfig mongoConfigConfig = MongodConfig.builder()
 				.version(Version.Main.PRODUCTION)
 				.net(new Net(port, Network.localhostIsIPv6()))
-				.cmdOptions(new MongoCmdOptionsBuilder().enableTextSearch(true).useNoPrealloc(false).build())
-				.configServer(false)
+				.cmdOptions(MongoCmdOptions.builder().enableTextSearch(true).useNoPrealloc(false).build())
+				.isConfigServer(false)
 				.build();
 
 		ProcessOutput processOutput = new ProcessOutput(Processors.logTo(logger, Slf4jLevel.WARN), Processors.logTo(logger,
 				Slf4jLevel.WARN), Processors.logTo(logger, Slf4jLevel.WARN));
 
 		MongodExecutable mongodExecutable = MongodStarter
-				.getInstance((new RuntimeConfigBuilder())
-						.defaults(Command.MongoD)
+				.getInstance(Defaults.runtimeConfigFor(Command.MongoD)
 						.processOutput(processOutput)
 						.build())
 				.prepare(mongoConfigConfig);
