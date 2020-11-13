@@ -125,7 +125,7 @@ public class RestClient {
 
     @Bean
     RestTemplate restTemplate(RestTemplateBuilder builder) throws Exception {
-        RestTemplate restTemplate = builder.requestFactory(new HttpComponentsClientHttpRequestFactory(restClient))
+        RestTemplate restTemplate = builder.requestFactory(() -> new HttpComponentsClientHttpRequestFactory(restClient))
                 .build();
 
         restTemplate.setErrorHandler(new ResponseErrorHandler() {

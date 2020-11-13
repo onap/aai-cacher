@@ -19,7 +19,7 @@
  */
 package org.onap.aai.cacher.web;
 
-import org.glassfish.jersey.filter.LoggingFilter;
+import org.glassfish.jersey.logging.LoggingFeature;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.onap.aai.cacher.service.rest.CacheInteractionService;
 import org.onap.aai.cacher.service.rest.CacheKeyService;
@@ -60,7 +60,7 @@ public class JerseyConfiguration extends ResourceConfig {
         // If the LoggingFilter second argument is set to true, it will print response
         // value as well
         if ("true".equalsIgnoreCase(env.getProperty("aai.request.logging.enabled"))) {
-            register(new LoggingFilter(log, false));
+            register(new LoggingFeature(log, 0));
         }
     }
 
