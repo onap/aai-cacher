@@ -28,9 +28,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
+import org.springframework.boot.autoconfigure.mongo.embedded.EmbeddedMongoAutoConfiguration;
 import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
 import org.springframework.boot.builder.SpringApplicationBuilder;
-import org.springframework.boot.web.support.SpringBootServletInitializer;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
@@ -39,7 +40,7 @@ import java.util.UUID;
 
 @SpringBootApplication
 @EnableScheduling
-@EnableAutoConfiguration(exclude = { DataSourceAutoConfiguration.class, HibernateJpaAutoConfiguration.class })
+@EnableAutoConfiguration(exclude = { DataSourceAutoConfiguration.class, HibernateJpaAutoConfiguration.class, EmbeddedMongoAutoConfiguration.class})
 @ComponentScan(basePackages = { "org.onap.aai.cacher", "com" })
 public class Application extends SpringBootServletInitializer {
 
@@ -65,7 +66,7 @@ public class Application extends SpringBootServletInitializer {
         LoggingContext.statusCode(StatusCode.COMPLETE);
 
         SpringApplication app = new SpringApplication(Application.class);
-        app.setLogStartupInfo(false);
+        app.setLogStartupInfo(true);
         app.setRegisterShutdownHook(true);
         app.addInitializers(new PropertyPasswordConfiguration());
         app.run(args);

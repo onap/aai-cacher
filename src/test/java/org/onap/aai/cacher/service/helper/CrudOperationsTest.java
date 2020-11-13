@@ -19,15 +19,20 @@
  */
 package org.onap.aai.cacher.service.helper;
 
-import com.github.fakemongo.Fongo;
+import com.mongodb.MongoClient;
+import com.mongodb.ServerAddress;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.FindOneAndUpdateOptions;
 import com.mongodb.client.model.UpdateOptions;
+import de.bwaldvogel.mongo.MongoServer;
+import de.bwaldvogel.mongo.backend.memory.MemoryBackend;
 import org.bson.Document;
 import org.junit.BeforeClass;
 import org.junit.Test;
+
+import java.net.InetSocketAddress;
 
 import static org.junit.Assert.assertEquals;
 
@@ -38,8 +43,11 @@ public class CrudOperationsTest {
 
 	@BeforeClass
 	public static void setup() {
-		Fongo fongo = new Fongo(DB_NAME);
-		mongoDatabase = fongo.getDatabase(DB_NAME);
+		MongoServer mongoServer = new MongoServer(new MemoryBackend());
+		InetSocketAddress serverAddress = mongoServer.bind();
+
+		MongoClient client = new MongoClient(new ServerAddress(serverAddress));
+		mongoDatabase = client.getDatabase(DB_NAME);
 	}
 
 	@Test
