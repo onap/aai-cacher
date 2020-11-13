@@ -19,13 +19,15 @@
  */
 package org.onap.aai.cacher.dmaap.consumer;
 
-import com.github.fakemongo.Fongo;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.mongodb.DB;
 import com.mongodb.MongoClient;
+import com.mongodb.ServerAddress;
 import com.mongodb.client.MongoDatabase;
+import de.bwaldvogel.mongo.MongoServer;
+import de.bwaldvogel.mongo.backend.memory.MemoryBackend;
 import de.flapdoodle.embed.mongo.MongodProcess;
 import org.apache.commons.io.IOUtils;
 import org.bson.Document;
@@ -49,6 +51,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.InetSocketAddress;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
@@ -100,9 +103,12 @@ public class AAIDmaapEventProcessorScenariosTest {
 
 	@BeforeClass
 	public static void setup() throws IOException, InterruptedException {
-		Fongo fongo = new Fongo(DB_NAME);
-		mongoDb = fongo.getDatabase(DB_NAME);
-		db = fongo.getDB(DB_NAME);
+		MongoServer mongoServer = new MongoServer(new MemoryBackend());
+		InetSocketAddress serverAddress = mongoServer.bind();
+
+		MongoClient client = new MongoClient(new ServerAddress(serverAddress));
+		mongoDb = client.getDatabase(DB_NAME);
+		db = client.getDB(DB_NAME);
 	}
 
 	@AfterClass

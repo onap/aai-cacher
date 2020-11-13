@@ -30,7 +30,10 @@ import de.flapdoodle.embed.mongo.Command;
 import de.flapdoodle.embed.mongo.MongodExecutable;
 import de.flapdoodle.embed.mongo.MongodProcess;
 import de.flapdoodle.embed.mongo.MongodStarter;
-import de.flapdoodle.embed.mongo.config.*;
+import de.flapdoodle.embed.mongo.config.Defaults;
+import de.flapdoodle.embed.mongo.config.MongoCmdOptions;
+import de.flapdoodle.embed.mongo.config.MongodConfig;
+import de.flapdoodle.embed.mongo.config.Net;
 import de.flapdoodle.embed.mongo.distribution.Version;
 import de.flapdoodle.embed.process.config.io.ProcessOutput;
 import de.flapdoodle.embed.process.io.Processors;
@@ -111,19 +114,18 @@ public class LimitTest {
 	protected static void startEmbedded(int port) throws IOException {
 		Logger logger = LoggerFactory.getLogger("mongo");
 
-		IMongodConfig mongoConfigConfig = new MongodConfigBuilder()
+		MongodConfig mongoConfigConfig = MongodConfig.builder()
 				.version(Version.Main.PRODUCTION)
 				.net(new Net(port, Network.localhostIsIPv6()))
-				.cmdOptions(new MongoCmdOptionsBuilder().enableTextSearch(true).useNoPrealloc(false).build())
-				.configServer(false)
+				.cmdOptions(MongoCmdOptions.builder().enableTextSearch(true).useNoPrealloc(false).build())
+				.isConfigServer(false)
 				.build();
 
 		ProcessOutput processOutput = new ProcessOutput(Processors.logTo(logger, Slf4jLevel.WARN), Processors.logTo(logger,
 				Slf4jLevel.WARN), Processors.logTo(logger, Slf4jLevel.WARN));
 
 		MongodExecutable mongodExecutable = MongodStarter
-				.getInstance((new RuntimeConfigBuilder())
-						.defaults(Command.MongoD)
+				.getInstance(Defaults.runtimeConfigFor(Command.MongoD)
 						.processOutput(processOutput)
 						.build())
 				.prepare(mongoConfigConfig);

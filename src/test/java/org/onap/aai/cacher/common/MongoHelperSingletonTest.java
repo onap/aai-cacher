@@ -19,12 +19,15 @@
  */
 package org.onap.aai.cacher.common;
 
-import com.github.fakemongo.Fongo;
 import com.google.gson.JsonParser;
 import com.mongodb.DB;
+import com.mongodb.MongoClient;
+import com.mongodb.ServerAddress;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.UpdateOptions;
+import de.bwaldvogel.mongo.MongoServer;
+import de.bwaldvogel.mongo.backend.memory.MemoryBackend;
 import org.bson.Document;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -36,6 +39,7 @@ import org.onap.aai.cacher.model.CacheEntry;
 import org.onap.aai.cacher.model.DBAction;
 import org.skyscreamer.jsonassert.JSONAssert;
 
+import java.net.InetSocketAddress;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -54,9 +58,12 @@ public class MongoHelperSingletonTest {
 
 	@BeforeClass
 	public static void setup() {
-		Fongo fongo = new Fongo(DB_NAME);
-		mongoDatabase = fongo.getDatabase(DB_NAME);
-		db = fongo.getDB(DB_NAME);
+		MongoServer mongoServer = new MongoServer(new MemoryBackend());
+		InetSocketAddress serverAddress = mongoServer.bind();
+
+		MongoClient client = new MongoClient(new ServerAddress(serverAddress));
+		mongoDatabase = client.getDatabase(DB_NAME);
+		db = client.getDB(DB_NAME);
 	}
 
 	@Before
@@ -169,7 +176,6 @@ public class MongoHelperSingletonTest {
 				.getClass()
 				.getEnclosingMethod()
 				.getName();
-		setupCollection(collectionName);
 
 		MongoCollection<Document> collection = setupCollection(collectionName);
 
@@ -193,7 +199,6 @@ public class MongoHelperSingletonTest {
 				.getClass()
 				.getEnclosingMethod()
 				.getName();
-		setupCollection(collectionName);
 
 		MongoCollection<Document> collection = setupCollection(collectionName);
 
@@ -224,7 +229,6 @@ public class MongoHelperSingletonTest {
 				.getClass()
 				.getEnclosingMethod()
 				.getName();
-		setupCollection(collectionName);
 
 		MongoCollection<Document> collection = setupCollection(collectionName);
 
@@ -258,7 +262,6 @@ public class MongoHelperSingletonTest {
 				.getClass()
 				.getEnclosingMethod()
 				.getName();
-		setupCollection(collectionName);
 
 		MongoCollection<Document> collection = setupCollection(collectionName);
 
@@ -295,7 +298,6 @@ public class MongoHelperSingletonTest {
 				.getClass()
 				.getEnclosingMethod()
 				.getName();
-		setupCollection(collectionName);
 
 		MongoCollection<Document> collection = setupCollection(collectionName);
 

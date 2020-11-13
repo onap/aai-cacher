@@ -29,18 +29,15 @@
 	<version>1.7.0-SNAPSHOT</version>
 
 	<parent>
-		<groupId>org.onap.oparent</groupId>
-		<artifactId>oparent</artifactId>
-		<version>2.0.0</version>
+		<groupId>org.onap.aai.aai-common</groupId>
+		<artifactId>aai-parent</artifactId>
+		<version>1.7.2</version>
 	</parent>
 
 	<properties>
 		<icd.file>service.json</icd.file>
 		<icd.package>org.onap.aai.cacher.service.rest</icd.package>
         <!-- Start of Compiler Related Properties -->
-		<java.version>1.8</java.version>
-		<maven.compiler.source>1.8</maven.compiler.source>
-		<maven.compiler.target>1.8</maven.compiler.target>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <!-- End of Compiler Related Properties -->
 
@@ -49,16 +46,12 @@
 		<skip.integration.tests>true</skip.integration.tests>
         <!-- End of Test Related Properties -->
 
-		<spring.boot.version>1.5.21.RELEASE</spring.boot.version>
-
 		<eclipse.jetty.version>9.4.1.v20170120</eclipse.jetty.version>
 
-		<docker.registry>docker.io</docker.registry>
 		<build.number>local</build.number>
 		<service.account>aai-svc-account</service.account>
 		<docker.namespace>openecomp</docker.namespace>
 
-        
         <!--
             Nexus Proxy Properties and Snapshot Locations
             Ideally this can be overwritten at runtime per internal environment specific values at runtime
@@ -72,8 +65,7 @@
 
 		<aai-core.version>1.5.1</aai-core.version>
 		<aai-schema-service.version>1.6.6</aai-schema-service.version>
-		<activemq.version>5.15.8</activemq.version>
-		
+
 		<!-- Start of the jacoco plugin properties -->
 		<sonar.language>java</sonar.language>
 		<sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
@@ -83,24 +75,17 @@
 		<sonar.projectVersion>${project.version}</sonar.projectVersion>
 		<!-- End of the jacoco plugin properties -->
 
-		<json.version>20090211</json.version>
-		<logback.version>1.2.3</logback.version>
-		<eelf.core.version>1.0.0</eelf.core.version>
-		<mockito.version>1.10.19</mockito.version>
-		<json.assert.version>1.5.0</json.assert.version>
 		<spring.security.version>1.0.8.RELEASE</spring.security.version>
-		<common.logging.version>1.2.2</common.logging.version>
 		<dmaap.client.version>0.2.12</dmaap.client.version>
 		<dme2.version>2.8.5</dme2.version>
-		<commons.configuration.version>1.9</commons.configuration.version>
 
-		<docker.fabric.version>0.23.0</docker.fabric.version>
 		<!-- Default docker registry that maven fabric plugin will try to pull from -->
 		<docker.registry>docker.io</docker.registry>
 		<!-- Specifying the docker push registry where the image should be pushed -->
 		<!-- This value should be overwritten at runtime to wherever need to be pushed to -->
 		<docker.push.registry>localhost:5000</docker.push.registry>
 
+		<aai.common.version>1.7.2</aai.common.version>
 		<aai.docker.version>1.0.0</aai.docker.version>
 		<!--
              Location where assembly of our scripts, resources and main jar will be held
@@ -218,54 +203,26 @@
 		</profile>
 	</profiles>
 
-	<dependencyManagement>
-		<dependencies>
-			<dependency>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-starter-parent</artifactId>
-				<version>${spring.boot.version}</version>
-				<scope>import</scope>
-				<type>pom</type>
-			</dependency>
-			<dependency>
-				<groupId>org.apache.activemq</groupId>
-				<artifactId>activemq-broker</artifactId>
-				<version>${activemq.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.apache.activemq</groupId>
-				<artifactId>activemq-client</artifactId>
-				<version>${activemq.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.apache.activemq</groupId>
-				<artifactId>activemq-openwire-legacy</artifactId>
-				<version>${activemq.version}</version>
-			</dependency>
-
-		</dependencies>
-	</dependencyManagement>
-
 	<dependencies>
 		<dependency>
-			<groupId>com.fasterxml.jackson.core</groupId>
-			<artifactId>jackson-databind</artifactId>
-			<version>2.6.3</version>
+			<groupId>javax.jms</groupId>
+			<artifactId>javax.jms-api</artifactId>
+			<version>2.0.1</version>
 		</dependency>
 		<dependency>
-			<groupId>org.apache.httpcomponents</groupId>
-			<artifactId>httpclient</artifactId>
-			<version>4.5.6</version>
+			<groupId>javax.ws.rs</groupId>
+			<artifactId>javax.ws.rs-api</artifactId>
+			<version>2.1</version>
 		</dependency>
 		<dependency>
-			<groupId>com.google.code.gson</groupId>
-			<artifactId>gson</artifactId>
-			<version>2.7</version>
+			<groupId>de.bwaldvogel</groupId>
+			<artifactId>mongo-java-server</artifactId>
+			<version>1.36.0</version>
 		</dependency>
 		<dependency>
 			<groupId>de.flapdoodle.embed</groupId>
 			<artifactId>de.flapdoodle.embed.mongo</artifactId>
-			<version>2.2.0</version>
+			<version>3.0.0</version>
 			<exclusions>
 				<exclusion>
 					<groupId>org.apache.commons</groupId>
@@ -274,14 +231,16 @@
 			</exclusions>
 		</dependency>
 		<dependency>
-			<groupId>org.apache.commons</groupId>
-			<artifactId>commons-compress</artifactId>
-			<version>1.18</version>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.mongodb</groupId>
-			<artifactId>mongodb-driver</artifactId>
-			<version>3.6.2</version>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-compress</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -341,32 +300,18 @@
 		<dependency>
 			<groupId>org.reflections</groupId>
 			<artifactId>reflections</artifactId>
-			<version>0.9.10</version>
 		</dependency>
 		<dependency>
 			<groupId>commons-lang</groupId>
 			<artifactId>commons-lang</artifactId>
-			<version>2.6</version>
-		</dependency>
-		<dependency>
-			<groupId>org.glassfish.jersey.core</groupId>
-			<artifactId>jersey-client</artifactId>
-			<version>2.24</version>
-		</dependency>
-		<dependency>
-			<groupId>org.glassfish.jersey.core</groupId>
-			<artifactId>jersey-common</artifactId>
-			<version>2.24</version>
 		</dependency>
 		<dependency>
 			<groupId>com.googlecode.json-simple</groupId>
 			<artifactId>json-simple</artifactId>
-			<version>1.1.1</version>
 		</dependency>
 		<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>apache-log4j-extras</artifactId>
-			<version>1.2.17</version>
 			<exclusions>
 				<exclusion>
 					<artifactId>log4j</artifactId>
@@ -377,12 +322,6 @@
 		<dependency>
 			<groupId>org.json</groupId>
 			<artifactId>json</artifactId>
-			<version>${json.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>javax.ws.rs</groupId>
-			<artifactId>javax.ws.rs-api</artifactId>
-			<version>2.0.1</version>
 		</dependency>
 		<dependency>
             <groupId>org.onap.aai.aai-common</groupId>
@@ -401,6 +340,18 @@
                     <groupId>org.apache.cxf</groupId>
                     <artifactId>cxf-core</artifactId>
                 </exclusion>
+				<exclusion>
+					<groupId>org.eclipse.jetty</groupId>
+					<artifactId>jetty-http</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.eclipse.jetty</groupId>
+					<artifactId>jetty-server</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.springframework</groupId>
+					<artifactId>spring-web</artifactId>
+				</exclusion>
             </exclusions>
         </dependency>
 		<dependency>
@@ -422,22 +373,18 @@
         <dependency>
             <groupId>com.att.eelf</groupId>
             <artifactId>eelf-core</artifactId>
-            <version>${eelf.core.version}</version>
         </dependency>
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-core</artifactId>
-            <version>${logback.version}</version>
         </dependency>
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
-            <version>${logback.version}</version>
         </dependency>
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-access</artifactId>
-            <version>${logback.version}</version>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
@@ -447,19 +394,11 @@
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-all</artifactId>
-            <version>${mockito.version}</version>
             <scope>test</scope>
         </dependency>
 		<dependency>
 			<groupId>org.skyscreamer</groupId>
 			<artifactId>jsonassert</artifactId>
-			<version>${json.assert.version}</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>com.github.fakemongo</groupId>
-			<artifactId>fongo</artifactId>
-			<version>2.2.0-RC2</version>
 			<scope>test</scope>
 		</dependency>
 		<!--

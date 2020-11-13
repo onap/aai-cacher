@@ -19,10 +19,12 @@
  */
 package org.onap.aai.cacher.injestion.parser;
 
-import com.github.fakemongo.Fongo;
 import com.mongodb.DB;
 import com.mongodb.MongoClient;
+import com.mongodb.ServerAddress;
 import com.mongodb.client.MongoDatabase;
+import de.bwaldvogel.mongo.MongoServer;
+import de.bwaldvogel.mongo.backend.memory.MemoryBackend;
 import de.flapdoodle.embed.mongo.MongodProcess;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -38,6 +40,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.io.IOException;
+import java.net.InetSocketAddress;
 import java.util.*;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -74,9 +77,12 @@ public class AAIResourcesUriTemplatesTest {
 
 	@BeforeClass
 	public static void setup() throws IOException, InterruptedException {
-		Fongo fongo = new Fongo(DB_NAME);
-		mongoDb = fongo.getDatabase(DB_NAME);
-		db = fongo.getDB(DB_NAME);
+		MongoServer mongoServer = new MongoServer(new MemoryBackend());
+		InetSocketAddress serverAddress = mongoServer.bind();
+
+		MongoClient client = new MongoClient(new ServerAddress(serverAddress));
+		mongoDb = client.getDatabase(DB_NAME);
+		db = client.getDB(DB_NAME);
 	}
 
 	@AfterClass

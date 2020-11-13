@@ -19,20 +19,21 @@
  */
 package org.onap.aai.cacher.injestion.parser;
 
-import com.github.fakemongo.Fongo;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.mongodb.DB;
 import com.mongodb.MongoClient;
+import com.mongodb.ServerAddress;
 import com.mongodb.client.MongoDatabase;
+import de.bwaldvogel.mongo.MongoServer;
+import de.bwaldvogel.mongo.backend.memory.MemoryBackend;
 import de.flapdoodle.embed.mongo.MongodExecutable;
 import de.flapdoodle.embed.mongo.MongodProcess;
 import de.flapdoodle.embed.mongo.MongodStarter;
-import de.flapdoodle.embed.mongo.config.IMongodConfig;
-import de.flapdoodle.embed.mongo.config.MongoCmdOptionsBuilder;
-import de.flapdoodle.embed.mongo.config.MongodConfigBuilder;
+import de.flapdoodle.embed.mongo.config.MongoCmdOptions;
+import de.flapdoodle.embed.mongo.config.MongodConfig;
 import de.flapdoodle.embed.mongo.config.Net;
 import de.flapdoodle.embed.mongo.distribution.Version;
 import de.flapdoodle.embed.process.runtime.Network;
@@ -51,6 +52,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.io.IOException;
+import java.net.InetSocketAddress;
 import java.util.List;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -107,17 +109,20 @@ public class PayloadParserServiceTest {
 
 	@BeforeClass
 	public static void setup() throws IOException, InterruptedException {
-		Fongo fongo = new Fongo(DB_NAME);
-		mongoDb = fongo.getDatabase(DB_NAME);
-		db = fongo.getDB(DB_NAME);
+		MongoServer mongoServer = new MongoServer(new MemoryBackend());
+		InetSocketAddress serverAddress = mongoServer.bind();
+
+		MongoClient client = new MongoClient(new ServerAddress(serverAddress));
+		mongoDb = client.getDatabase(DB_NAME);
+		db = client.getDB(DB_NAME);
 	}
 
 	protected static void startEmbedded(int port) throws IOException {
-		IMongodConfig mongoConfigConfig = new MongodConfigBuilder()
+		MongodConfig mongoConfigConfig = MongodConfig.builder()
 				.version(Version.Main.PRODUCTION)
 				.net(new Net(port, Network.localhostIsIPv6()))
-				.cmdOptions(new MongoCmdOptionsBuilder().verbose(true).build())
-				.configServer(false)
+				.cmdOptions(MongoCmdOptions.builder().isVerbose(true).build())
+				.isConfigServer(false)
 				.build();
 
 		MongodExecutable mongodExecutable = MongodStarter.getDefaultInstance().prepare(mongoConfigConfig);
