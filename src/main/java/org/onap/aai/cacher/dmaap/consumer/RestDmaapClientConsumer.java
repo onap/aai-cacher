@@ -22,11 +22,6 @@ package org.onap.aai.cacher.dmaap.consumer;
 import com.att.eelf.configuration.EELFLogger;
 import com.att.eelf.configuration.EELFManager;
 import com.att.nsa.mr.client.MRConsumer;
-import org.springframework.http.HttpHeaders;
-import org.springframework.web.client.RestTemplate;
-import org.springframework.web.util.UriComponentsBuilder;
-
-import java.util.Base64;
 import java.util.Properties;
 
 /**
@@ -35,28 +30,12 @@ import java.util.Properties;
  */
 public class RestDmaapClientConsumer implements ClientConsumer {
 
-    private MRConsumer aaiDmaapEventConsumer;
+    private final MRConsumer aaiDmaapEventConsumer;
 
-    private static final Base64.Encoder base64Encoder = Base64.getEncoder();
-
-    private HttpHeaders httpHeaders;
-    private RestTemplate restTemplate;
-
-    private String env;
-    // private String url;
-    private UriComponentsBuilder builder;
-
-    private Properties consumerProperties;
-
-    private static EELFLogger LOGGER = EELFManager.getInstance().getLogger(RestDmaapClientConsumer.class);
+    private static final EELFLogger LOGGER = EELFManager.getInstance().getLogger(RestDmaapClientConsumer.class);
 
     public RestDmaapClientConsumer(MRConsumer consumer, Properties aaiDmaapEventConsumerProperties) {
-
-        env = System.getProperty("lrmRO");
-
         this.aaiDmaapEventConsumer = consumer;
-        this.consumerProperties = aaiDmaapEventConsumerProperties;
-
     }
 
     /**

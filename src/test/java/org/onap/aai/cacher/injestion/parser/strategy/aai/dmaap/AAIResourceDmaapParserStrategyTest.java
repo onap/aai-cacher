@@ -19,23 +19,26 @@
  */
 package org.onap.aai.cacher.injestion.parser.strategy.aai.dmaap;
 
+import static org.junit.Assert.assertEquals;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.util.List;
 import org.junit.Ignore;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.onap.aai.cacher.injestion.parser.InjestionTestComponent;
 import org.onap.aai.cacher.injestion.parser.PayloadParserService;
+import org.onap.aai.cacher.injestion.parser.strategy.AAIResourceDmaapParserStrategyTestConstants;
 import org.onap.aai.cacher.model.CacheEntry;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.util.List;
 
 @Ignore("Due to rework tests from this class need to be moved/removed ")
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -48,11 +51,6 @@ public class AAIResourceDmaapParserStrategyTest {
 	@Autowired
 	@Qualifier("aai-resource-dmaap")
 	private AAIResourceDmaapParserStrategy aaiResourceDmaapParserStrategy;
-
-	private JsonParser parser = new JsonParser();
-
-	private JsonObject pserverCreateEvent = parser.parse(
-			new FileReader("./src/test/resources/test/payloads/dmaap-pserver-create.json")).getAsJsonObject();
 
 	public AAIResourceDmaapParserStrategyTest() throws FileNotFoundException {}
 
@@ -339,14 +337,17 @@ public class AAIResourceDmaapParserStrategyTest {
 //		assertEquals(3, result.size());
 //
 //	}
-//	@Test
-//	public void verifyRelationshipEntriesSimpleEvent() throws Exception {
-//		List<CacheEntry> result = aaiResourceDmaapParserStrategy
-//				.process("TEST", parser.parse(AAIResourceDmaapParserStrategyTestConstants.GENERIC_VNF_EVENT).getAsJsonObject());
-//
-//		assertEquals(1, result.size());
-//
-//	}
+
+	@Test
+	public void verifyRelationshipEntriesSimpleEvent() throws Exception {
+		List<CacheEntry> result = aaiResourceDmaapParserStrategy
+				.process("TEST",
+						JsonParser.parseString(AAIResourceDmaapParserStrategyTestConstants.GENERIC_VNF_EVENT)
+								.getAsJsonObject());
+
+		assertEquals(1, result.size());
+	}
+
 //
 //	@Test
 //	public void getFromRelationshipFullUriToRelationshipObjTest() throws Exception {

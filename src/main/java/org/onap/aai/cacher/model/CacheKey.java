@@ -48,64 +48,64 @@ public class CacheKey {
 
     public static CacheKey createCacheKeyDefault(JsonObject payload) {
         Gson gson = new Gson();
-        CacheKey cacheKey = gson.fromJson(payload.toString(), CacheKey.class);
+        CacheKey newCacheKey = gson.fromJson(payload.toString(), CacheKey.class);
 
-        if (cacheKey.cacheKey == null) {
-            cacheKey.cacheKey = DEFAULT_VALUE;
+        if (newCacheKey.cacheKey == null) {
+            newCacheKey.cacheKey = DEFAULT_VALUE;
             if (payload.has("_id")) {
-                cacheKey.cacheKey = payload.get("_id").getAsString();
+                newCacheKey.cacheKey = payload.get("_id").getAsString();
             }
         }
-        if (cacheKey.baseUrl == null) {
-            cacheKey.baseUrl = DEFAULT_VALUE;
+        if (newCacheKey.baseUrl == null) {
+            newCacheKey.baseUrl = DEFAULT_VALUE;
         }
-        if (cacheKey.module == null) {
-            cacheKey.module = DEFAULT_VALUE;
+        if (newCacheKey.module == null) {
+            newCacheKey.module = DEFAULT_VALUE;
         }
-        if (cacheKey.URI == null) {
-            cacheKey.URI = DEFAULT_VALUE;
+        if (newCacheKey.URI == null) {
+            newCacheKey.URI = DEFAULT_VALUE;
         }
-        if (cacheKey.syncInterval == null) {
-            cacheKey.syncInterval = DEFAULT_VALUE;
+        if (newCacheKey.syncInterval == null) {
+            newCacheKey.syncInterval = DEFAULT_VALUE;
         }
-        if (cacheKey.lastSyncStartTime == null) {
-            cacheKey.lastSyncStartTime = DEFAULT_VALUE;
+        if (newCacheKey.lastSyncStartTime == null) {
+            newCacheKey.lastSyncStartTime = DEFAULT_VALUE;
         }
-        if (cacheKey.lastSyncSuccessTime == null) {
-            cacheKey.lastSyncSuccessTime = DEFAULT_VALUE;
+        if (newCacheKey.lastSyncSuccessTime == null) {
+            newCacheKey.lastSyncSuccessTime = DEFAULT_VALUE;
         }
-        if (cacheKey.lastSyncEndTime == null) {
-            cacheKey.lastSyncEndTime = DEFAULT_VALUE;
+        if (newCacheKey.lastSyncEndTime == null) {
+            newCacheKey.lastSyncEndTime = DEFAULT_VALUE;
         }
-        if (cacheKey.httpBody == null) {
-            cacheKey.httpBody = DEFAULT_VALUE;
+        if (newCacheKey.httpBody == null) {
+            newCacheKey.httpBody = DEFAULT_VALUE;
         }
-        if (cacheKey.parserStrategy == null) {
-            cacheKey.parserStrategy = DEFAULT_VALUE;
+        if (newCacheKey.parserStrategy == null) {
+            newCacheKey.parserStrategy = DEFAULT_VALUE;
         }
-        if (cacheKey.timingIndicator == null) {
-            cacheKey.timingIndicator = DEFAULT_VALUE;
+        if (newCacheKey.timingIndicator == null) {
+            newCacheKey.timingIndicator = DEFAULT_VALUE;
         }
-        if (cacheKey.httpMethod == null) {
-            cacheKey.httpMethod = DEFAULT_VALUE;
+        if (newCacheKey.httpMethod == null) {
+            newCacheKey.httpMethod = DEFAULT_VALUE;
         }
-        return cacheKey;
+        return newCacheKey;
     }
 
     public static CacheKey fromJson(JsonObject payload) {
-        CacheKey cacheKey = createCacheKeyDefault(payload);
-        if (DEFAULT_VALUE.equals(cacheKey.parserStrategy)) {
-            cacheKey.parserStrategy = "none";
+        CacheKey cacheKeyDefault = createCacheKeyDefault(payload);
+        if (DEFAULT_VALUE.equals(cacheKeyDefault.parserStrategy)) {
+            cacheKeyDefault.parserStrategy = "none";
         }
-        if (DEFAULT_VALUE.equals(cacheKey.timingIndicator)) {
-            cacheKey.timingIndicator = "firstHit";
-        } else if (cacheKey.getTimingIndicator().equals("scheduled") && DEFAULT_VALUE.equals(cacheKey.syncInterval)) {
-            cacheKey.syncInterval = "1440";
+        if (DEFAULT_VALUE.equals(cacheKeyDefault.timingIndicator)) {
+            cacheKeyDefault.timingIndicator = "firstHit";
+        } else if (cacheKeyDefault.getTimingIndicator().equals("scheduled") && DEFAULT_VALUE.equals(cacheKeyDefault.syncInterval)) {
+            cacheKeyDefault.syncInterval = "1440";
         }
-        if (DEFAULT_VALUE.equals(cacheKey.httpMethod)) {
-            cacheKey.httpMethod = "GET";
+        if (DEFAULT_VALUE.equals(cacheKeyDefault.httpMethod)) {
+            cacheKeyDefault.httpMethod = "GET";
         }
-        return cacheKey;
+        return cacheKeyDefault;
     }
 
     public BasicDBObject toDBObject() {
@@ -127,22 +127,21 @@ public class CacheKey {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
 
-        sb.append("cacheKey: " + cacheKey + "\n");
-        sb.append("Base URL: " + baseUrl + "\n");
-        sb.append("Module: " + module + "\n");
-        sb.append("URI: " + URI + "\n");
-        sb.append("timingIndicator: " + timingIndicator + "\n");
-        sb.append("syncInterval: " + syncInterval + "\n");
-        sb.append("lastSyncStartTime: " + lastSyncStartTime + "\n");
-        sb.append("lastSyncSuccessTime: " + lastSyncSuccessTime + "\n");
-        sb.append("lastSyncEndTime: " + lastSyncEndTime + "\n");
-        sb.append("httpMethod: " + httpMethod + "\n");
-        sb.append("httpBody: " + httpBody + "\n");
-        sb.append("parserStrategy: " + parserStrategy + "\n");
+        String sb = "cacheKey: " + cacheKey + "\n" +
+            "Base URL: " + baseUrl + "\n" +
+            "Module: " + module + "\n" +
+            "URI: " + URI + "\n" +
+            "timingIndicator: " + timingIndicator + "\n" +
+            "syncInterval: " + syncInterval + "\n" +
+            "lastSyncStartTime: " + lastSyncStartTime + "\n" +
+            "lastSyncSuccessTime: " + lastSyncSuccessTime + "\n" +
+            "lastSyncEndTime: " + lastSyncEndTime + "\n" +
+            "httpMethod: " + httpMethod + "\n" +
+            "httpBody: " + httpBody + "\n" +
+            "parserStrategy: " + parserStrategy + "\n";
 
-        return sb.toString();
+        return sb;
     }
 
     public String getCacheKey() {

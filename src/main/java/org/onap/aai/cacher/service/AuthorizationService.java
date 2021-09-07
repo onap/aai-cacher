@@ -21,6 +21,7 @@ package org.onap.aai.cacher.service;
 
 import com.att.eelf.configuration.EELFLogger;
 import com.att.eelf.configuration.EELFManager;
+import java.nio.charset.StandardCharsets;
 import org.eclipse.jetty.util.security.Password;
 import org.onap.aai.cacher.Profiles;
 import org.onap.aai.util.AAIConstants;
@@ -29,7 +30,6 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Base64;
@@ -41,7 +41,7 @@ import java.util.stream.Stream;
 @Service
 public class AuthorizationService {
 
-    private static final EELFLogger logger = EELFManager.getInstance().getLogger(AuthorizationService.class);
+    private static final EELFLogger EELF_LOGGER = EELFManager.getInstance().getLogger(AuthorizationService.class);
 
     private final Map<String, String> authorizedUsers = new HashMap<>();
 
@@ -59,43 +59,37 @@ public class AuthorizationService {
                 String usernamePassword = null;
                 String accessType = null;
 
-                try {
-                    String [] userAccessType = str.split(",");
+                String [] userAccessType = str.split(",");
 
-                    if(userAccessType == null || userAccessType.length != 2){
-                        throw new RuntimeException("Please check the realm.properties file as it is not conforming to the basic auth");
-                    }
-
-                    usernamePassword = userAccessType[0];
-                    accessType       = userAccessType[1];
-
-                    String[] usernamePasswordArray = usernamePassword.split(":");
-
-                    if(usernamePasswordArray == null || usernamePasswordArray.length != 3){
-                        throw new RuntimeException("Not a valid entry for the realm.properties entry: " + usernamePassword);
-                    }
-
-                    String username = usernamePasswordArray[0];
-                    String password = null;
-
-                    if(str.contains("OBF:")){
-                        password = usernamePasswordArray[1] + ":" + usernamePasswordArray[2];
-                        password = Password.deobfuscate(password);
-                    }
-
-                    bytes = ENCODER.encode((username + ":" + password).getBytes("UTF-8"));
-
-                    authorizedUsers.put(new String(bytes), accessType);
-
-                } catch (UnsupportedEncodingException e)
-                {
-                    logger.error("Unable to support the encoding of the file" + basicAuthFile);
+                if(userAccessType == null || userAccessType.length != 2){
+                    throw new RuntimeException("Please check the realm.properties file as it is not conforming to the basic auth");
                 }
+
+                usernamePassword = userAccessType[0];
+                accessType       = userAccessType[1];
+
+                String[] usernamePasswordArray = usernamePassword.split(":");
+
+                if(usernamePasswordArray == null || usernamePasswordArray.length != 3){
+                    throw new RuntimeException("Not a valid entry for the realm.properties entry: " + usernamePassword);
+                }
+
+                String username = usernamePasswordArray[0];
+                String password = null;
+
+                if(str.contains("OBF:")){
+                    password = usernamePasswordArray[1] + ":" + usernamePasswordArray[2];
+                    password = Password.deobfuscate(password);
+                }
+
+                bytes = ENCODER.encode((username + ":" + password).getBytes(StandardCharsets.UTF_8));
+
+                authorizedUsers.put(new String(bytes), accessType);
 
                 authorizedUsers.put(new String(ENCODER.encode(bytes)), accessType);
             });
         } catch (IOException e) {
-            logger.error("IO Exception occurred during the reading of realm.properties", e);
+            EELF_LOGGER.error("IO Exception occurred during the reading of realm.properties", e);
         }
     }
 

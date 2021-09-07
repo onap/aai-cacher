@@ -45,7 +45,7 @@ import java.util.UUID;
 public class Application extends SpringBootServletInitializer {
 
     private static final String APP_NAME = "cacher";
-    private static final EELFLogger logger = EELFManager.getInstance().getLogger(Application.class.getName());
+    private static final EELFLogger eelfLogger = EELFManager.getInstance().getLogger(Application.class.getName());
 
 
     @Override
@@ -71,21 +71,23 @@ public class Application extends SpringBootServletInitializer {
         app.addInitializers(new PropertyPasswordConfiguration());
         app.run(args);
 
-        logger.info("Cacher MicroService Started");
-        logger.error("Cacher MicroService Started");
-        logger.debug("Cacher MicroService Started");
+        String startMessage = "Cacher MicroService Started";
+        eelfLogger.info(startMessage);
+        eelfLogger.error(startMessage);
+        eelfLogger.debug(startMessage);
 
-        System.out.println("Cacher MicroService Started");
+        System.out.println(startMessage);
 
     }
 
     @PreDestroy
     public void cleanup(){
-        logger.info("Cacher MicroService shutting down.");
-        logger.error("Cacher MicroService shutting down.");
-        logger.debug("Cacher MicroService shutting down.");
+        String stopMessage = "Cacher MicroService shutting down.";
+        eelfLogger.info(stopMessage);
+        eelfLogger.error(stopMessage);
+        eelfLogger.debug(stopMessage);
 
-        System.out.println("Cacher MicroService shutting down.");
+        System.out.println(stopMessage);
     }
 
     public static void setDefaultProps() {

@@ -31,17 +31,16 @@ import java.util.List;
 public class CacheKeyConfig {
     private JsonArray cachekeys = null;
 
-    private static final String CACHEKEYS = "cachekeys";
+    private static final String CACHEKEYS_NAME = "cachekeys";
 
     public CacheKeyConfig(String json) {
         init(json);
     }
 
     private void init(String json) {
-        JsonParser parser = new JsonParser();
-        JsonObject queriesObject = parser.parse(json).getAsJsonObject();
-        if (queriesObject.has(CACHEKEYS)) {
-            cachekeys = queriesObject.getAsJsonArray(CACHEKEYS);
+        JsonObject queriesObject = JsonParser.parseString(json).getAsJsonObject();
+        if (queriesObject.has(CACHEKEYS_NAME)) {
+            cachekeys = queriesObject.getAsJsonArray(CACHEKEYS_NAME);
         }
     }
 

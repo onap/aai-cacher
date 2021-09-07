@@ -22,6 +22,7 @@ package org.onap.aai.cacher.service.tasks;
 import com.att.eelf.configuration.EELFLogger;
 import com.att.eelf.configuration.EELFManager;
 import org.onap.aai.cacher.common.CacheKeyConfig;
+import org.onap.aai.cacher.common.MongoHelperSingleton;
 import org.onap.aai.cacher.dmaap.consumer.AAIDmaapEventProcessor;
 import org.onap.aai.cacher.dmaap.consumer.AAIEventConsumer;
 import org.onap.aai.cacher.dmaap.consumer.DmaapConsumerSingleton;
@@ -48,7 +49,7 @@ import java.util.List;
 
 @Component
 public class ScheduledTasks {
-    private final static EELFLogger LOGGER = EELFManager.getInstance().getLogger(ScheduledTasks.class);
+    private static final EELFLogger EELF_LOGGER = EELFManager.getInstance().getLogger(ScheduledTasks.class);
     private final SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
 
     private int checkInterval = -1;
@@ -72,16 +73,16 @@ public class ScheduledTasks {
         try {
             dmaapAAIEventProcessorTask();
         } catch (Exception e) {
-            LOGGER.error("ERROR: Exception in scheduled task  [" + e.getMessage() + "].");
-            ErrorLogHelper.logException(new AAIException("AAI_4000", e));
+            EELF_LOGGER.error("ERROR: Exception in scheduled task  [" + e.getMessage() + "].");
+            ErrorLogHelper.logException(new AAIException(MongoHelperSingleton.AAI_4000_LBL, e));
         }
     }
 
     public void dmaapAAIEventProcessorTask() throws Exception {
         String methodName = "dmaapAAIEventProcessorTask()";
 
-        LOGGER.info("Started fixed rate job dmaapAAIEventProcessor @ " + dateFormat.format(new Date()));
-        LOGGER.debug("started scheduled task for " + methodName + " checkInterval " + checkInterval);
+        EELF_LOGGER.info("Started fixed rate job dmaapAAIEventProcessor @ " + dateFormat.format(new Date()));
+        EELF_LOGGER.debug("started scheduled task for " + methodName + " checkInterval " + checkInterval);
         try {
             int delayCheck = Integer.parseInt(AAIConfig.get("aai.cacher.dmaap.consumer.delayCheck", "0"));
             if (checkInterval > 0 && checkInterval++ < delayCheck) {
@@ -89,24 +90,24 @@ public class ScheduledTasks {
             }
             checkInterval = 1;
             if (AAIConfig.get("aai.cacher.dmaap.consumer.enableEventProcessing").equals("true")) {
-                LOGGER.info("aai.cacher.dmaap.consumer.enableEventProcessing set to true, starting AAIEventConsumer.");
+                EELF_LOGGER.info("aai.cacher.dmaap.consumer.enableEventProcessing set to true, starting AAIEventConsumer.");
                 AAIEventConsumer aec = new AAIEventConsumer("aaiDmaaPEventConsumer.properties", false);
                 aec.startProcessing(aaiDmaapEventProcessor);
             } else {
-                LOGGER.info(
+                EELF_LOGGER.info(
                         "aai.cacher.dmaap.consumer.enableEventProcessing set to false, not starting AAIDmaapEventConsumer.");
             }
             // initialize the cache
             if (!cacheLoaded) {
-                LOGGER.info("initializing: Start loading cache @ " + dateFormat.format(new Date()));
+                EELF_LOGGER.info("initializing: Start loading cache @ " + dateFormat.format(new Date()));
                 init();
                 cacheLoaded = true;
             }
 
         } catch (Exception e) {
-            ErrorLogHelper.logException(new AAIException("AAI_4000", e));
+            ErrorLogHelper.logException(new AAIException(MongoHelperSingleton.AAI_4000_LBL, e));
         }
-        LOGGER.info("Completed fixed rate job dmaapAAIEventProcessor @ " + dateFormat.format(new Date()));
+        EELF_LOGGER.info("Completed fixed rate job dmaapAAIEventProcessor @ " + dateFormat.format(new Date()));
     }
 
     public void init() throws IOException {
@@ -120,30 +121,29 @@ public class ScheduledTasks {
         for (CacheKey cacheKey : cacheKeys) {
             if ("onInit".equalsIgnoreCase(cacheKey.getTimingIndicator())) {
                 try {
-                    LOGGER.info("initializing: cacheKey " + cacheKey.getCacheKey() + " loading");
+                    EELF_LOGGER.info("initializing: cacheKey " + cacheKey.getCacheKey() + " loading");
                     ResponseEntity respEntity = rchs.triggerRestCall(cacheKey);
                     if (respEntity.getStatusCode().is2xxSuccessful()) {
                         Response resp = chs.populateCache(cacheKey, (String) respEntity.getBody());
                         if (resp != null) {
                             if (resp.getStatus() == Response.Status.CREATED.getStatusCode()) {
-                                LOGGER.info("initializing: cacheKey " + cacheKey.getCacheKey() + " loaded");
+                                EELF_LOGGER.info("initializing: cacheKey " + cacheKey.getCacheKey() + " loaded");
                             } else {
-                                LOGGER.error("unexpected 2xx response status for cacheKey " + cacheKey.getCacheKey()
+                                EELF_LOGGER.error("unexpected 2xx response status for cacheKey " + cacheKey.getCacheKey()
                                         + " " + resp.getStatusInfo());
                             }
                         }
                     } else {
-                        LOGGER.error("unexpected response status for cacheKey " + cacheKey.getCacheKey() + " "
+                        EELF_LOGGER.error("unexpected response status for cacheKey " + cacheKey.getCacheKey() + " "
                                 + respEntity.getStatusCode());
                     }
                 } catch (Exception e) {
-                    e.printStackTrace();
-                    LOGGER.error("exception caught for cacheKey " + cacheKey.getCacheKey());
-                    ErrorLogHelper.logException(new AAIException("AAI_4000", e));
+                    EELF_LOGGER.error("exception caught for cacheKey " + cacheKey.getCacheKey());
+                    ErrorLogHelper.logException(new AAIException(MongoHelperSingleton.AAI_4000_LBL, e));
                 }
             }
         }
-        LOGGER.info("initializing: cache completed @ " + dateFormat.format(new Date()));
+        EELF_LOGGER.info("initializing: cache completed @ " + dateFormat.format(new Date()));
         DmaapConsumerSingleton.getInstance().setProcessEvents(true);
     }
 }

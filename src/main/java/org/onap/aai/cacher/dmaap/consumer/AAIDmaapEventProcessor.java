@@ -17,6 +17,7 @@
  * limitations under the License.
  * ============LICENSE_END=========================================================
  */
+
 package org.onap.aai.cacher.dmaap.consumer;
 
 import com.att.eelf.configuration.EELFLogger;
@@ -42,9 +43,7 @@ import java.util.List;
 @Service
 public class AAIDmaapEventProcessor implements DmaapProcessor {
 
-    private static EELFLogger LOGGER = EELFManager.getInstance().getLogger(AAIEventConsumer.class);
-
-    private final JsonParser parser = new JsonParser();
+    private static final EELFLogger EELF_LOGGER = EELFManager.getInstance().getLogger(AAIDmaapEventProcessor.class);
 
     private MongoHelperSingleton mongoHelper;
     private PayloadParserService payloadParserService;
@@ -69,36 +68,36 @@ public class AAIDmaapEventProcessor implements DmaapProcessor {
         JsonObject eventHeader;
 
         try {
-            LOGGER.debug("Processing event: " + eventMessage);
-            event = parser.parse(eventMessage).getAsJsonObject();
+            EELF_LOGGER.debug("Processing event: " + eventMessage);
+            event = JsonParser.parseString(eventMessage).getAsJsonObject();
         } catch (JsonSyntaxException | IllegalStateException je) {
-            LOGGER.error("ERROR: Event is not valid JSON [" + eventMessage + "].");
-            ErrorLogHelper.logException(new AAIException("AAI_4000", je));
+            EELF_LOGGER.error("ERROR: Event is not valid JSON [" + eventMessage + "].");
+            ErrorLogHelper.logException(new AAIException(MongoHelperSingleton.AAI_4000_LBL, je));
             throw je;
         }
 
         try {
-            LOGGER.debug("Validating event header.");
+            EELF_LOGGER.debug("Validating event header.");
             eventHeader = this.getEventHeader(event);
         } catch (JsonSyntaxException | IllegalStateException je) {
-            LOGGER.error("ERROR: Event header is not valid [" + eventMessage + "].");
-            ErrorLogHelper.logException(new AAIException("AAI_4000", je));
+            EELF_LOGGER.error("ERROR: Event header is not valid [" + eventMessage + "].");
+            ErrorLogHelper.logException(new AAIException(MongoHelperSingleton.AAI_4000_LBL, je));
             throw je;
         }
 
         try {
-            LOGGER.debug("Processing entity.");
+            EELF_LOGGER.debug("Processing entity.");
             validateEventBody(event);
         } catch (JsonSyntaxException | IllegalStateException je) {
-            LOGGER.error("ERROR: Event body is not valid JSON [" + eventMessage + "].");
-            ErrorLogHelper.logException(new AAIException("AAI_4000", je));
+            EELF_LOGGER.error("ERROR: Event body is not valid JSON [" + eventMessage + "].");
+            ErrorLogHelper.logException(new AAIException(MongoHelperSingleton.AAI_4000_LBL, je));
             throw je;
         }
 
-        JsonObject dmaapJson = parser.parse(eventMessage).getAsJsonObject();
+        JsonObject dmaapJson = JsonParser.parseString(eventMessage).getAsJsonObject();
 
         // Get existing object if is update
-        if (eventHeader != null && "UPDATE".equals(eventHeader.get("action").getAsString())) {
+        if ("UPDATE".equals(eventHeader.get("action").getAsString())) {
             String uri = eventHeader.get("entity-link").getAsString()
                     .replaceAll("/aai/v\\d+", "");
             String type = eventHeader.getAsJsonObject().get("entity-type").getAsString();
@@ -129,11 +128,11 @@ public class AAIDmaapEventProcessor implements DmaapProcessor {
                     break;
                 }
             } catch (MongoCommandException exception) {
-                LOGGER.warn("Attempted to update nested that does not exist in cache.", exception);
+                EELF_LOGGER.warn("Attempted to update nested that does not exist in cache.", exception);
             }
         }
 
-        LOGGER.debug("Event processed successfully.");
+        EELF_LOGGER.debug("Event processed successfully.");
 
     }
 

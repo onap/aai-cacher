@@ -23,6 +23,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.Random;
 import java.util.UUID;
 import java.security.SecureRandom;
@@ -118,7 +119,7 @@ public class RequestTransactionLogging extends AAIContainerFilter implements Con
 			if (in.available() > 0) {
 				ReaderWriter.writeTo(in, out);
 				byte[] requestEntity = out.toByteArray();
-				request.addProperty("Payload", new String(requestEntity, "UTF-8"));
+				request.addProperty("Payload", new String(requestEntity, StandardCharsets.UTF_8));
 				requestContext.setEntityStream(new ByteArrayInputStream(requestEntity));
 			}
 		} catch (IOException ex) {

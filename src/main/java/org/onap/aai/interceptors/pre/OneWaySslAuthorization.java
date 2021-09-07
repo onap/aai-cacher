@@ -59,12 +59,11 @@ public class OneWaySslAuthorization extends AAIContainerFilter implements Contai
             return;
         }
 
-        basicAuth = basicAuth.replaceAll("Basic ", "");
+        basicAuth = basicAuth.replace("Basic ", "");
 
         if(!authorizationService.checkIfUserAuthorized(basicAuth)){
             Optional<Response> responseOptional = errorResponse("AAI_3300", acceptHeaderValues);
             containerRequestContext.abortWith(responseOptional.get());
-            return;
         }
 
     }

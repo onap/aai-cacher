@@ -19,6 +19,7 @@
  */
 package org.onap.aai.cacher.web;
 
+import java.util.Comparator;
 import org.glassfish.jersey.logging.LoggingFeature;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.onap.aai.cacher.service.rest.CacheInteractionService;
@@ -27,6 +28,7 @@ import org.reflections.Reflections;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.core.env.Environment;
+import org.springframework.core.env.Profiles;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Priority;
@@ -73,7 +75,7 @@ public class JerseyConfiguration extends ResourceConfig {
 
         // Check to ensure that each of the filter has the @Priority annotation and if
         // not throw exception
-        for (Class filterClass : filters) {
+        for (Class<? extends ContainerRequestFilter> filterClass : filters) {
             if (filterClass.getAnnotation(Priority.class) == null) {
                 throw new RuntimeException(
                         "Container filter " + filterClass.getName() + " does not have @Priority annotation");
@@ -81,16 +83,12 @@ public class JerseyConfiguration extends ResourceConfig {
         }
 
         // Turn the set back into a list
-        List<Class<? extends ContainerRequestFilter>> filtersList = filters.stream().filter(f -> {
-            if (f.isAnnotationPresent(Profile.class) && !env.acceptsProfiles(f.getAnnotation(Profile.class).value())) {
-                return false;
-            }
-            return true;
-        }).collect(Collectors.toList());
-
-        // Sort them by their priority levels value
-        filtersList.sort((c1, c2) -> Integer.valueOf(c1.getAnnotation(Priority.class).value())
-                .compareTo(c2.getAnnotation(Priority.class).value()));
+        // and sort them by their priority levels value
+        List<Class<? extends ContainerRequestFilter>> filtersList = filters.stream()
+            .filter(f -> !f.isAnnotationPresent(Profile.class) ||
+                env.acceptsProfiles(Profiles.of(f.getAnnotation(Profile.class).value())))
+            .sorted(Comparator.comparingInt(c -> c.getAnnotation(Priority.class).value()))
+            .collect(Collectors.toList());
 
         // Then register this to the jersey application
         filtersList.forEach(this::register);
@@ -106,7 +104,7 @@ public class JerseyConfiguration extends ResourceConfig {
 
         // Check to ensure that each of the filter has the @Priority annotation and if
         // not throw exception
-        for (Class filterClass : filters) {
+        for (Class<? extends ContainerResponseFilter> filterClass : filters) {
             if (filterClass.getAnnotation(Priority.class) == null) {
                 throw new RuntimeException(
                         "Container filter " + filterClass.getName() + " does not have @Priority annotation");
@@ -114,16 +112,11 @@ public class JerseyConfiguration extends ResourceConfig {
         }
 
         // Turn the set back into a list
-        List<Class<? extends ContainerResponseFilter>> filtersList = filters.stream().filter(f -> {
-            if (f.isAnnotationPresent(Profile.class) && !env.acceptsProfiles(f.getAnnotation(Profile.class).value())) {
-                return false;
-            }
-            return true;
-        }).collect(Collectors.toList());
-
-        // Sort them by their priority levels value
-        filtersList.sort((c1, c2) -> Integer.valueOf(c1.getAnnotation(Priority.class).value())
-                .compareTo(c2.getAnnotation(Priority.class).value()));
+        // and sort them by their priority levels value
+        List<Class<? extends ContainerResponseFilter>> filtersList = filters.stream()
+            .filter(f -> !f.isAnnotationPresent(Profile.class) || env.acceptsProfiles(Profiles.of(f.getAnnotation(Profile.class).value())))
+            .sorted(Comparator.comparingInt(c -> c.getAnnotation(Priority.class).value()))
+            .collect(Collectors.toList());
 
         // Then register this to the jersey application
         filtersList.forEach(this::register);

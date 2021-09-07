@@ -67,8 +67,6 @@ public class MongoHelperSingleton {
 
     private MongoDatabase mongoDatabase;
 
-    private JsonParser jsonParser = new JsonParser();
-
     @Autowired
     public MongoHelperSingleton(DB db, MongoDatabase mongoDatabase) {
         this.mongoDatabase = mongoDatabase;
@@ -184,7 +182,7 @@ public class MongoHelperSingleton {
             Document nestedFind = Document.parse(localCacheEntry.getNestedFind().toString());
 
             // if exists remove
-            if (collection.count(nestedFind) > 0L) {
+            if (collection.countDocuments(nestedFind) > 0L) {
                 mongoPull(localCacheEntry, collection, nestedFind);
             }
 
@@ -202,7 +200,7 @@ public class MongoHelperSingleton {
             collection.findOneAndUpdate(findQuery, push,
                     new FindOneAndUpdateOptions().arrayFilters(filters).upsert(true));
 
-            return collection.count(nestedFind) > 0L;
+            return collection.countDocuments(nestedFind) > 0L;
         }
     }
 
@@ -213,7 +211,7 @@ public class MongoHelperSingleton {
         Document findQuery = Document.parse(cacheEntry.getFindQuery().toString());
 
         if (!cacheEntry.isNested()) {
-            if (collection.count(findQuery) == 0L) {
+            if (collection.countDocuments(findQuery) == 0L) {
                 return true;
             }
             DeleteResult deleteResult = collection.deleteOne(findQuery);
@@ -221,12 +219,12 @@ public class MongoHelperSingleton {
 
         } else {
             Document nestedFind = Document.parse(cacheEntry.getNestedFind().toString());
-            if (collection.count(nestedFind) == 0L) {
+            if (collection.countDocuments(nestedFind) == 0L) {
                 return true;
             }
 
             mongoPull(cacheEntry, collection, nestedFind);
-            return collection.count(nestedFind) == 0L;
+            return collection.countDocuments(nestedFind) == 0L;
 
         }
     }
@@ -332,7 +330,7 @@ public class MongoHelperSingleton {
         this.mongoDatabase.getCollection(collection)
                 .find(findDoc)
                 .iterator()
-                .forEachRemaining(doc -> results.add(jsonParser.parse(doc.toJson()).getAsJsonObject()));
+                .forEachRemaining(doc -> results.add(JsonParser.parseString(doc.toJson()).getAsJsonObject()));
         return results;
     }
 
@@ -351,7 +349,7 @@ public class MongoHelperSingleton {
         this.mongoDatabase.getCollection(collection)
                 .find(findDoc)
                 .iterator()
-                .forEachRemaining(doc -> results.add(jsonParser.parse(doc.toJson()).getAsJsonObject()));
+                .forEachRemaining(doc -> results.add(JsonParser.parseString(doc.toJson()).getAsJsonObject()));
         return results;
     }
 

@@ -19,8 +19,6 @@
  */
 package org.onap.aai.cacher.service.rest;
 
-import com.att.eelf.configuration.EELFLogger;
-import com.att.eelf.configuration.EELFManager;
 import com.google.gson.JsonParser;
 import org.onap.aai.cacher.model.CacheKey;
 import org.onap.aai.cacher.service.helper.CacheHelperService;
@@ -33,8 +31,6 @@ import javax.ws.rs.core.Response;
 @Path("/cache/v1")
 @Produces({ MediaType.APPLICATION_JSON })
 public class CacheInteractionService {
-
-    private final static EELFLogger EELF_LOGGER = EELFManager.getInstance().getLogger(CacheKeyService.class);
 
     @Autowired
     protected CacheHelperService chs;
@@ -49,7 +45,7 @@ public class CacheInteractionService {
     @Consumes({ MediaType.APPLICATION_JSON })
     @Produces({ MediaType.APPLICATION_JSON })
     public Response executeDelete(String payload) {
-        CacheKey ck = CacheKey.fromJson(new JsonParser().parse(payload).getAsJsonObject());
+        CacheKey ck = CacheKey.fromJson(JsonParser.parseString(payload).getAsJsonObject());
         Response resp = chs.deleteCache(null, ck.getCacheKey());
         chs.dropCollection(ck.getCacheKey());
         return resp;
@@ -66,7 +62,7 @@ public class CacheInteractionService {
     @Consumes({ MediaType.APPLICATION_JSON })
     @Produces({ MediaType.APPLICATION_JSON })
     public Response executeSync(String payload) {
-        CacheKey ck = CacheKey.fromJson(new JsonParser().parse(payload).getAsJsonObject());
+        CacheKey ck = CacheKey.fromJson(JsonParser.parseString(payload).getAsJsonObject());
         return chs.forceSync(ck);
     }
 

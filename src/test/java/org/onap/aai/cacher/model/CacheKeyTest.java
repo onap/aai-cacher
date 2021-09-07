@@ -67,8 +67,7 @@ public class CacheKeyTest {
 
     @Test
     public void testCacheKeyObjectGETOnInit() {
-        JsonParser parser = new JsonParser();
-        JsonObject ckJson = (JsonObject) parser.parse(inputGETOnInit);
+        JsonObject ckJson = (JsonObject) JsonParser.parseString(inputGETOnInit);
         CacheKey ck = CacheKey.fromJson(ckJson);
         assertEquals("cacheKey was incorrect", "cloud-region", ck.getCacheKey());
         assertEquals("baseUrl was incorrect", "http://localhost:8447", ck.getBaseUrl());
@@ -84,8 +83,7 @@ public class CacheKeyTest {
 
     @Test
     public void testCacheKeyObjectGETFirstHitDefault() {
-        JsonParser parser = new JsonParser();
-        JsonObject ckJson = (JsonObject) parser.parse(inputGETFirstHitDefault);
+        JsonObject ckJson = (JsonObject) JsonParser.parseString(inputGETFirstHitDefault);
         CacheKey ck = CacheKey.fromJson(ckJson);
         assertEquals("cacheKey was incorrect", "cloud-region", ck.getCacheKey());
         assertEquals("baseUrl was incorrect", "http://localhost:8447", ck.getBaseUrl());
@@ -101,8 +99,7 @@ public class CacheKeyTest {
 
     @Test
     public void testCacheKeyObjectDefaults() {
-        JsonParser parser = new JsonParser();
-        JsonObject ckJson = (JsonObject) parser.parse("{}");
+        JsonObject ckJson = (JsonObject) JsonParser.parseString("{}");
         CacheKey ck = CacheKey.fromJson(ckJson);
         assertEquals("cacheKey was incorrect", "-1", ck.getCacheKey());
         assertEquals("baseUrl was incorrect", "-1", ck.getBaseUrl());
@@ -118,8 +115,7 @@ public class CacheKeyTest {
 
     @Test
     public void testCacheKeyObjectGETScheduled() {
-        JsonParser parser = new JsonParser();
-        JsonObject ckJson = (JsonObject) parser.parse(inputGETScheduledDefault);
+        JsonObject ckJson = (JsonObject) JsonParser.parseString(inputGETScheduledDefault);
         CacheKey ck = CacheKey.fromJson(ckJson);
         assertEquals("cacheKey was incorrect", "cloud-region", ck.getCacheKey());
         assertEquals("baseUrl was incorrect", "http://localhost:8447", ck.getBaseUrl());
@@ -135,8 +131,7 @@ public class CacheKeyTest {
 
     @Test
     public void testCacheKeyObjectGETScheduledWithSyncInterval() {
-        JsonParser parser = new JsonParser();
-        JsonObject ckJson = (JsonObject) parser.parse(inputGETScheduledWithSyncInterval);
+        JsonObject ckJson = (JsonObject) JsonParser.parseString(inputGETScheduledWithSyncInterval);
         CacheKey ck = CacheKey.fromJson(ckJson);
         assertEquals("cacheKey was incorrect", "cloud-region", ck.getCacheKey());
         assertEquals("baseUrl was incorrect", "http://localhost:8447", ck.getBaseUrl());
@@ -152,8 +147,7 @@ public class CacheKeyTest {
 
     @Test
     public void testCacheKeyObjectGETScheduledWithSyncIntervalWithId() {
-        JsonParser parser = new JsonParser();
-        JsonObject ckJson = (JsonObject) parser.parse(inputGETScheduledWithSyncIntervalWithId);
+        JsonObject ckJson = (JsonObject) JsonParser.parseString(inputGETScheduledWithSyncIntervalWithId);
         CacheKey ck = CacheKey.fromJson(ckJson);
         assertEquals("cacheKey was incorrect", "cloud-region", ck.getCacheKey());
         assertEquals("baseUrl was incorrect", "http://localhost:8447", ck.getBaseUrl());

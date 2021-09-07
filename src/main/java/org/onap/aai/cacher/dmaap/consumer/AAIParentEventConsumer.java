@@ -25,6 +25,7 @@ import com.att.nsa.mr.client.MRClientFactory;
 import com.att.nsa.mr.client.MRConsumer;
 import org.apache.commons.configuration.ConfigurationException;
 import org.eclipse.jetty.util.security.Password;
+import org.onap.aai.cacher.common.MongoHelperSingleton;
 import org.onap.aai.cacher.util.AAIConstants;
 import org.onap.aai.exceptions.AAIException;
 import org.onap.aai.logging.ErrorLogHelper;
@@ -33,13 +34,13 @@ import org.onap.aai.util.AAIConfig;
 import java.io.*;
 import java.util.Properties;
 import java.util.UUID;
-import java.util.logging.Level;
 
 public class AAIParentEventConsumer {
 
     protected String fromAppId = "AAIEventConsumerScheduledTask";
-    protected String COMPONENT = "DMAAP-AAI-EVENT";
-    private static EELFLogger LOGGER = EELFManager.getInstance().getLogger(AAIParentEventConsumer.class);
+    protected static final String COMPONENT = "DMAAP-AAI-EVENT";
+    private static final EELFLogger EELF_LOGGER = EELFManager.getInstance().getLogger(AAIParentEventConsumer.class);
+    private static final String PROP_PASSWORD = "password";
 
     protected String preferredRouterFilePath;
     protected String aaiDmaapEventConsumerPropertiesFile;
@@ -64,28 +65,28 @@ public class AAIParentEventConsumer {
 
     public AAIParentEventConsumer(String consumerPropFile, boolean injestConsumer) throws Exception {
         this.transId = UUID.randomUUID().toString();
-        LOGGER.debug("Initalize the AAIParentEventConsumer");
+        EELF_LOGGER.debug("Initalize the AAIParentEventConsumer");
 
-        DmaapConsumerSingleton dmaapConsumerSingleton = DmaapConsumerSingleton.getInstance();
+        DmaapConsumerSingleton consumerSingleton = DmaapConsumerSingleton.getInstance();
 
         this.dmaapPropertyHome = AAIConstants.AAI_HOME_ETC_APP_PROPERTIES;
 
-        if (dmaapConsumerSingleton.getDmaapConsumerId() == null) {
-            dmaapConsumerSingleton.setDmaapConsumerId(UUID.randomUUID().toString());
+        if (consumerSingleton.getDmaapConsumerId() == null) {
+            consumerSingleton.setDmaapConsumerId(UUID.randomUUID().toString());
         }
-        this.dmaapConusmerId = dmaapConsumerSingleton.getDmaapConsumerId();
+        this.dmaapConusmerId = consumerSingleton.getDmaapConsumerId();
 
-        if (dmaapConsumerSingleton.getDmaapGroup() == null) {
-            dmaapConsumerSingleton.setDmaapGroup("cacher-" + UUID.randomUUID().toString());
+        if (consumerSingleton.getDmaapGroup() == null) {
+            consumerSingleton.setDmaapGroup("cacher-" + UUID.randomUUID().toString());
         }
-        this.dmaapGroup = dmaapConsumerSingleton.getDmaapGroup();
+        this.dmaapGroup = consumerSingleton.getDmaapGroup();
 
         processPropertyFiles(consumerPropFile);
         if (!injestConsumer) {
             this.aaiDmaapEventConsumer = MRClientFactory.createConsumer(this.aaiDmaapEventConsumerProperties.toString());
             setConsumer(aaiDmaapEventConsumer);
         }
-        LOGGER.debug("Initialization completed.");
+        EELF_LOGGER.debug("Initialization completed.");
 
     }
 
@@ -104,14 +105,14 @@ public class AAIParentEventConsumer {
         this.preferredRouterFilePath = this.dmaapPropertyHome + "preferredRoute.txt";
         this.aaiDmaapEventConsumerPropertiesFile = this.dmaapPropertyHome + consumerPropFile;
 
-        LOGGER.debug("Preferred router file path: " + this.preferredRouterFilePath);
-        LOGGER.debug("AAI Dmaap Event Consumer Properties path: " + this.aaiDmaapEventConsumerPropertiesFile);
+        EELF_LOGGER.debug("Preferred router file path: " + this.preferredRouterFilePath);
+        EELF_LOGGER.debug("AAI Dmaap Event Consumer Properties path: " + this.aaiDmaapEventConsumerPropertiesFile);
 
         File fo = new File(this.preferredRouterFilePath);
         if (!fo.exists()) {
             FileNotFoundException ex = new FileNotFoundException(
                     "Dmaap Route file " + preferredRouterFilePath + " does not exist");
-            ErrorLogHelper.logException(new AAIException("AAI_4000", ex));
+            ErrorLogHelper.logException(new AAIException(MongoHelperSingleton.AAI_4000_LBL, ex));
             throw ex;
         }
 
@@ -119,7 +120,7 @@ public class AAIParentEventConsumer {
         if (!fo.exists()) {
             FileNotFoundException ex = new FileNotFoundException(
                     "Dmaap consumer property file " + aaiDmaapEventConsumerPropertiesFile + " does not exist.");
-            ErrorLogHelper.logException(new AAIException("AAI_4000", ex));
+            ErrorLogHelper.logException(new AAIException(MongoHelperSingleton.AAI_4000_LBL, ex));
             throw ex;
         }
 
@@ -127,48 +128,48 @@ public class AAIParentEventConsumer {
 
     }
 
-    private void modifyProperties() throws ConfigurationException, IOException {
+    private void modifyProperties() throws IOException {
 
-        try (Reader reader = new FileReader(new File(this.aaiDmaapEventConsumerPropertiesFile))) {
+        try (Reader reader = new FileReader(this.aaiDmaapEventConsumerPropertiesFile)) {
             this.aaiDmaapEventConsumerProperties.load(reader);
         }
 
 
         aaiDmaapEventConsumerProperties.setProperty("id", this.dmaapConusmerId);
         aaiDmaapEventConsumerProperties.setProperty("group", this.dmaapGroup);
-        LOGGER.debug("Updated " + this.aaiDmaapEventConsumerPropertiesFile + " group" + this.dmaapGroup + " id " + this.dmaapConusmerId);
+        EELF_LOGGER.debug("Updated " + this.aaiDmaapEventConsumerPropertiesFile + " group" + this.dmaapGroup + " id " + this.dmaapConusmerId);
 
         aaiDmaapEventConsumerProperties.setProperty("DME2preferredRouterFilePath", this.preferredRouterFilePath);
-        if (aaiDmaapEventConsumerProperties.getProperty("password") != null
-                && aaiDmaapEventConsumerProperties.getProperty("password").startsWith("OBF:")) {
-            aaiDmaapEventConsumerProperties.setProperty("password",
-                    Password.deobfuscate(aaiDmaapEventConsumerProperties.getProperty("password")));
+        if (aaiDmaapEventConsumerProperties.getProperty(PROP_PASSWORD) != null
+                && aaiDmaapEventConsumerProperties.getProperty(PROP_PASSWORD).startsWith("OBF:")) {
+            aaiDmaapEventConsumerProperties.setProperty(PROP_PASSWORD,
+                    Password.deobfuscate(aaiDmaapEventConsumerProperties.getProperty(PROP_PASSWORD)));
         }
-        LOGGER.debug("Updated " + this.aaiDmaapEventConsumerPropertiesFile + " DME2preferredRouterFilePath property to "
+        EELF_LOGGER.debug("Updated " + this.aaiDmaapEventConsumerPropertiesFile + " DME2preferredRouterFilePath property to "
                 + this.preferredRouterFilePath);
 
         if (getIsInitialCheck()) {
             aaiDmaapEventConsumerProperties.setProperty("limit", "1");
         }
-        LOGGER.debug("Using limit " + aaiDmaapEventConsumerProperties.getProperty("limit"));
-        LOGGER.debug("Using filter " + aaiDmaapEventConsumerProperties.getProperty("filter"));
+        EELF_LOGGER.debug("Using limit " + aaiDmaapEventConsumerProperties.getProperty("limit"));
+        EELF_LOGGER.debug("Using filter " + aaiDmaapEventConsumerProperties.getProperty("filter"));
 
-        LOGGER.debug("Dmaap Properties = " + aaiDmaapEventConsumerProperties);
+        EELF_LOGGER.debug("Dmaap Properties = " + aaiDmaapEventConsumerProperties);
     }
 
     public void startProcessing(DmaapProcessor dmaapProcessor) throws Exception {
         int fetchFailCounter = 0;
         while (AAIConfig.get("aai.cacher.dmaap.consumer.enableEventProcessing").equals("true")) {
             try {
-                LOGGER.debug("processEvents=" + dmaapConsumerSingleton.getProcessEvents() + " isInitialized="
+                EELF_LOGGER.debug("processEvents=" + dmaapConsumerSingleton.getProcessEvents() + " isInitialized="
                         + dmaapConsumerSingleton.getIsInitialized());
                 if (dmaapConsumerSingleton.getProcessEvents() || !dmaapConsumerSingleton.getIsInitialized()) {
                     Iterable<String> eventMessages = clientConsumer.process();
                     if (dmaapConsumerSingleton.getFirstEventMessage() != null) {
                         String firstMessage = getFirstMessage();
                         if (firstMessage != null) {
-                            LOGGER.debug("Processing held dmaap message from the aaiDmaapEvent topic." + transId);
-                            LOGGER.debug("Processing held dmaap message from the aaiDmaapEvent topic: " + firstMessage);
+                            EELF_LOGGER.debug("Processing held dmaap message from the aaiDmaapEvent topic." + transId);
+                            EELF_LOGGER.debug("Processing held dmaap message from the aaiDmaapEvent topic: " + firstMessage);
                             dmaapProcessor.process(firstMessage);
                         }
                     }
@@ -176,11 +177,11 @@ public class AAIParentEventConsumer {
                         if (!dmaapConsumerSingleton.getProcessEvents()) {
                             // hold message until app is ready for dmaap processing
                             setFirstMessage(eventMessage);
-                            LOGGER.debug("Holding new dmaap message from the aaiDmaapEvent topic: " + eventMessage);
+                            EELF_LOGGER.debug("Holding new dmaap message from the aaiDmaapEvent topic: " + eventMessage);
                             dmaapConsumerSingleton.setIsInitialized(true);
                             continue;
                         }
-                        LOGGER.debug("Processing held dmaap message from the aaiDmaapEvent topic: " + eventMessage);
+                        EELF_LOGGER.debug("Processing held dmaap message from the aaiDmaapEvent topic: " + eventMessage);
                         dmaapProcessor.process(eventMessage);
                     }
                     fetchFailCounter = 0;
@@ -193,17 +194,14 @@ public class AAIParentEventConsumer {
             } catch (IOException e) {
                 fetchFailCounter++;
                 if (fetchFailCounter > 10) {
-                    ErrorLogHelper.logException(new AAIException("AAI_4000", e));
+                    ErrorLogHelper.logException(new AAIException(MongoHelperSingleton.AAI_4000_LBL, e));
                     this.aaiDmaapEventConsumer.close();
                     throw e;
                 }
-                LOGGER.info("ignoring IOException, count is at." + fetchFailCounter);
+                EELF_LOGGER.info("ignoring IOException, count is at." + fetchFailCounter);
             } catch (Exception e) {
-                ErrorLogHelper.logException(new AAIException("AAI_4000", e));
-
-                e.printStackTrace();
+                ErrorLogHelper.logException(new AAIException(MongoHelperSingleton.AAI_4000_LBL, e));
                 this.aaiDmaapEventConsumer.close();
-                e.printStackTrace();
                 throw e;
             }
         }

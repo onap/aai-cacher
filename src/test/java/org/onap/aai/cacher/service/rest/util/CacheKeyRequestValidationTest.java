@@ -38,14 +38,12 @@ public class CacheKeyRequestValidationTest {
     
 	private String emptyPayload = "{}";
 	private String nonEmptyPayload = "{\"cacheKey\" : \"complex\"}";
-	private JsonParser parser;
-    
+
     @Before
     public void setup() {
     	cacheHelperService = Mockito.mock(CacheHelperService.class);
     	addCacheKeyRequestValidation = new CacheKeyRequestValidation(CacheKeyRequestValidationType.ADD);
     	updateCacheKeyRequestValidation = new CacheKeyRequestValidation(CacheKeyRequestValidationType.UPDATE);
-    	parser = new JsonParser();
     }
     
     @Test
@@ -56,21 +54,21 @@ public class CacheKeyRequestValidationTest {
     
     @Test
     public void testEmptyPayload() {
-    	List<String> results = addCacheKeyRequestValidation.validateCacheKeyRequest(parser.parse(emptyPayload).getAsJsonObject(), cacheHelperService);
+    	List<String> results = addCacheKeyRequestValidation.validateCacheKeyRequest(JsonParser.parseString(emptyPayload).getAsJsonObject(), cacheHelperService);
     	assertEquals("empty payload ok", "Unsupported CacheKey request format, unspecified cacheKey.", results.get(0));
     }
     
     @Test
     public void testAddNewCacheKey() {
     	Mockito.when(cacheHelperService.isKeyPresent(Mockito.any(), Mockito.anyString())).thenReturn(false);
-    	List<String> results = addCacheKeyRequestValidation.validateCacheKeyRequest(parser.parse(nonEmptyPayload).getAsJsonObject(), cacheHelperService);
+    	List<String> results = addCacheKeyRequestValidation.validateCacheKeyRequest(JsonParser.parseString(nonEmptyPayload).getAsJsonObject(), cacheHelperService);
     	assertEquals("add new CacheKey ok", 0, results.size());
     }
     
     @Test
     public void testAddExistingCacheKey() {
     	Mockito.when(cacheHelperService.isKeyPresent(Mockito.any(), Mockito.anyString())).thenReturn(true);
-    	List<String> results = addCacheKeyRequestValidation.validateCacheKeyRequest(parser.parse(nonEmptyPayload).getAsJsonObject(), cacheHelperService);
+    	List<String> results = addCacheKeyRequestValidation.validateCacheKeyRequest(JsonParser.parseString(nonEmptyPayload).getAsJsonObject(), cacheHelperService);
     	assertEquals("add existing CacheKey ok", "Invalid request to add cacheKey complex, cacheKey exists.", results.get(0));
     }
     
@@ -78,20 +76,20 @@ public class CacheKeyRequestValidationTest {
     @Test
     public void testUpdateNewCacheKey() {
     	Mockito.when(cacheHelperService.isKeyPresent(Mockito.any(), Mockito.anyString())).thenReturn(false);
-    	List<String> results = updateCacheKeyRequestValidation.validateCacheKeyRequest(parser.parse(nonEmptyPayload).getAsJsonObject(), cacheHelperService);
+    	List<String> results = updateCacheKeyRequestValidation.validateCacheKeyRequest(JsonParser.parseString(nonEmptyPayload).getAsJsonObject(), cacheHelperService);
     	assertEquals("update new CacheKey ok", "Invalid request to update cacheKey complex, cacheKey does not exist.", results.get(0));
     }
     
     @Test
     public void testUpdateExistingCacheKey() {
     	Mockito.when(cacheHelperService.isKeyPresent(Mockito.any(), Mockito.anyString())).thenReturn(true);
-    	List<String> results = updateCacheKeyRequestValidation.validateCacheKeyRequest(parser.parse(nonEmptyPayload).getAsJsonObject(), cacheHelperService);
+    	List<String> results = updateCacheKeyRequestValidation.validateCacheKeyRequest(JsonParser.parseString(nonEmptyPayload).getAsJsonObject(), cacheHelperService);
     	assertEquals("update existing CacheKey ok", 0, results.size());
     }
     
     @Test
     public void testAddNewCacheKeyMissingFields() {
-        List<String> results = addCacheKeyRequestValidation.checkMissingRequiredFields(parser.parse(nonEmptyPayload).getAsJsonObject(), cacheHelperService);
+        List<String> results = addCacheKeyRequestValidation.checkMissingRequiredFields(JsonParser.parseString(nonEmptyPayload).getAsJsonObject(), cacheHelperService);
         List<String> exp = new ArrayList<String>();
         exp.add("baseUrl");
         exp.add("URI");

@@ -85,8 +85,6 @@ public class LimitTest {
 	@Autowired private PayloadPrinterService payloadPrinterService;
 	@Autowired private MongoHelperSingleton mongoHelperSingleton;
 	private CacheHelperService cacheHelperService;
-	private JsonParser parser = new JsonParser();
-
 
 	@Configuration
 	@ComponentScan({"org.onap.aai.cacher.egestion","org.onap.aai.cacher.injestion"})
@@ -166,7 +164,7 @@ public class LimitTest {
 				"'module': '/aai/v14/'," +
 				"'URI': 'network/generic-vnf?depth=0'" +
 				"}";
-		JsonObject ckJson = (JsonObject) parser.parse(genericVnfCacheKey);
+		JsonObject ckJson = (JsonObject) JsonParser.parseString(genericVnfCacheKey);
 		CacheKey ck = CacheKey.fromJson(ckJson);
 		ck.setParserStrategy(PayloadParserType.AAI_RESOURCE_GET_ALL.getValue());
 		cacheHelperService.addCacheKey(ck);
@@ -194,7 +192,7 @@ public class LimitTest {
 		JsonObject genericVnf;
 		for (int i = 0; i < 70000; i++) {
 			vnfId = UUID.randomUUID().toString();
-			genericVnf = parser.parse(String.format(genericVnfTemplate, vnfId)).getAsJsonObject();
+			genericVnf = JsonParser.parseString(String.format(genericVnfTemplate, vnfId)).getAsJsonObject();
 			genericVnfsArray.add(genericVnf);
 		}
 
@@ -222,7 +220,7 @@ public class LimitTest {
 				"'module': '/aai/v14/'," +
 				"'URI': 'network/generic-vnf?depth=0'" +
 				"}";
-		JsonObject ckJson = (JsonObject) parser.parse(genericVnfCacheKey);
+		JsonObject ckJson = (JsonObject) JsonParser.parseString(genericVnfCacheKey);
 		CacheKey ck = CacheKey.fromJson(ckJson);
 		ck.setParserStrategy(PayloadParserType.AAI_RESOURCE_GET_ALL.getValue());
 		cacheHelperService.addCacheKey(ck);
@@ -249,7 +247,7 @@ public class LimitTest {
 		JsonObject genericVnf;
 		for (int i = 0; i < 20; i++) {
 			vnfId = UUID.randomUUID().toString();
-			genericVnf = parser.parse(String.format(genericVnfTemplate, vnfId)).getAsJsonObject();
+			genericVnf = JsonParser.parseString(String.format(genericVnfTemplate, vnfId)).getAsJsonObject();
 			genericVnfsArray.add(genericVnf);
 		}
 
@@ -267,7 +265,7 @@ public class LimitTest {
 		JsonObject vfModule;
 		for (int i = 0; i < 70000; i++) {
 			vfModuleId = UUID.randomUUID().toString();
-			vfModule = parser.parse(String.format(vfModuleTemplate, vfModuleId)).getAsJsonObject();
+			vfModule = JsonParser.parseString(String.format(vfModuleTemplate, vfModuleId)).getAsJsonObject();
 			vfModulesArray.add(vfModule);
 		}
 
@@ -297,7 +295,7 @@ public class LimitTest {
 				"'module': '/aai/v14/'," +
 				"'URI': 'network/generic-vnf?depth=0'" +
 				"}";
-		JsonObject ckJson = (JsonObject) parser.parse(genericVnfCacheKey);
+		JsonObject ckJson = (JsonObject) JsonParser.parseString(genericVnfCacheKey);
 		CacheKey ck = CacheKey.fromJson(ckJson);
 		ck.setParserStrategy(PayloadParserType.AAI_RESOURCE_GET_ALL.getValue());
 		cacheHelperService.addCacheKey(ck);
@@ -324,7 +322,7 @@ public class LimitTest {
 		JsonObject genericVnf;
 		for (int i = 0; i < 2; i++) {
 			vnfId = UUID.randomUUID().toString();
-			genericVnf = parser.parse(String.format(genericVnfTemplate, vnfId)).getAsJsonObject();
+			genericVnf = JsonParser.parseString(String.format(genericVnfTemplate, vnfId)).getAsJsonObject();
 			genericVnfsArray.add(genericVnf);
 		}
 
@@ -342,7 +340,7 @@ public class LimitTest {
 		JsonObject vfModule;
 		for (int i = 0; i < 2; i++) {
 			vfModuleId = UUID.randomUUID().toString();
-			vfModule = parser.parse(String.format(vfModuleTemplate, vfModuleId)).getAsJsonObject();
+			vfModule = JsonParser.parseString(String.format(vfModuleTemplate, vfModuleId)).getAsJsonObject();
 			vfModulesArray.add(vfModule);
 		}
 
@@ -352,7 +350,7 @@ public class LimitTest {
 				"}";
 		for (int i = 0; i < 2; i++) {
 			String addr = UUID.randomUUID().toString();
-			JsonObject addrObj = parser.parse(String.format(addrTemplate, addr)).getAsJsonObject();
+			JsonObject addrObj = JsonParser.parseString(String.format(addrTemplate, addr)).getAsJsonObject();
 			addrArray.add(addrObj);
 		}
 		vfModulesArray.get(0).getAsJsonObject().add("vip-ipv4-address-list", addrArray);
@@ -383,7 +381,7 @@ public class LimitTest {
 				"'module': '/aai/v14/'," +
 				"'URI': '/cloud-infrastructure/cloud-regions'" +
 				"}";
-		JsonObject ckJson = (JsonObject) parser.parse(crKey);
+		JsonObject ckJson = (JsonObject) JsonParser.parseString(crKey);
 		CacheKey ck = CacheKey.fromJson(ckJson);
 		ck.setParserStrategy(PayloadParserType.AAI_RESOURCE_GET_ALL.getValue());
 		cacheHelperService.addCacheKey(ck);

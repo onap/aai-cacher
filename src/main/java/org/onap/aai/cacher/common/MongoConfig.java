@@ -54,18 +54,16 @@ public class MongoConfig {
     private static final EELFLogger EELF_LOGGER = EELFManager.getInstance().getLogger(MongoConfig.class);
 
     @Value("${spring.data.mongodb.host}")
-    private String MONGO_DB_HOST;
+    private String mongoDbHost;
     @Value("${spring.data.mongodb.database}")
-    private String MONGO_DB_NAME;
+    private String mongoDbName;
     @Value("${spring.data.mongodb.port}")
-    private int MONGO_DB_PORT;
-
-    private MongodProcess mongod;
+    private int mongoDbPort;
 
     @Bean
     public MongoClient mongoClient(MongodProcess mongodProcess) {
         // To connect to mongodb server
-        try (MongoClient mongoC = new MongoClient(MONGO_DB_HOST, MONGO_DB_PORT)) {
+        try (MongoClient mongoC = new MongoClient(mongoDbHost, mongoDbPort)) {
 
             // Now connect to your databases
             EELF_LOGGER.info("Connect to database successfully");
@@ -73,28 +71,34 @@ public class MongoConfig {
             return mongoC;
 
         } catch (Exception e) {
-            AAIException aaiException = new AAIException("AAI_4000");
+            AAIException aaiException = new AAIException(MongoHelperSingleton.AAI_4000_LBL);
             ErrorLogHelper.logException(aaiException);
         }
 
         return null;
     }
 
+    /**
+     * @deprecated replaced by {@link #mongoDatabase(MongoClient mongoClient)}
+     * @param mongoClient mongo client
+     * @return DB
+     */
     @Bean
+    @Deprecated
     public DB db(MongoClient mongoClient) {
-        return mongoClient.getDB(MONGO_DB_NAME);
+        return mongoClient.getDB(mongoDbName);
     }
 
     @Bean
     public MongoDatabase mongoDatabase(MongoClient mongoClient) {
-        return mongoClient.getDatabase(MONGO_DB_NAME);
+        return mongoClient.getDatabase(mongoDbName);
     }
 
     @Bean
     public MongodProcess mongoEmbedded() throws IOException {
 
         Logger logger = LoggerFactory.getLogger("mongo");
-        int port = MONGO_DB_PORT;
+        int port = mongoDbPort;
 
         MongodConfig mongoConfigConfig = MongodConfig.builder()
                 .version(Version.Main.PRODUCTION)
@@ -112,7 +116,7 @@ public class MongoConfig {
                         .build())
                 .prepare(mongoConfigConfig);
 
-        mongod = mongodExecutable.start();
+        MongodProcess mongod = mongodExecutable.start();
 
         if (mongod.isProcessRunning()) {
             System.out.println("Embedded mongo RUNNING");

@@ -41,9 +41,7 @@ import java.util.stream.Collectors;
 @Scope(scopeName = ConfigurableBeanFactory.SCOPE_SINGLETON)
 public class AAIResourceGetAllPayloadPrinterStrategy implements PayloadPrinterStrategy {
 
-    private static final String RELATIONSHIP = "relationship";
-
-    private AAIResourcesUriTemplates aaiResourcesUriTemplates;
+    private final AAIResourcesUriTemplates aaiResourcesUriTemplates;
 
     @Autowired
     public AAIResourceGetAllPayloadPrinterStrategy(AAIResourcesUriTemplates aaiResourcesUriTemplates) {
@@ -108,7 +106,7 @@ public class AAIResourceGetAllPayloadPrinterStrategy implements PayloadPrinterSt
             List<JsonObject> nestedObjs = new ArrayList<>();
             for (int i = start; i < uris.size(); i++) {
                 Set<String> nestedProps = nestedPropsToBePopulated(uriToJson.get(uris.get(i)));
-                nestedProps = cleanEmptyProps(uriToJson.get(uris.get(i)), nestedProps, nested);
+                nestedProps = cleanEmptyProps(uriToJson.get(uris.get(i)), nestedProps);
                 nestedObjs.addAll(getNestedObjs(uriToJson.get(uris.get(i)), nestedProps, nested));
             }
             if (nestedObjs.isEmpty()) {
@@ -162,10 +160,9 @@ public class AAIResourceGetAllPayloadPrinterStrategy implements PayloadPrinterSt
                });
            });
         }
-        //return uriToJson.get(uri);
     }
 
-    private Set<String> cleanEmptyProps(JsonObject jsonObject, Set<String> nestedProps, Map<String, JsonObject> nested) {
+    private Set<String> cleanEmptyProps(JsonObject jsonObject, Set<String> nestedProps) {
         Set<String> updatedNested = new HashSet<>(nestedProps.size());
         for (String nestedProp : nestedProps) {
             if (jsonObject.get(nestedProp).isJsonObject()) {

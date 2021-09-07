@@ -73,8 +73,6 @@ public class PayloadParserServiceTest {
 	private PayloadParserService parserService;
 
 
-	private JsonParser parser = new JsonParser();
-
 	private String aaiGetAllServiceResponse =
 			"{" +
 					"	'service': [" +
@@ -90,7 +88,7 @@ public class PayloadParserServiceTest {
 					"		}" +
 					"	]" +
 					"}";
-	private JsonObject aaiGetAllServiceResponseJson = parser.parse(aaiGetAllServiceResponse).getAsJsonObject();
+	private JsonObject aaiGetAllServiceResponseJson = JsonParser.parseString(aaiGetAllServiceResponse).getAsJsonObject();
 
 	@Bean
 	public DB db() {

@@ -55,7 +55,16 @@ import java.util.concurrent.Executors;
 @Service
 public class CacheHelperService {
 
-    private final static EELFLogger EELF_LOGGER = EELFManager.getInstance().getLogger(CacheHelperService.class);
+    private static final EELFLogger EELF_LOGGER = EELFManager.getInstance().getLogger(CacheHelperService.class);
+
+    private static final String ERROR_AAI_3014 = "AAI_3014";
+    private static final String ERROR_AAI_5105 = "AAI_5105";
+    private static final String ERROR_AAI_3001 = "AAI_3001";
+    private static final String MESSAGE_AAI_3001 = "cacheKey request";
+    private static final String MESSAGE_AAI_3014 = "Cache key provided does not exist";
+    private static final String DATE_FORMAT = "yyyy-MM-ddHH:mm:ss.SSSZ";
+    private static final String KEY_DELETED = "DELETED";
+    private static final String KEY_NOT_FOUND = "NOT_FOUND";
     private Gson gson = new GsonBuilder().create();
 
     @Autowired
@@ -92,8 +101,7 @@ public class CacheHelperService {
             EELF_LOGGER.error("Could not retrieve cache key");
             return null;
         }
-        JsonParser parser = new JsonParser();
-        JsonObject ckJson = (JsonObject) parser.parse(ckString);
+        JsonObject ckJson = (JsonObject) JsonParser.parseString(ckString);
         return CacheKey.fromJson(ckJson);
     }
 
@@ -108,8 +116,7 @@ public class CacheHelperService {
                 result.append(cursor.next());
             }
         } catch (Exception e) {
-            e.printStackTrace();
-            ErrorLogHelper.logException(new AAIException("AAI_4000", e));
+            ErrorLogHelper.logException(new AAIException(MongoHelperSingleton.AAI_4000_LBL, e));
         }
         return result.toString();
     }
@@ -123,7 +130,7 @@ public class CacheHelperService {
                     return true;
                 }
             } catch (Exception e) {
-                ErrorLogHelper.logException(new AAIException("AAI_4000", e));
+                ErrorLogHelper.logException(new AAIException(MongoHelperSingleton.AAI_4000_LBL, e));
             }
         }
         return false;
@@ -137,14 +144,12 @@ public class CacheHelperService {
             if (cursor.count() > 0) {
                 while (cursor.hasNext()) {
                     // remove "_id" property from cache response
-                    JsonParser parser = new JsonParser();
-                    JsonObject jsonObj = (JsonObject) parser.parse(cursor.next().toString());
+                    JsonObject jsonObj = (JsonObject) JsonParser.parseString(cursor.next().toString());
                     jsonArray.add(jsonObj);
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
-            ErrorLogHelper.logException(new AAIException("AAI_4000", e));
+            ErrorLogHelper.logException(new AAIException(MongoHelperSingleton.AAI_4000_LBL, e));
         }
         JsonObject jsonObject = payloadPrinterService.createJson(ck.getCacheKey(), jsonArray, ck.getParserStrategy());
         if (jsonObject != null) {
@@ -159,7 +164,7 @@ public class CacheHelperService {
 
     public boolean isCurrentlyRunning(CacheKey ck) {
         CacheKey ckPopulated = retrieveCacheKeyObject(ck);
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-ddHH:mm:ss.SSSZ");
+        SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT);
         Long syncStartTimeInMillis = -1L;
         Long syncLastEndInMillis = -1L;
         if (ckPopulated != null && !ckPopulated.getLastSyncStartTime().equals("-1")) {
@@ -181,12 +186,14 @@ public class CacheHelperService {
 
     public Response getData(CacheKey ck) {
         if (ck == null) {
-            AAIException aaiException = new AAIException("AAI_3014", "Cache key provided does not exist");
+            AAIException aaiException = new AAIException(ERROR_AAI_3014, MESSAGE_AAI_3014);
             return buildExceptionResponse(aaiException);
-        } else if (isCurrentlyRunning(ck)) {
-            AAIException aaiException = new AAIException("AAI_4000", "Sync is currently running from another process.");
+        }
+        if (isCurrentlyRunning(ck)) {
+            AAIException aaiException = new AAIException(MongoHelperSingleton.AAI_4000_LBL, "Sync is currently running from another process.");
             return buildExceptionResponse(aaiException);
-        } else if (isKeyPresent(ck, AAIConstants.COLLECTION_CACHEKEY)) {
+        }
+        if (isKeyPresent(ck, AAIConstants.COLLECTION_CACHEKEY)) {
             if (isCollectionPresent(ck.getCacheKey())) {
                 return retrieveCollectionByKey(ck);
             } else {
@@ -198,12 +205,12 @@ public class CacheHelperService {
                 if (response.getStatus() == 201) {
                     return retrieveCollectionByKey(ck);
                 } else {
-                    AAIException aaiException = new AAIException("AAI_5105");
+                    AAIException aaiException = new AAIException(ERROR_AAI_5105);
                     return buildExceptionResponse(aaiException);
                 }
             }
         } else {
-            AAIException aaiException = new AAIException("AAI_3014", "Cache key provided does not exist");
+            AAIException aaiException = new AAIException(ERROR_AAI_3014, MESSAGE_AAI_3014);
             return buildExceptionResponse(aaiException);
         }
     }
@@ -211,7 +218,7 @@ public class CacheHelperService {
     public Response forceSync(CacheKey ck) {
         if (isCurrentlyRunning(ck)) {
             AAIException aaiException = new AAIException("AAI_3000", "Sync is currently running from another process.");
-            ArrayList<String> templateVars = new ArrayList();
+            ArrayList<String> templateVars = new ArrayList<>();
             templateVars.add("/sync");
             templateVars.add(ck.getCacheKey());
             return buildExceptionResponse(aaiException, templateVars);
@@ -224,7 +231,7 @@ public class CacheHelperService {
             }
             return populateCache(ck, (String) resp.getBody());
         } else {
-            AAIException aaiException = new AAIException("AAI_3014", "Cache key provided does not exist");
+            AAIException aaiException = new AAIException(ERROR_AAI_3014, MESSAGE_AAI_3014);
             return buildExceptionResponse(aaiException);
         }
     }
@@ -237,15 +244,15 @@ public class CacheHelperService {
 
             if (result.equals("")) {
                 EELF_LOGGER.error("Cannot not find the  cache key from mongodb " + ck.getCacheKey());
-                AAIException aaiException = new AAIException("AAI_3001", "cacheKey request");
-                ArrayList<String> templateVars = new ArrayList();
+                AAIException aaiException = new AAIException(ERROR_AAI_3001, MESSAGE_AAI_3001);
+                ArrayList<String> templateVars = new ArrayList<>();
                 templateVars.add("/get");
                 templateVars.add(ck.getCacheKey());
                 return buildExceptionResponse(aaiException, templateVars);
             }
             return this.buildResponse(status, result);
         } catch (Exception e) {
-            AAIException aaiException = new AAIException("AAI_4000", e);
+            AAIException aaiException = new AAIException(MongoHelperSingleton.AAI_4000_LBL, e);
             return buildExceptionResponse(aaiException);
 
         }
@@ -257,14 +264,13 @@ public class CacheHelperService {
         try {
             result = this.retrieveCollectionString(ck);
             if (result.equals("")) {
-                status = Status.NOT_FOUND;
                 EELF_LOGGER.error("Cannot not found the  cache key from mongodb");
-                AAIException aaiException = new AAIException("AAI_3001", "cacheKey get for" + ck.getCacheKey() );
+                AAIException aaiException = new AAIException(ERROR_AAI_3001, "cacheKey get for" + ck.getCacheKey() );
                 return buildExceptionResponse(aaiException);
             }
             return this.buildResponse(status, result);
         } catch (Exception e) {
-            AAIException aaiException = new AAIException("AAI_4000", e);
+            AAIException aaiException = new AAIException(MongoHelperSingleton.AAI_4000_LBL, e);
             return buildExceptionResponse(aaiException);
 
         }
@@ -295,15 +301,15 @@ public class CacheHelperService {
                     result.append(cursor.next());
                 }
             } else {
-                AAIException aaiException = new AAIException("AAI_3001", "cacheKey request");
-                ArrayList<String> templateVars = new ArrayList();
+                AAIException aaiException = new AAIException(ERROR_AAI_3001, MESSAGE_AAI_3001);
+                ArrayList<String> templateVars = new ArrayList<>();
                 templateVars.add("/get");
                 templateVars.add("ALL");
                 return buildExceptionResponse(aaiException, templateVars);
             }
             return buildResponse(status, result.toString());
         } catch (Exception e) {
-            AAIException aaiException = new AAIException("AAI_4000", e);
+            AAIException aaiException = new AAIException(MongoHelperSingleton.AAI_4000_LBL, e);
             return buildExceptionResponse(aaiException);
         }
     }
@@ -335,28 +341,28 @@ public class CacheHelperService {
             if (result.getN() > 0) {
                 status = Status.OK;
             } else {
-                AAIException aaiException = new AAIException("AAI_3001", "cacheKey request");
-                ArrayList<String> templateVars = new ArrayList();
+                AAIException aaiException = new AAIException(ERROR_AAI_3001, MESSAGE_AAI_3001);
+                ArrayList<String> templateVars = new ArrayList<>();
                 templateVars.add("/update");
                 templateVars.add(ck.getCacheKey());
                 return buildExceptionResponse(aaiException, templateVars);
             }
             return buildResponse(status, "{}");
         } catch (MongoException ex) {
-            AAIException aaiException = new AAIException("AAI_5105", ex);
+            AAIException aaiException = new AAIException(ERROR_AAI_5105, ex);
             return buildExceptionResponse(aaiException);
         }
     }
 
     public boolean bulkAddCacheKeys(List<CacheKey> ckList) {
         try {
-            List<BasicDBObject> documents = new ArrayList<BasicDBObject>();
+            List<BasicDBObject> documents = new ArrayList<>();
             for (CacheKey ck : ckList) {
                 documents.add(ck.toDBObject());
             }
             return mongoHelper.addToMongo(AAIConstants.COLLECTION_CACHEKEY, documents);
         } catch (Exception e) {
-            AAIException aaiException = new AAIException("AAI_4000", e);
+            AAIException aaiException = new AAIException(MongoHelperSingleton.AAI_4000_LBL, e);
             ErrorLogHelper.logException(aaiException);
             return false;
         }
@@ -367,17 +373,17 @@ public class CacheHelperService {
         dropCollection(id);
         String cacheKeyDelete = deleteFromCollection(id, AAIConstants.COLLECTION_CACHEKEY);
         Status status;
-        if (cacheKeyDelete.equals("DELETED") && (cacheDelete.equals("DELETED") || cacheDelete.equals("NOT_FOUND"))) {
+        if (cacheKeyDelete.equals(KEY_DELETED) && (cacheDelete.equals(KEY_DELETED) || cacheDelete.equals(KEY_NOT_FOUND))) {
             status = Status.NO_CONTENT;
             return buildResponse(status, "{}");
-        } else if (cacheKeyDelete.equals("NOT_FOUND")) {
-            AAIException aaiException = new AAIException("AAI_3001", "cacheKey request");
-            ArrayList<String> templateVars = new ArrayList();
+        } else if (cacheKeyDelete.equals(KEY_NOT_FOUND)) {
+            AAIException aaiException = new AAIException(ERROR_AAI_3001, MESSAGE_AAI_3001);
+            ArrayList<String> templateVars = new ArrayList<>();
             templateVars.add("/delete");
             templateVars.add(id);
             return buildExceptionResponse(aaiException, templateVars);
         } else {
-            AAIException aaiException = new AAIException("AAI_5105");
+            AAIException aaiException = new AAIException(ERROR_AAI_5105);
             return buildExceptionResponse(aaiException);
         }
     }
@@ -385,17 +391,17 @@ public class CacheHelperService {
     public Response deleteCache(String id, String collection) {
         String cacheDelete = deleteFromCollection(id, collection);
         Status status;
-        if (cacheDelete.equals("DELETED")) {
+        if (cacheDelete.equals(KEY_DELETED)) {
             status = Status.NO_CONTENT;
             return buildResponse(status, "{}");
-        } else if (cacheDelete.equals("NOT_FOUND")) {
-            AAIException aaiException = new AAIException("AAI_3001", "cacheKey request");
-            ArrayList<String> templateVars = new ArrayList();
+        } else if (cacheDelete.equals(KEY_NOT_FOUND)) {
+            AAIException aaiException = new AAIException(ERROR_AAI_3001, MESSAGE_AAI_3001);
+            ArrayList<String> templateVars = new ArrayList<>();
             templateVars.add("/delete");
             templateVars.add(id);
             return buildExceptionResponse(aaiException, templateVars);
         } else {
-            AAIException aaiException = new AAIException("AAI_5105");
+            AAIException aaiException = new AAIException(ERROR_AAI_5105);
             return buildExceptionResponse(aaiException);
         }
     }
@@ -419,7 +425,7 @@ public class CacheHelperService {
         if (ck.getBaseUrl().equals("-1")) {
             ck = retrieveCacheKeyObject(ck);
         }
-        DateFormat formatter = new SimpleDateFormat("yyyy-MM-ddHH:mm:ss.SSSZ");
+        DateFormat formatter = new SimpleDateFormat(DATE_FORMAT);
 
         List<CacheEntry> cacheEntries = payloadParserService.doParse(ck.getCacheKey(), responseBody,
                 ck.getParserStrategy());
@@ -441,7 +447,7 @@ public class CacheHelperService {
             if (!success) {
                 ck.setLastSyncEndTime(formatter.format(System.currentTimeMillis()));
                 updateCacheKey(ck);
-                AAIException aaiException = new AAIException("AAI_4000", "Unable to populate the cache");
+                AAIException aaiException = new AAIException(MongoHelperSingleton.AAI_4000_LBL, "Unable to populate the cache");
                 return buildExceptionResponse(aaiException);
             }
         }
@@ -471,7 +477,7 @@ public class CacheHelperService {
     }
 
     public Response buildValidationResponse(List<String> issues) {
-        AAIException aaiException = new AAIException("AAI_3014");
+        AAIException aaiException = new AAIException(ERROR_AAI_3014);
         ArrayList<String> templateVars = new ArrayList<>();
         
         if (templateVars.isEmpty()) {
@@ -496,7 +502,7 @@ public class CacheHelperService {
         ErrorLogHelper.logException(aaiException);
         return Response.status(aaiException.getErrorObject().getHTTPResponseCode())
                 .entity(ErrorLogHelper.getRESTAPIErrorResponseWithLogging(
-                        Lists.newArrayList(MediaType.APPLICATION_JSON_TYPE), aaiException, new ArrayList()))
+                        Lists.newArrayList(MediaType.APPLICATION_JSON_TYPE), aaiException, new ArrayList<>()))
                 .build();
     }
 
@@ -508,7 +514,7 @@ public class CacheHelperService {
         whereQuery.put("timingIndicator", "scheduled");
         DBCursor cursor = collection.find(whereQuery);
         while (cursor.hasNext()) {
-            JsonObject ckJson = (JsonObject) new JsonParser().parse((cursor.next().toString()));
+            JsonObject ckJson = (JsonObject) JsonParser.parseString((cursor.next().toString()));
             CacheKey ck = CacheKey.fromJson(ckJson);
             cks.add(ck);
         }
@@ -526,31 +532,29 @@ public class CacheHelperService {
                 boolean shouldTrigger = isShouldTrigger(ck);
 
                 if (shouldTrigger) {
-                    Callable<Void> task = new Callable<Void>() {
-                        @Override
-                        public Void call() throws Exception {
-                            long startTimeV = System.currentTimeMillis();
-                            ResponseEntity respEntity = rchs.triggerRestCall(ck);
-                            if (respEntity.getStatusCode().is2xxSuccessful()) {
-                                populateCache(ck, (String) respEntity.getBody());
-                                long endTimeV = System.currentTimeMillis();
-                                EELF_LOGGER.info("Elapsed time in seconds: " + (endTimeV - startTimeV) / 1000);
-                            } else {
-                                // TODO: cache update failed
-                            }
-                            return null;
+                    Callable<Void> task = () -> {
+                        long startTimeV = System.currentTimeMillis();
+                        ResponseEntity respEntity = rchs.triggerRestCall(ck);
+                        if (respEntity.getStatusCode().is2xxSuccessful()) {
+                            populateCache(ck, (String) respEntity.getBody());
+                            long endTimeV = System.currentTimeMillis();
+                            EELF_LOGGER.info("Elapsed time in seconds: " + (endTimeV - startTimeV) / 1000);
+                        } else {
+                            // TODO: cache update failed
                         }
+                        return null;
                     };
-                    if (task != null) {
-                        tasks.add(task);
-                    }
+                    tasks.add(task);
                 }
             }
             if (!tasks.isEmpty()) {
                 taskExecutor.invokeAll(tasks);
             }
+        } catch (InterruptedException e) {
+            ErrorLogHelper.logException(new AAIException(MongoHelperSingleton.AAI_4000_LBL, e));
+            Thread.currentThread().interrupt();
         } catch (Exception e) {
-            e.printStackTrace();
+            ErrorLogHelper.logException(new AAIException(MongoHelperSingleton.AAI_4000_LBL, e));
             // TODO throw exception
         } finally {
             taskExecutor.shutdown();
@@ -561,7 +565,7 @@ public class CacheHelperService {
 
         // convert minutes to milliseconds for the interval
         int interval = Integer.parseInt(ck.getSyncInterval()) * 60000;
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-ddHH:mm:ss.SSSZ");
+        SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT);
         long syncStartTimeInMillis = Integer.MAX_VALUE;
         long syncLastEndInMillis = Integer.MIN_VALUE;
 
@@ -571,7 +575,7 @@ public class CacheHelperService {
             try {
                 syncStartTimeInMillis = sdf.parse(ck.getLastSyncStartTime()).getTime();
             } catch (Exception e) {
-                e.printStackTrace();
+                ErrorLogHelper.logException(new AAIException(MongoHelperSingleton.AAI_4000_LBL, e));
                 // TODO handle exceptions
             }
         }
@@ -580,7 +584,7 @@ public class CacheHelperService {
             try {
                 syncLastEndInMillis = sdf.parse(ck.getLastSyncEndTime()).getTime();
             } catch (Exception e) {
-                e.printStackTrace();
+                ErrorLogHelper.logException(new AAIException(MongoHelperSingleton.AAI_4000_LBL, e));
                 // TODO handle exceptions
             }
         }

@@ -39,7 +39,7 @@ import java.util.List;
 @Path("/cacheKey/v1")
 @Produces({ MediaType.APPLICATION_JSON })
 public class CacheKeyService {
-    private final static EELFLogger EELF_LOGGER = EELFManager.getInstance().getLogger(CacheKeyService.class);
+    private static final EELFLogger EELF_LOGGER = EELFManager.getInstance().getLogger(CacheKeyService.class);
 
     @Autowired
     protected CacheHelperService chs;
@@ -169,8 +169,7 @@ public class CacheKeyService {
      * @param payload, the string payload to convert to a JsonObject
      */
     public JsonObject convertStringToJSON(String payload) {
-        JsonParser parser = new JsonParser();
-        return (JsonObject) parser.parse(payload);
+        return (JsonObject) JsonParser.parseString(payload);
     }
 
     /**

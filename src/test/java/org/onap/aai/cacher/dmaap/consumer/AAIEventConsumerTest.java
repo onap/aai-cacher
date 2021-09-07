@@ -135,22 +135,22 @@ public class AAIEventConsumerTest  {
 		mongoDb.listCollections().iterator().forEachRemaining(document -> collectionNames.add(document.getString("name")));
 		collectionNames.forEach(collectionName -> mongoDb.getCollection(collectionName).drop());
 	}
-    
-    @Test
+
+	@Test(expected = Test.None.class /* no exception expected */)
     public void startProcessing() throws IOException, Exception {
     	Mockito.when(client.fetch()).thenReturn(eventMessageList);
     	aaiEventConsumer.startProcessing(aaiDmaapEventProcessor);
     }
-    
-    @Test
+
+	@Test(expected = Test.None.class /* no exception expected */)
     public void startProcessingWaitWithHeldEventMessage() throws IOException, Exception {
     	singleton.setIsInitialized(true);
     	singleton.setFirstEventMessage(validHeldEventMessage);
     	Mockito.when(client.fetch()).thenReturn(eventMessageList);
     	aaiEventConsumer.startProcessing(aaiDmaapEventProcessor);
     }
-    
-    @Test
+
+	@Test(expected = Test.None.class /* no exception expected */)
     public void startProcessingNoWaitWithHeldEventMessage() throws IOException, Exception {
     	singleton.setProcessEvents(true);
     	singleton.setFirstEventMessage(validHeldEventMessage);

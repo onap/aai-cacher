@@ -73,8 +73,6 @@ public class AAIDmaapEventProcessorScenariosTest {
 	private static MongodProcess mongod;
 	private static MongoClient mongoC;
 
-	private JsonParser parser = new JsonParser();
-
 	@Autowired
 	private AAIDmaapEventProcessor aaiDmaapEventProcessor;
 	@Autowired PayloadPrinterService payloadPrinterService;
@@ -131,8 +129,8 @@ public class AAIDmaapEventProcessorScenariosTest {
 		String pserverCreate = "{'cambria.partition':'AAI','event-header':{'severity':'NORMAL','entity-type':'pserver','top-entity-type':'pserver','entity-link':'/aai/v14/cloud-infrastructure/pservers/pserver/pserver-1','event-type':'AAI-EVENT','domain':'JUNIT','action':'CREATE','sequence-number':'0','id':'0c3b336d-6554-4ddf-a4d7-90f97876a966','source-name':'JUNIT','version':'v14','timestamp':'20180209-21:02:20:344'},'entity':{'hostname':'pserver-1','in-maint':false}}";
 
 		aaiDmaapEventProcessor.process(pserverCreate);
-		assertNotEquals("pserver collection exists", mongoDatabase().getCollection("pserver"), null);
-		assertEquals("pserver collection contains 1", mongoDatabase().getCollection("pserver").count(), 1);
+		assertNotEquals("pserver collection exists", null, mongoDatabase().getCollection("pserver"));
+		assertEquals("pserver collection contains 1", 1, mongoDatabase().getCollection("pserver").countDocuments());
 		assertTrue("pserver collection contains the pserver in the event",
 				mongoDatabase().getCollection("pserver")
 						.find(Document.parse("{" +
@@ -215,12 +213,12 @@ public class AAIDmaapEventProcessorScenariosTest {
 	@Test
 	public void createPserverCreateCRWithNestingAndRelsToUpdateRemovingARelTest() throws Exception {
 
-		JsonObject payloads = parser.parse(getEventPayload("createPserverCreateCRWithNestingAndRelsToUpdateRemovingARelTest")).getAsJsonObject();
+		JsonObject payloads = JsonParser.parseString(getEventPayload("createPserverCreateCRWithNestingAndRelsToUpdateRemovingARelTest")).getAsJsonObject();
 		String pserverCreate = payloads.get("pserverCreate").toString();
 
 		aaiDmaapEventProcessor.process(pserverCreate);
-		assertNotEquals("pserver collection exists", mongoDatabase().getCollection("pserver"), null);
-		assertEquals("pserver collection contains 1", mongoDatabase().getCollection("pserver").count(), 1);
+		assertNotEquals("pserver collection exists", null, mongoDatabase().getCollection("pserver"));
+		assertEquals("pserver collection contains 1", 1, mongoDatabase().getCollection("pserver").countDocuments());
 		assertTrue("pserver collection contains the pserver in the event",
 				mongoDatabase().getCollection("pserver")
 						.find(Document.parse("{" +
@@ -296,8 +294,8 @@ public class AAIDmaapEventProcessorScenariosTest {
 		String pserverCreate = "{'cambria.partition':'AAI','event-header':{'severity':'NORMAL','entity-type':'pserver','top-entity-type':'pserver','entity-link':'/aai/v14/cloud-infrastructure/pservers/pserver/pserver-1','event-type':'AAI-EVENT','domain':'JUNIT','action':'CREATE','sequence-number':'0','id':'0c3b336d-6554-4ddf-a4d7-90f97876a966','source-name':'JUNIT','version':'v14','timestamp':'20180209-21:02:20:344'},'entity':{'hostname':'pserver-1','in-maint':false}}";
 
 		aaiDmaapEventProcessor.process(pserverCreate);
-		assertNotEquals("pserver collection exists", mongoDatabase().getCollection("pserver"), null);
-		assertEquals("pserver collection contains 1", mongoDatabase().getCollection("pserver").count(), 1);
+		assertNotEquals("pserver collection exists", null, mongoDatabase().getCollection("pserver"));
+		assertEquals("pserver collection contains 1", 1, mongoDatabase().getCollection("pserver").countDocuments());
 		assertTrue("pserver collection contains the pserver in the event",
 				mongoDatabase().getCollection("pserver")
 						.find(Document.parse("{" +
@@ -348,8 +346,8 @@ public class AAIDmaapEventProcessorScenariosTest {
 		String pserverDelete = "{'cambria.partition':'AAI','event-header':{'severity':'NORMAL','entity-type':'pserver','top-entity-type':'pserver','entity-link':'/aai/v14/cloud-infrastructure/pservers/pserver/pserver-1','event-type':'AAI-EVENT','domain':'JUNIT','action':'DELETE','sequence-number':'0','id':'0c3b336d-6554-4ddf-a4d7-90f97876a966','source-name':'JUNIT','version':'v14','timestamp':'20180209-21:02:20:344'},'entity':{'hostname':'pserver-1','in-maint':false,'relationship-list':{'relationship':[{'related-to':'vserver','relationship-label':'tosca.relationships.HostedOn','related-link':'/aai/v14/cloud-infrastructure/cloud-regions/cloud-region/onap-cloud-owner/mtn6/tenants/tenant/tenenat-1/vservers/vserver/vserver-1','relationship-data':[{'relationship-key':'cloud-region.cloud-owner','relationship-value':'onap-cloud-owner'},{'relationship-key':'cloud-region.cloud-region-id','relationship-value':'mtn6'},{'relationship-key':'tenant.tenant-id','relationship-value':'tenenat-1'},{'relationship-key':'vserver.vserver-id','relationship-value':'vserver-1'}]},{'related-to':'l-interface','relationship-label':'tosca.relationships.HostedOn','related-link':'/aai/v14/cloud-infrastructure/cloud-regions/cloud-region/onap-cloud-owner/mtn6/tenants/tenant/tenenat-1/vservers/vserver/vserver-1/l-interfaces/l-interface/l-int-1','relationship-data':[{'relationship-key':'cloud-region.cloud-owner','relationship-value':'onap-cloud-owner'},{'relationship-key':'cloud-region.cloud-region-id','relationship-value':'mtn6'},{'relationship-key':'tenant.tenant-id','relationship-value':'tenenat-1'},{'relationship-key':'vserver.vserver-id','relationship-value':'vserver-1'},{'relationship-key':'l-interface.interface-name','relationship-value':'l-int-1'}]}]}}}";
 
 		aaiDmaapEventProcessor.process(pserverDelete);
-		assertNotEquals("pserver collection exists", mongoDatabase().getCollection("pserver"), null);
-		assertEquals("pserver collection contains 1", mongoDatabase().getCollection("pserver").count(), 0);
+		assertNotEquals("pserver collection exists", null, mongoDatabase().getCollection("pserver"));
+		assertEquals("pserver collection contains 0", 0, mongoDatabase().getCollection("pserver").countDocuments());
 
 		assertFalse("Now cloud-region->tenant->vserver should not have relationship to pserver",
 				mongoDatabase().getCollection("cloud-region")
@@ -391,7 +389,7 @@ public class AAIDmaapEventProcessorScenariosTest {
 	@Test
 	public void createGenericVnfWithChildrenUpdateGenericVnfProperty() throws Exception {
 
-		JsonObject testPayloads = parser.parse(getEventPayload("create-generic-vnf-with-children-update-generic-vnf-property")).getAsJsonObject();
+		JsonObject testPayloads = JsonParser.parseString(getEventPayload("create-generic-vnf-with-children-update-generic-vnf-property")).getAsJsonObject();
 
 		String createGvnfMsg = testPayloads.get("create-generic-vnf").getAsJsonObject().toString();
 		aaiDmaapEventProcessor.process(createGvnfMsg);
@@ -475,8 +473,8 @@ public class AAIDmaapEventProcessorScenariosTest {
 
 	        String event = getEventPayload("cvlan-tag");
 	        aaiDmaapEventProcessor.process(event);
-	        assertNotEquals("customer collection exists", mongoDatabase().getCollection("customer"), null);
-	        assertEquals("customer collection contains 1", mongoDatabase().getCollection("customer").count(), 1);
+	        assertNotEquals("customer collection exists", null, mongoDatabase().getCollection("customer"));
+	        assertEquals("customer collection contains 1", 1, mongoDatabase().getCollection("customer").countDocuments());
 	    }
 
 	   @Test
@@ -580,7 +578,7 @@ public class AAIDmaapEventProcessorScenariosTest {
 		String type = "pserver";
 		String topUri = "/cloud-infrastructure/pservers/pserver/pserver-1";
 
-		JsonObject testPayloads = parser.parse(getEventPayload("createPserverWithNestedDeleteNested")).getAsJsonObject();
+		JsonObject testPayloads = JsonParser.parseString(getEventPayload("createPserverWithNestedDeleteNested")).getAsJsonObject();
 		String createPserver = testPayloads.get("createPserverWithNested").toString();
 
 		aaiDmaapEventProcessor.process(createPserver);
@@ -628,7 +626,7 @@ public class AAIDmaapEventProcessorScenariosTest {
 		String type = "pserver";
 		String topUri = "/cloud-infrastructure/pservers/pserver/pserver-1";
 
-		JsonObject testPayloads = parser.parse(getEventPayload("createPserverWithoutNestedAddNested")).getAsJsonObject();
+		JsonObject testPayloads = JsonParser.parseString(getEventPayload("createPserverWithoutNestedAddNested")).getAsJsonObject();
 		String createPserver = testPayloads.get("createPserverWithoutNested").toString();
 
 		aaiDmaapEventProcessor.process(createPserver);
@@ -703,7 +701,7 @@ public class AAIDmaapEventProcessorScenariosTest {
 		String payload = getPayload("test/payloads/json/test-empty.json");
 		System.out.println(payload);
 
-		JsonObject jsonObject = parser.parse(payload).getAsJsonObject();
+		JsonObject jsonObject = JsonParser.parseString(payload).getAsJsonObject();
 		System.out.println(jsonObject.toString());
 
 		JsonArray jsonArray = new JsonArray();

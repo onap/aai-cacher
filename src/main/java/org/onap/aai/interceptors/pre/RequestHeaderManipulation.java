@@ -19,21 +19,14 @@
  */
 package org.onap.aai.interceptors.pre;
 
-import java.io.IOException;
 import java.util.Collections;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import javax.annotation.Priority;
-import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerRequestFilter;
 import javax.ws.rs.container.PreMatching;
 import javax.ws.rs.core.MultivaluedMap;
-
 import org.onap.aai.interceptors.AAIContainerFilter;
 import org.onap.aai.interceptors.AAIHeaderProperties;
-import org.springframework.beans.factory.annotation.Autowired;
 
 @PreMatching
 @Priority(AAIRequestFilterPriority.HEADER_MANIPULATION)
@@ -41,19 +34,13 @@ public class RequestHeaderManipulation extends AAIContainerFilter implements Con
 
 	@Override
 	public void filter(ContainerRequestContext requestContext) {
-
-		String uri = requestContext.getUriInfo().getPath();
-		this.addRequestContext(uri, requestContext.getHeaders());
-
+		this.addRequestContext(requestContext.getHeaders());
 	}
 	
-	private void addRequestContext(String uri, MultivaluedMap<String, String> requestHeaders) {
+	private void addRequestContext(MultivaluedMap<String, String> requestHeaders) {
 
 		String rc = "";
-
-		if (requestHeaders.containsKey(AAIHeaderProperties.REQUEST_CONTEXT)) {
-			requestHeaders.remove(AAIHeaderProperties.REQUEST_CONTEXT);
-		}
+		requestHeaders.remove(AAIHeaderProperties.REQUEST_CONTEXT);
 		requestHeaders.put(AAIHeaderProperties.REQUEST_CONTEXT, Collections.singletonList(rc));
 	}
 

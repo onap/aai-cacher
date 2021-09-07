@@ -66,16 +66,14 @@ public class CacheKeyRequestValidation {
             return results;
         }
 
-        Boolean keyExists = chs.isKeyPresent(cacheKey, AAIConstants.COLLECTION_CACHEKEY);
+        boolean keyExists = chs.isKeyPresent(cacheKey, AAIConstants.COLLECTION_CACHEKEY);
         if (type.equals(CacheKeyRequestValidationType.ADD)) {
             if (keyExists) {
                 results.add("Invalid request to add cacheKey " + cacheKey.getCacheKey() + ", cacheKey exists.");
             }
-        } else if (type.equals(CacheKeyRequestValidationType.UPDATE)) {
-            if (!keyExists) {
-                results.add(
-                        "Invalid request to update cacheKey " + cacheKey.getCacheKey() + ", cacheKey does not exist.");
-            }
+        } else if (type.equals(CacheKeyRequestValidationType.UPDATE) && !keyExists) {
+            results.add(
+                    "Invalid request to update cacheKey " + cacheKey.getCacheKey() + ", cacheKey does not exist.");
         }
         return results;
     }

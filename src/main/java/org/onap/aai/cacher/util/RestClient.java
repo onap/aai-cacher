@@ -19,10 +19,13 @@
  */
 package org.onap.aai.cacher.util;
 
+import java.nio.charset.StandardCharsets;
 import org.apache.commons.net.util.Base64;
 import org.apache.http.client.HttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.ssl.SSLContextBuilder;
+import org.onap.aai.exceptions.AAIException;
+import org.onap.aai.logging.ErrorLogHelper;
 import org.onap.aai.util.AAIConfig;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
@@ -38,20 +41,19 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.charset.Charset;
 import java.security.KeyStore;
 import java.util.Collections;
 
 public class RestClient {
 
-    private HttpClient restClient = null;
+    private HttpClient clientSingleton = null;
 
     public RestClient() {
-        this.restClient = initClient();
+        this.clientSingleton = initClient();
     }
 
     public HttpClient getRestClient() {
-        return restClient;
+        return clientSingleton;
     }
 
     /**
@@ -61,15 +63,15 @@ public class RestClient {
     private HttpClient initClient() {
         HttpClient rc;
         try {
-            String truststore_path = AAIConstants.AAI_HOME_ETC_AUTH
+            String truststorePath = AAIConstants.AAI_HOME_ETC_AUTH
                     + AAIConfig.get(AAIConstants.AAI_TRUSTSTORE_FILENAME);
-            String truststore_password = AAIConfig.get(AAIConstants.AAI_TRUSTSTORE_PASSWD);
-            String keystore_path = AAIConstants.AAI_HOME_ETC_AUTH + AAIConfig.get(AAIConstants.AAI_KEYSTORE_FILENAME);
-            String keystore_password = AAIConfig.get(AAIConstants.AAI_KEYSTORE_PASSWD);
+            String truststorePassword = AAIConfig.get(AAIConstants.AAI_TRUSTSTORE_PASSWD);
+            String keystorePath = AAIConstants.AAI_HOME_ETC_AUTH + AAIConfig.get(AAIConstants.AAI_KEYSTORE_FILENAME);
+            String keystorePassword = AAIConfig.get(AAIConstants.AAI_KEYSTORE_PASSWD);
             SSLContext sslContext = SSLContextBuilder.create()
-                    .loadKeyMaterial(loadPfx(keystore_path, keystore_password.toCharArray()),
-                            keystore_password.toCharArray())
-                    .loadTrustMaterial(ResourceUtils.getFile(truststore_path), truststore_password.toCharArray())
+                    .loadKeyMaterial(loadPfx(keystorePath, keystorePassword.toCharArray()),
+                            keystorePassword.toCharArray())
+                    .loadTrustMaterial(ResourceUtils.getFile(truststorePath), truststorePassword.toCharArray())
                     .build();
 
             rc = HttpClients.custom().setSSLContext(sslContext).setSSLHostnameVerifier((s, sslSession) -> true).build();
@@ -106,18 +108,14 @@ public class RestClient {
             headers.add("X-FromAppId", "AAI-CACHER");
             headers.add("X-TransactionId", "JUNIT");
             String auth = getAuth(baseUrl);
-            String urlUpdate;
             if ( auth != null ) {
-                byte[] encodedAuth = Base64.encodeBase64(auth.getBytes(Charset.forName("US-ASCII")));
+                byte[] encodedAuth = Base64.encodeBase64(auth.getBytes(StandardCharsets.US_ASCII));
                 headers.add("Authorization", "Basic " + new String(encodedAuth));
-                urlUpdate = baseUrl.replaceAll(auth + "@", "");
-            } else {
-                urlUpdate = baseUrl;
             }
-            HttpEntity httpEntity = new HttpEntity(headers);
+            HttpEntity<Object> httpEntity = new HttpEntity<>(headers);
             responseEntity = restTemplate.exchange(baseUrl + endpoint, HttpMethod.GET, httpEntity, String.class);
         } catch (Exception e) {
-            e.printStackTrace();
+            ErrorLogHelper.logException(new AAIException("AAI_4000", e));
             // TODO handle exceptions
         }
         return responseEntity;
@@ -125,7 +123,8 @@ public class RestClient {
 
     @Bean
     RestTemplate restTemplate(RestTemplateBuilder builder) throws Exception {
-        RestTemplate restTemplate = builder.requestFactory(() -> new HttpComponentsClientHttpRequestFactory(restClient))
+        RestTemplate restTemplate = builder.requestFactory(() -> new HttpComponentsClientHttpRequestFactory(
+                clientSingleton))
                 .build();
 
         restTemplate.setErrorHandler(new ResponseErrorHandler() {

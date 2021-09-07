@@ -106,7 +106,7 @@ public class AAIResourcesUriTemplatesTest {
 				"/service-design-and-creation/services/service/{service-id}",
 				aaiResourcesUriTemplates.getUriTemplateByType("service"));
 
-		assertFalse(aaiResourcesUriTemplates.getUriTemplateByType("does not exist") != null);
+		assertNull(aaiResourcesUriTemplates.getUriTemplateByType("does not exist"));
 
 	}
 

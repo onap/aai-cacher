@@ -64,7 +64,6 @@ public class MongoHelperSingletonNoFakeTest {
 	private static MongoClient mongoC;
 
 	private MongoHelperSingleton mongoHelperSingleton;
-	private JsonParser parser = new JsonParser();
 
 
 	@BeforeClass
@@ -175,7 +174,7 @@ public class MongoHelperSingletonNoFakeTest {
 		CacheEntry ce = CacheEntry.CacheEntryBuilder.createCacheEntry()
 				.inCollection(collectionName)
 				.isNested(true)
-				.withNestedFind(parser.parse(nestedFindString).getAsJsonObject()).build();
+				.withNestedFind(JsonParser.parseString(nestedFindString).getAsJsonObject()).build();
 
 		Optional<Document> nested = mongoHelperSingleton.getObject(ce);
 
@@ -205,7 +204,7 @@ public class MongoHelperSingletonNoFakeTest {
 		CacheEntry ce = CacheEntry.CacheEntryBuilder.createCacheEntry()
 				.inCollection(collectionName)
 				.isNested(true)
-				.withNestedFind(parser.parse(nestedFindString).getAsJsonObject()).build();
+				.withNestedFind(JsonParser.parseString(nestedFindString).getAsJsonObject()).build();
 
 		Optional<Document> nested = mongoHelperSingleton.getObject(ce);
 
@@ -231,8 +230,8 @@ public class MongoHelperSingletonNoFakeTest {
 				.withDbAction(DBAction.INSERT_REPLACE)
 				.isNested(false)
 				.withId("/cloud-infrastructure/pservers/pserver/testPserver_3")
-				.withFindQuery(parser.parse("{'_id':'/cloud-infrastructure/pservers/pserver/testPserver_3'}").getAsJsonObject())
-				.withPayload(parser.parse("{'hostname':'testPserver_1'}").getAsJsonObject())
+				.withFindQuery(JsonParser.parseString("{'_id':'/cloud-infrastructure/pservers/pserver/testPserver_3'}").getAsJsonObject())
+				.withPayload(JsonParser.parseString("{'hostname':'testPserver_1'}").getAsJsonObject())
 				.build();
 
 		assertTrue(mongoHelperSingleton.insertReplace(cacheEntry));
@@ -258,11 +257,11 @@ public class MongoHelperSingletonNoFakeTest {
 				.withDbAction(DBAction.INSERT_REPLACE)
 				.isNested(true)
 				.withId("/cloud-infrastructure/pservers/pserver/testPserver_1")
-				.withFindQuery(parser.parse("{'_id':'/cloud-infrastructure/pservers/pserver/testPserver_1'}").getAsJsonObject())
-				.withPayload(parser.parse("{'interface-name':'interface-NEW'}").getAsJsonObject())
+				.withFindQuery(JsonParser.parseString("{'_id':'/cloud-infrastructure/pservers/pserver/testPserver_1'}").getAsJsonObject())
+				.withPayload(JsonParser.parseString("{'interface-name':'interface-NEW'}").getAsJsonObject())
 				.withNestedField("p-interfaces.p-interface")
-				.withNestedFind(parser.parse(nestedFindString).getAsJsonObject())
-				.withNestedFieldIdentifierObj(parser.parse("{'interface-name':'interface-NEW'}").getAsJsonObject())
+				.withNestedFind(JsonParser.parseString(nestedFindString).getAsJsonObject())
+				.withNestedFieldIdentifierObj(JsonParser.parseString("{'interface-name':'interface-NEW'}").getAsJsonObject())
 				.build();
 
 		assertTrue(mongoHelperSingleton.insertReplace(cacheEntry));
@@ -289,12 +288,12 @@ public class MongoHelperSingletonNoFakeTest {
 				.withDbAction(DBAction.INSERT_REPLACE)
 				.isNested(true)
 				.withId("/cloud-infrastructure/pservers/pserver/testPserver_1")
-				.withFindQuery(parser.parse("{'_id':'/cloud-infrastructure/pservers/pserver/testPserver_1'," +
+				.withFindQuery(JsonParser.parseString("{'_id':'/cloud-infrastructure/pservers/pserver/testPserver_1'," +
 						"'p-interfaces.p-interface.interface-name':'interface-1'}").getAsJsonObject())
-				.withPayload(parser.parse("{'interface-name':'l-interface-NEW','new-field':'NEW'}").getAsJsonObject())
+				.withPayload(JsonParser.parseString("{'interface-name':'l-interface-NEW','new-field':'NEW'}").getAsJsonObject())
 				.withNestedField("p-interfaces.p-interface.$.l-interfaces.l-interface")
-				.withNestedFind(parser.parse(nestedFindString).getAsJsonObject())
-				.withNestedFieldIdentifierObj(parser.parse("{'interface-name':'l-interface-NEW'}").getAsJsonObject())
+				.withNestedFind(JsonParser.parseString(nestedFindString).getAsJsonObject())
+				.withNestedFieldIdentifierObj(JsonParser.parseString("{'interface-name':'l-interface-NEW'}").getAsJsonObject())
 				.build();
 
 		assertTrue(mongoHelperSingleton.insertReplace(cacheEntry));
@@ -322,13 +321,13 @@ public class MongoHelperSingletonNoFakeTest {
 				.withDbAction(DBAction.INSERT_REPLACE)
 				.isNested(true)
 				.withId("/cloud-infrastructure/pservers/pserver/testPserver_1")
-				.withFindQuery(parser.parse("{'_id':'/cloud-infrastructure/pservers/pserver/testPserver_1'," +
+				.withFindQuery(JsonParser.parseString("{'_id':'/cloud-infrastructure/pservers/pserver/testPserver_1'," +
 						"'p-interfaces.p-interface.interface-name':'interface-1'," +
 						"'p-interfaces.p-interface.l-interfaces.l-interface.interface-name':'l-interface-1'}").getAsJsonObject())
-				.withPayload(parser.parse("{'vlan-interface':'vlan-NEW','new-field':'NEW4'}").getAsJsonObject())
+				.withPayload(JsonParser.parseString("{'vlan-interface':'vlan-NEW','new-field':'NEW4'}").getAsJsonObject())
 				.withNestedField("p-interfaces.p-interface.$.l-interfaces.l-interface.$.vlans.vlan")
-				.withNestedFind(parser.parse(nestedFindString).getAsJsonObject())
-				.withNestedFieldIdentifierObj(parser.parse("{'vlan-interface':'vlan-NEW'}").getAsJsonObject())
+				.withNestedFind(JsonParser.parseString(nestedFindString).getAsJsonObject())
+				.withNestedFieldIdentifierObj(JsonParser.parseString("{'vlan-interface':'vlan-NEW'}").getAsJsonObject())
 				.build();
 		assertTrue(mongoHelperSingleton.insertReplace(cacheEntry));
 		assertEquals("Post " + collectionName + " test: collection contains 1 document with new nested", 1L, collection.count(nestedFind));
@@ -359,11 +358,11 @@ public class MongoHelperSingletonNoFakeTest {
 				.withDbAction(DBAction.INSERT_REPLACE)
 				.isNested(true)
 				.withId("/cloud-infrastructure/pservers/pserver/testPserver_1")
-				.withFindQuery(parser.parse("{'_id':'/cloud-infrastructure/pservers/pserver/testPserver_1'}").getAsJsonObject())
-				.withPayload(parser.parse("{'interface-name':'interface-1','new-field':'NEW'}").getAsJsonObject())
+				.withFindQuery(JsonParser.parseString("{'_id':'/cloud-infrastructure/pservers/pserver/testPserver_1'}").getAsJsonObject())
+				.withPayload(JsonParser.parseString("{'interface-name':'interface-1','new-field':'NEW'}").getAsJsonObject())
 				.withNestedField("p-interfaces.p-interface")
-				.withNestedFind(parser.parse(nestedFindString).getAsJsonObject())
-				.withNestedFieldIdentifierObj(parser.parse("{'interface-name':'interface-1'}").getAsJsonObject())
+				.withNestedFind(JsonParser.parseString(nestedFindString).getAsJsonObject())
+				.withNestedFieldIdentifierObj(JsonParser.parseString("{'interface-name':'interface-1'}").getAsJsonObject())
 				.build();
 
 		assertEquals("Pre " + collectionName + " test: collection contains 1 document with new nested", 1L, collection.count(nestedFind));
@@ -388,8 +387,8 @@ public class MongoHelperSingletonNoFakeTest {
 				.withDbAction(DBAction.INSERT_REPLACE)
 				.isNested(false)
 				.withId("/cloud-infrastructure/pservers/pserver/testPserver_2")
-				.withFindQuery(parser.parse("{'_id':'/cloud-infrastructure/pservers/pserver/testPserver_2'}").getAsJsonObject())
-				.withPayload(parser.parse("{'hostname':'testPserver_2','new-property':'NEW'}").getAsJsonObject())
+				.withFindQuery(JsonParser.parseString("{'_id':'/cloud-infrastructure/pservers/pserver/testPserver_2'}").getAsJsonObject())
+				.withPayload(JsonParser.parseString("{'hostname':'testPserver_2','new-property':'NEW'}").getAsJsonObject())
 				.build();
 
 		assertTrue(mongoHelperSingleton.insertReplace(cacheEntry));
@@ -415,7 +414,7 @@ public class MongoHelperSingletonNoFakeTest {
 				.withDbAction(DBAction.DELETE)
 				.isNested(false)
 				.withId("/cloud-infrastructure/pservers/pserver/testPserver_2")
-				.withFindQuery(parser.parse("{'_id':'/cloud-infrastructure/pservers/pserver/testPserver_2'}").getAsJsonObject())
+				.withFindQuery(JsonParser.parseString("{'_id':'/cloud-infrastructure/pservers/pserver/testPserver_2'}").getAsJsonObject())
 				.build();
 
 		assertTrue(mongoHelperSingleton.delete(cacheEntry));
@@ -445,10 +444,10 @@ public class MongoHelperSingletonNoFakeTest {
 				.withDbAction(DBAction.DELETE)
 				.isNested(true)
 				.withId("/cloud-infrastructure/pservers/pserver/testPserver_2")
-				.withFindQuery(parser.parse("{'_id':'/cloud-infrastructure/pservers/pserver/testPserver_2'}").getAsJsonObject())
+				.withFindQuery(JsonParser.parseString("{'_id':'/cloud-infrastructure/pservers/pserver/testPserver_2'}").getAsJsonObject())
 				.withNestedField("p-interfaces.p-interface")
-				.withNestedFind(parser.parse(nestedFindString).getAsJsonObject())
-				.withNestedFieldIdentifierObj(parser.parse("{'interface-name':'interface-1'}").getAsJsonObject())
+				.withNestedFind(JsonParser.parseString(nestedFindString).getAsJsonObject())
+				.withNestedFieldIdentifierObj(JsonParser.parseString("{'interface-name':'interface-1'}").getAsJsonObject())
 				.build();
 
 		assertTrue(mongoHelperSingleton.delete(cacheEntry));
@@ -481,11 +480,11 @@ public class MongoHelperSingletonNoFakeTest {
 				.withDbAction(DBAction.DELETE)
 				.isNested(true)
 				.withId("/cloud-infrastructure/pservers/pserver/testPserver_2")
-				.withFindQuery(parser.parse("{'_id':'/cloud-infrastructure/pservers/pserver/testPserver_2'," +
+				.withFindQuery(JsonParser.parseString("{'_id':'/cloud-infrastructure/pservers/pserver/testPserver_2'," +
 						"'p-interfaces.p-interface.interface-name':'interface-1'}").getAsJsonObject())
 				.withNestedField("p-interfaces.p-interface.$.l-interfaces.l-interface")
-				.withNestedFind(parser.parse(nestedFindString).getAsJsonObject())
-				.withNestedFieldIdentifierObj(parser.parse("{'interface-name':'l-interface-1'}").getAsJsonObject())
+				.withNestedFind(JsonParser.parseString(nestedFindString).getAsJsonObject())
+				.withNestedFieldIdentifierObj(JsonParser.parseString("{'interface-name':'l-interface-1'}").getAsJsonObject())
 				.build();
 
 		assertTrue(mongoHelperSingleton.delete(cacheEntry));

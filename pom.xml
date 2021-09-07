@@ -37,14 +37,14 @@
 	<properties>
 		<icd.file>service.json</icd.file>
 		<icd.package>org.onap.aai.cacher.service.rest</icd.package>
-        <!-- Start of Compiler Related Properties -->
+		<!-- Start of Compiler Related Properties -->
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <!-- End of Compiler Related Properties -->
+		<!-- End of Compiler Related Properties -->
 
-        <!-- Start of Test Related Properties -->
+		<!-- Start of Test Related Properties -->
 		<skip.unit.tests>false</skip.unit.tests>
 		<skip.integration.tests>true</skip.integration.tests>
-        <!-- End of Test Related Properties -->
+		<!-- End of Test Related Properties -->
 
 		<eclipse.jetty.version>9.4.1.v20170120</eclipse.jetty.version>
 
@@ -52,7 +52,7 @@
 		<service.account>aai-svc-account</service.account>
 		<docker.namespace>openecomp</docker.namespace>
 
-        <!--
+		<!--
             Nexus Proxy Properties and Snapshot Locations
             Ideally this can be overwritten at runtime per internal environment specific values at runtime
         -->
@@ -91,12 +91,15 @@
              Location where assembly of our scripts, resources and main jar will be held
              Check the aai-cacher/src/main/assembly/descriptor.xml for more info
         -->
-		<aai.build.directory>${project.build.directory}/${project.artifactId}-${project.version}-build/</aai.build.directory>
+		<aai.build.directory>${project.build.directory}/${project.artifactId}-${project.version}-build/
+		</aai.build.directory>
 		<aai.docker.namespace>openecomp</aai.docker.namespace>
 
 		<maven.skip.tests>true</maven.skip.tests>
 
 		<jacoco.line.coverage.limit>.001</jacoco.line.coverage.limit>
+		<maven.compiler.source>11</maven.compiler.source>
+		<maven.compiler.target>11</maven.compiler.target>
 	</properties>
 
 	<developers>
@@ -563,7 +566,6 @@
 						</goals>
 						<configuration>
 							<destFile>${project.build.directory}/coverage-reports/jacoco.exec</destFile>
-                            <!-- <append>true</append> -->
 						</configuration>
 					</execution>
 					<execution>

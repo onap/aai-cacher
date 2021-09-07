@@ -24,11 +24,11 @@ import com.att.eelf.configuration.EELFManager;
 
 public class AAIEventConsumer extends AAIParentEventConsumer {
 
-    private static EELFLogger LOGGER = EELFManager.getInstance().getLogger(AAIEventConsumer.class);
+    private static final EELFLogger EELF_LOGGER = EELFManager.getInstance().getLogger(AAIEventConsumer.class);
 
     public AAIEventConsumer(String consumerPropFile, boolean injestConsumer) throws Exception {
         super(consumerPropFile, injestConsumer);
-        LOGGER.debug("Initialization completed.");
+        EELF_LOGGER.debug("Initialization completed.");
     }
 
 }

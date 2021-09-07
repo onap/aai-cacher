@@ -57,8 +57,7 @@ public class PayloadParserService {
     }
 
     public List<CacheEntry> doParse(String cacheKey, String jo, PayloadParserType payloadParserType) {
-        JsonParser jsonParser = new JsonParser();
-        return doParse(cacheKey, jsonParser.parse(jo).getAsJsonObject(), payloadParserType);
+        return doParse(cacheKey, JsonParser.parseString(jo).getAsJsonObject(), payloadParserType);
     }
 
     public List<CacheEntry> doParse(String cacheKey, String jo, String payloadParserTypeStr) {

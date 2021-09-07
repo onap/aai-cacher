@@ -38,41 +38,41 @@ import javax.xml.bind.annotation.XmlRootElement;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
 import java.util.*;
 
 @Component
 @Scope(scopeName = ConfigurableBeanFactory.SCOPE_SINGLETON)
 public class AAIResourcesUriTemplates {
 
-    private static final EELFLogger LOGGER = EELFManager.getInstance().getLogger(AAIResourcesUriTemplates.class);
+    private static final EELFLogger EELF_LOGGER = EELFManager.getInstance().getLogger(AAIResourcesUriTemplates.class);
 
     private final Map<String, String> typeToUriTemplate;
 
     public AAIResourcesUriTemplates() throws IOException {
-        InputStream inputStream = new FileInputStream(AAIConstants.AAI_RESOURCES_URI_TEMPLATES);
-        Properties prop = new Properties();
-        prop.load(inputStream);
+        try (InputStream inputStream = new FileInputStream(AAIConstants.AAI_RESOURCES_URI_TEMPLATES)) {
+            Properties prop = new Properties();
+            prop.load(inputStream);
 
-        typeToUriTemplate = new HashMap<>(prop.size() + 1);
-        for (final String type : prop.stringPropertyNames()) {
-            typeToUriTemplate.put(type, prop.getProperty(type));
-            if (!typeToUriTemplate.containsKey("relationship")) {
-                typeToUriTemplate.put("relationship", "/relationship-list/relationship/{related-link}");
+            typeToUriTemplate = new HashMap<>(prop.size() + 1);
+            for (final String type : prop.stringPropertyNames()) {
+                typeToUriTemplate.put(type, prop.getProperty(type));
+                if (!typeToUriTemplate.containsKey("relationship")) {
+                    typeToUriTemplate.put("relationship",
+                        "/relationship-list/relationship/{related-link}");
+                }
             }
+
+            Reflections reflections = new Reflections("org.onap.aai.domain.yang");
+            reflections.getTypesAnnotatedWith(Metadata.class)
+                .stream()
+                .filter(aClass -> "org.onap.aai.domain.yang".equals(aClass.getPackage().getName()))
+                .filter(aClass -> !aClass.getAnnotation(Metadata.class).uriTemplate().isEmpty())
+                .forEach(aClass -> typeToUriTemplate.put(
+                    aClass.getAnnotation(XmlRootElement.class).name(),
+                    aClass.getAnnotation(Metadata.class).uriTemplate())
+                );
         }
-
-        Reflections reflections = new Reflections("org.onap.aai.domain.yang");
-        reflections.getTypesAnnotatedWith(Metadata.class)
-            .stream()
-            .filter(aClass -> "org.onap.aai.domain.yang".equals(aClass.getPackage().getName()))
-            .filter(aClass -> !aClass.getAnnotation(Metadata.class).uriTemplate().isEmpty())
-            .forEach(aClass -> typeToUriTemplate.put(
-                aClass.getAnnotation(XmlRootElement.class).name(),
-                aClass.getAnnotation(Metadata.class).uriTemplate())
-            );
-
-        LOGGER.info("AAI uri templates: " + typeToUriTemplate);
+        EELF_LOGGER.info("AAI uri templates: " + typeToUriTemplate);
     }
 
     public boolean hasType(String type) {
@@ -121,7 +121,7 @@ public class AAIResourcesUriTemplates {
         while (truncatedUri.contains("/")) {
             matchingStartingTemplate = this.getMatchingStartingTemplate(truncatedUri);
             if (!matchingStartingTemplate.isPresent()) {
-                LOGGER.error("failed in uriToTemplates for truncatedUri " + truncatedUri);
+                EELF_LOGGER.error("failed in uriToTemplates for truncatedUri " + truncatedUri);
                 throw new MissingTemplateException(truncatedUri);
             } else {
                 template = matchingStartingTemplate.get();
